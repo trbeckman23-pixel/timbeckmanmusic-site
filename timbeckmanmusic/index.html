@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tim Beckman Music</title>
+  <meta name="description" content="Tim Beckman is a Maryland musician blending Appalachian roots with modern acoustic sound. Explore Tim & Katie and Boathouse." />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream:#f8f5f0;
+      --navy:#1c2a35;
+      --brass:#bca87f;
+      --ink:#131a20;
+    }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body {
+      font-family:'Montserrat',sans-serif;
+      background:var(--cream);
+      color:var(--ink);
+      line-height:1.6;
+    }
+    .container { max-width:1100px; margin:0 auto; padding:0 20px; }
+
+    /* ---------- HERO ---------- */
+    header.hero {
+      position:relative;
+      text-align:center;
+      min-height:80vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      color:var(--cream);
+      background:linear-gradient(rgba(28,42,53,0.8),rgba(28,42,53,0.8)),
+                 url('assets/hero-lake.jpeg') center/cover no-repeat;
+    }
+    header.hero img.logo {
+      max-width:420px;
+      width:90%;
+      height:auto;
+      margin-bottom:30px;
+      filter:drop-shadow(0 4px 10px rgba(0,0,0,0.4));
+    }
+    header.hero h1 {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(36px,6vw,72px);
+      letter-spacing:1px;
+    }
+    header.hero p { margin-top:10px; font-weight:300; }
+    .cta-scroll {
+      margin-top:30px;
+      color:var(--cream);
+      text-decoration:none;
+      border:1px solid rgba(255,255,255,0.5);
+      padding:10px 20px;
+      border-radius:25px;
+      transition:all .3s ease;
+    }
+    .cta-scroll:hover { background:rgba(255,255,255,0.1); }
+
+    /* ---------- INTRO ---------- */
+    section.intro {
+      padding:80px 0;
+      text-align:center;
+      background:var(--cream);
+    }
+    section.intro h2 {
+      font-family:'Playfair Display',serif;
+      font-size:32px;
+      margin-bottom:16px;
+      color:var(--navy);
+    }
+    section.intro p {
+      max-width:850px;
+      margin:0 auto 40px;
+    }
+    section.intro .gallery {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+      max-width:900px;
+      margin:0 auto;
+    }
+    @media(min-width:768px){
+      section.intro .gallery { grid-template-columns:1fr 1fr; }
+    }
+    section.intro .gallery img {
+      width:100%;
+      border-radius:12px;
+    }
+
+    /* ---------- ACTS ---------- */
+    section.acts {
+      padding:80px 0;
+      background:#fff;
+    }
+    .grid {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:24px;
+    }
+    @media(min-width:900px){
+      .grid { grid-template-columns:1fr 1fr; }
+    }
+    .card {
+      position:relative;
+      overflow:hidden;
+      border-radius:18px;
+      color:#fff;
+      min-height:360px;
+    }
+    .card img {
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      filter:brightness(0.8);
+    }
+    .card:after {
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.6) 100%);
+    }
+    .card .content {
+      position:absolute;
+      bottom:0;
+      padding:24px;
+      z-index:2;
+    }
+    .card h3 {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(22px,2.6vw,32px);
+      margin-bottom:8px;
+    }
+    .card p { margin-bottom:14px; }
+    .card .btn {
+      display:inline-block;
+      background:var(--brass);
+      color:#1a1a1a;
+      text-decoration:none;
+      padding:10px 14px;
+      border-radius:10px;
+      font-weight:700;
+    }
+    .card .btn:hover { filter:brightness(.9); }
+
+    /* ---------- FOOTER ---------- */
+    footer.site {
+      background:linear-gradient(180deg,#10161b,#0c1116);
+      color:#cfd7dd;
+      padding:40px 20px;
+      text-align:center;
+    }
+    footer.site a {
+      color:#e9e6df;
+      text-decoration:none;
+      border-bottom:1px dotted rgba(255,255,255,0.3);
+    }
+    footer.site a:hover { border-bottom-color:#fff; }
+    .socials {
+      margin-top:16px;
+      display:flex;
+      justify-content:center;
+      gap:16px;
+    }
+    .socials a {
+      color:#cfd7dd;
+      text-decoration:none;
+      font-size:18px;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="hero">
+    <img src="assets/tb-logo.png" alt="Tim Beckman Music logo" class="logo" />
+    <h1>Tim Beckman Music</h1>
+    <p>Live Music • Timeless Sound</p>
+    <a href="#acts" class="cta-scroll">↓ Explore the Acts</a>
+  </header>
+
+  <section class="intro">
+    <h2>Appalachian Roots • Modern Acoustic</h2>
+    <p>
+      I grew up in Garrett County, Maryland—country/Appalachia—with those roots shaping the way I write, arrange, and perform.
+      Music runs in the family: my dad, <a href="https://lynnbeckman.com" target="_blank" rel="noopener">Lynn Beckman</a>, has spent his life writing, recording, and performing.
+      I’ve carried that forward on stage and in the studio, blending classic Americana textures with a clean, modern sound.
+    </p>
+
+    <div class="gallery">
+      <img src="assets/tim-rick-guitar.jpg" alt="Tim and Rick playing guitars outside" />
+      <img src="assets/tim-dad-guitar.jpg" alt="Tim and his dad playing by the lake" />
+      <img src="assets/tim-solo-lake.jpeg" alt="Tim performing near the water" />
+      <img src="assets/guitar-closeup.jpg" alt="Close-up guitar strings" />
+    </div>
+  </section>
+
+  <section id="acts" class="acts container">
+    <div class="grid">
+      <article class="card">
+        <img src="assets/tim-katie-live.jpg" alt="Tim & Katie performing live" />
+        <div class="content">
+          <h3>Tim &amp; Katie</h3>
+          <p>Acoustic harmony. Familiar favorites with a fresh, rootsy edge.</p>
+          <a href="tim-and-katie.html" class="btn">View Tim &amp; Katie</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="assets/boathouse-live.jpg" alt="Boathouse band live at venue" />
+        <div class="content">
+          <h3>Boathouse</h3>
+          <p>Full-band energy. Rock, pop, and party anthems built for the dance floor.</p>
+          <a href="boathouse.html" class="btn">View Boathouse</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <footer class="site">
+    <p><strong>Tim Beckman Music</strong></p>
+    <p>Built by hand &amp; heart in Maryland<br>
+      <a href="mailto:timbeckmanmusic@gmail.com">timbeckmanmusic@gmail.com</a>
+    </p>
+    <div class="socials">
+      <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://youtube.com" target="_blank" rel="noopener">YouTube</a>
+    </div>
+    <p style="opacity:.6;font-size:.9rem;margin-top:12px">© 2025 Tim Beckman Music</p>
+  </footer>
+</body>
+</html>

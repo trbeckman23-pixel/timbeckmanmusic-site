@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -24,6 +24,7 @@
     /* --- Top nav --- */
     .topnav{
       position:sticky; top:0; z-index:50;
+      -webkit-backdrop-filter: blur(6px);
       backdrop-filter: blur(6px);
       background:rgba(16,22,27,0.25);
     }
@@ -41,14 +42,31 @@
     }
     .nav-links a:hover{ opacity:1; text-decoration:underline; text-underline-offset:3px; }
 
-    /* --- Hero --- */
+    /* --- Hero (uses your music-room photo + subtle logo reflection) --- */
     header.hero{
       position:relative; text-align:center; min-height:78vh;
       display:flex; align-items:center; justify-content:center; color:var(--cream);
+      /* warm tint + existing hero image (your music room) */
       background:
-        linear-gradient(rgba(16,22,27,.55),rgba(16,22,27,.55)),
-        url('assets/hero-lake.jpg') center/cover no-repeat;
+        linear-gradient(rgba(16,22,27,.40),rgba(16,22,27,.55)),
+        url('assets/hero-lake.jpg') no-repeat;
+      background-size:cover;
+      /* aim crop toward instruments; tweak 25–40% to taste */
+      background-position:30% center;
     }
+    /* subtle TB logo “reflection” on the window */
+    header.hero::before{
+      content:"";
+      position:absolute;
+      width:210px; height:210px;         /* logo size */
+      left:48%; top:19%;                 /* position over window—nudge if needed */
+      background:url('assets/tb-logo.png') center/contain no-repeat;
+      opacity:.08;                        /* .05 (very faint) to .14 (bolder) */
+      filter:grayscale(100%) blur(.4px);
+      mix-blend-mode:multiply;            /* realistic shadow/reflection feel */
+      pointer-events:none;
+    }
+
     .hero-inner{ padding:96px 20px; }
     .hero-title{
       font-family:'Playfair Display',serif; font-weight:700;
@@ -60,6 +78,12 @@
       border:1px solid rgba(255,255,255,0.5); padding:10px 20px; border-radius:25px; transition:all .3s ease;
     }
     .cta-scroll:hover{ background:rgba(255,255,255,0.1); }
+
+    /* mobile tuning for hero & logo overlay */
+    @media (max-width:900px){
+      header.hero{ min-height:65vh; background-position:40% center; }
+      header.hero::before{ width:150px; height:150px; left:52%; top:22%; opacity:.10; }
+    }
 
     /* --- Intro --- */
     section.intro{ padding:88px 0; text-align:center; background:var(--cream); }
@@ -125,7 +149,6 @@
 
   <header class="hero">
     <div class="hero-inner">
-      <img src="assets/tb-logo.png" alt="Tim Beckman Music logo" class="logo" />
       <h1 class="hero-title">Tim Beckman</h1>
       <p class="hero-sub">Guitar • Vocal • Studio</p>
       <a href="#acts" class="cta-scroll">↓ Explore the Acts</a>

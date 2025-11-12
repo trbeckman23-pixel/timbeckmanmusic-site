@@ -155,4 +155,67 @@
   </header>
 
   <section class="intro">
-    <h2>A
+    <h2>Appalachian Roots • Modern Acoustic</h2>
+    <p>
+      I grew up in Garrett County, Maryland—country/Appalachia—with those roots shaping the way I write, arrange, and perform.
+      Music runs in the family: my dad, <a href="https://lynnbeckman.com" target="_blank" rel="noopener">Lynn Beckman</a>, has spent his life writing, recording, and performing.
+      I’ve carried that forward on stage and in the studio, blending classic Americana textures with a clean, modern sound.
+    </p>
+
+    <div class="gallery">
+      <img src="assets/tim-rick-guitar.jpg" alt="Tim and Rick playing guitars outside" />
+      <img src="assets/tim-dad-guitar.jpg" alt="Tim and his dad playing by the lake" />
+      <img src="assets/tim-solo-lake.JPG" alt="Tim performing near the water" />
+      <img src="assets/guitar-closeup.jpg" alt="Close-up guitar strings" />
+    </div>
+  </section>
+
+  <section id="acts" class="acts container">
+    <div class="grid">
+      <article class="card">
+        <img src="assets/tim-katie-live.jpeg" alt="Tim & Katie performing live" />
+        <div class="content">
+          <h3>Tim &amp; Katie</h3>
+          <p>Acoustic harmony. Familiar favorites with a fresh, rootsy edge.</p>
+          <a href="tim-and-katie.html" class="btn">View Tim &amp; Katie</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <img src="assets/boathouse-live.jpg" alt="Boathouse band live at venue" />
+        <div class="content">
+          <h3>Boathouse</h3>
+          <p>Full-band energy. Rock, pop, and party anthems built for the dance floor.</p>
+          <a href="boathouse.html" class="btn">View Boathouse</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <footer id="contact" class="site">
+    <p><strong>Tim Beckman</strong></p>
+    <p>
+      <a href="mailto:timbeckmanmusic@gmail.com">timbeckmanmusic@gmail.com</a> · Maryland
+    </p>
+    <div class="socials">
+      <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://youtube.com" target="_blank" rel="noopener">YouTube</a>
+    </div>
+    <p style="opacity:.6;font-size:.9rem;margin-top:12px">© 2025 Tim Beckman Music</p>
+  </footer>
+
+  <!-- make nav solid after passing hero -->
+  <script>
+    const nav = document.querySelector('.topnav');
+    const hero = document.querySelector('.hero');
+    const onScroll = () => {
+      const threshold = (hero?.offsetHeight || 200) - 10;
+      if (window.scrollY > threshold) nav.classList.add('solid');
+      else nav.classList.remove('solid');
+    };
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+  </script>
+</body>
+</html>

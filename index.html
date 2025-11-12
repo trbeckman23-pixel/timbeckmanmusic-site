@@ -22,41 +22,49 @@
     .nav-links a:hover{ opacity:1; text-decoration:underline; text-underline-offset:3px; }
 
     /* HERO: dim photo + centered solid logo */
-    header.hero{
-      position:relative; min-height:78vh; display:flex; align-items:center; justify-content:center; text-align:center;
-      /* gradient + try .jpeg then .jpg; add cache-buster */
-      background:
-        linear-gradient(rgba(16,22,27,.48), rgba(16,22,27,.58)),
-        url('assets/hero-lake.jpeg?v=2') center/cover no-repeat,
-        url('assets/hero-lake.jpg?v=2') center/cover no-repeat;
-    }
-    /* remove any old overlays */
-    header.hero::before{ content:none; }
+    /* hero container: remove CSS background image entirely */
+header.hero{
+  position:relative;
+  min-height:78vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+}
 
-    .logo-wrap{
+/* full-bleed image behind content */
+.hero-bg{
+  position:absolute;
+  inset:0;
+  z-index:0;
+}
+.hero-bg img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  filter:brightness(0.6);   /* dim = “semi transparent” look */
+}
+
+/* logo centered, slightly smaller per your request */
+.logo-wrap{
   position:relative;
   z-index:2;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:0;
-  border-radius:0;
-  box-shadow:none;
-  max-width:min(70vw, 620px);  /* smaller overall */
+  max-width:min(70vw, 620px);
 }
-
 .logo-wrap img{
-  width:min(65vw, 520px);   /* reduced size */
+  width:min(62vw, 500px);   /* tweak this to taste */
   height:auto;
-  display:block;
+}
+@media (max-width:900px){
+  header.hero{ min-height:65vh; }
+  .logo-wrap img{ width:min(78vw, 480px); }
 }
 
-
-    @media (max-width:900px){
-      header.hero{ min-height:65vh; }
-      .logo-wrap{ padding:20px 22px; border-radius:18px; }
-      .logo-wrap img{ width:min(88vw, 560px); }
-    }
 
     /* INTRO, CARDS, FOOTER unchanged below */
     section.intro{ padding:88px 0; text-align:center; background:var(--cream); }
@@ -102,10 +110,18 @@
   </nav>
 
   <header class="hero">
-    <div class="logo-wrap">
-      <img src="assets/tb-logo.png?v=2" alt="TB Monogram Logo">
-    </div>
-  </header>
+  <!-- Background image with fallbacks; sits behind the logo -->
+  <picture class="hero-bg">
+    <!-- add a webp here later if you have one -->
+    <source srcset="assets/hero-lake.jpeg?v=3" type="image/jpeg" />
+    <img src="assets/hero-lake.jpg?v=3" alt="" />
+  </picture>
+
+  <div class="logo-wrap">
+    <img src="assets/tb-logo.png?v=3" alt="TB Monogram Logo">
+  </div>
+</header>
+
 
   <section class="intro" id="about">
     <h2>Appalachian Roots • Modern Acoustic</h2>

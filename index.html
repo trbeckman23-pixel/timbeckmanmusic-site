@@ -25,47 +25,46 @@
     /* hero container: remove CSS background image entirely */
 /* Use your image’s real aspect ratio here. Example: 3:2 */
 /* HERO clean version — no bars, image scales to fill naturally */
-header.hero {
+/* HERO — image defines height; logo centered on top */
+header.hero{
   position: relative;
   width: 100%;
-  height: 100vh;                /* full screen height */
-  min-height: 600px;            /* ensures good desktop presence */
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   text-align: center;
+  background: #0f151a;     /* only visible if image doesn’t fill vertically */
 }
 
-/* container for the image */
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-}
-
-/* make image fill entire hero smoothly */
-.hero-bg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;             /* fills with no bars */
-  object-position: center top;/* centers nicely */
-  filter: brightness(0.65);      /* dim for logo contrast */
-}
-
-/* center the logo cleanly on top */
-.logo-wrap {
+/* the photo sits in normal flow so the header takes its height */
+.hero-bg{
   position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  z-index: 0;
+}
+.hero-bg img{
+  display: block;
+  width: 100%;
+  height: auto;            /* keep natural aspect ratio */
+  max-height: 92vh;        /* avoid being taller than the screen */
+  margin: 0 auto;
+  filter: brightness(0.62);
 }
 
-.logo-wrap img {
-  width: min(60vw, 420px);       /* slightly smaller */
+/* logo perfectly centered over the image */
+.logo-wrap{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 2;
+  pointer-events: none;    /* clicks go through to page */
+}
+.logo-wrap img{
+  width: clamp(160px, 22vw, 420px);  /* responsive, proportional size */
   height: auto;
+}
+
+@media (max-width: 900px){
+  .hero-bg img{ max-height: 80vh; }   /* keep some breathing room on phones */
+  .logo-wrap img{ width: clamp(140px, 36vw, 360px); }
 }
 
 
@@ -114,14 +113,14 @@ header.hero {
 
   <header class="hero">
   <div class="hero-bg">
-    <!-- one <img> that auto-tries multiple filenames/extensions -->
     <img id="hero-img" alt="" fetchpriority="high" loading="eager" decoding="async" />
   </div>
 
   <div class="logo-wrap">
-    <img src="/assets/tb-logo.png?v=6" alt="TB Monogram Logo">
+    <img src="/assets/tb-logo.png?v=7" alt="TB Monogram Logo">
   </div>
 </header>
+
 
 <script>
   // Try common filename variants until one loads

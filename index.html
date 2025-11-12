@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -42,47 +42,47 @@
     }
     .nav-links a:hover{ opacity:1; text-decoration:underline; text-underline-offset:3px; }
 
-    /* --- Hero (uses your music-room photo + subtle logo reflection) --- */
+    /* --- Hero (photo dimmed behind a centered, non-transparent logo) --- */
     header.hero{
       position:relative; text-align:center; min-height:78vh;
       display:flex; align-items:center; justify-content:center; color:var(--cream);
-      /* warm tint + existing hero image (your music room) */
+      /* warm tint + hero image (try .jpeg first, .jpg fallback layer) */
       background:
-        linear-gradient(rgba(16,22,27,.40),rgba(16,22,27,.55)),
+        linear-gradient(rgba(16,22,27,.45), rgba(16,22,27,.55)),
+        url('assets/hero-lake.jpeg') no-repeat,
         url('assets/hero-lake.jpg') no-repeat;
-      background-size:cover;
-      /* aim crop toward instruments; tweak 25–40% to taste */
-      background-position:30% center;
-    }
-    /* subtle TB logo “reflection” on the window */
-    header.hero::before{
-      content:"";
-      position:absolute;
-      width:210px; height:210px;         /* logo size */
-      left:48%; top:19%;                 /* position over window—nudge if needed */
-      background:url('assets/tb-logo.png') center/contain no-repeat;
-      opacity:.08;                        /* .05 (very faint) to .14 (bolder) */
-      filter:grayscale(100%) blur(.4px);
-      mix-blend-mode:multiply;            /* realistic shadow/reflection feel */
-      pointer-events:none;
+      background-size:cover, cover, cover;
+      background-position:center center, center center, center center;
     }
 
-    .hero-inner{ padding:96px 20px; }
-    .hero-title{
-      font-family:'Playfair Display',serif; font-weight:700;
-      font-size: clamp(44px, 7vw, 84px); letter-spacing:.5px;
+    /* centered logo block */
+    .logo-wrap{
+      position:relative;
+      z-index:2;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:28px 34px;
+      background:var(--cream);           /* non-transparent backdrop */
+      border-radius:24px;
+      box-shadow:0 18px 50px rgba(0,0,0,.35);
+      max-width:min(80vw, 720px);
     }
-    .hero-sub{ margin-top:6px; font-weight:400; font-size:clamp(14px,2.2vw,18px); opacity:.95; }
-    .cta-scroll{
-      margin-top:30px; display:inline-block; color:var(--cream); text-decoration:none;
-      border:1px solid rgba(255,255,255,0.5); padding:10px 20px; border-radius:25px; transition:all .3s ease;
+    .logo-wrap img{
+      width:min(72vw, 640px);            /* enlarge logo */
+      height:auto;
+      display:block;
+      filter:none;                        /* ensure no transparency effects */
     }
-    .cta-scroll:hover{ background:rgba(255,255,255,0.1); }
 
-    /* mobile tuning for hero & logo overlay */
+    /* remove old hero reflection overlay */
+    header.hero::before{ content:none; }
+
+    /* mobile tuning */
     @media (max-width:900px){
-      header.hero{ min-height:65vh; background-position:40% center; }
-      header.hero::before{ width:150px; height:150px; left:52%; top:22%; opacity:.10; }
+      header.hero{ min-height:65vh; }
+      .logo-wrap{ padding:20px 22px; border-radius:18px; }
+      .logo-wrap img{ width:min(82vw, 520px); }
     }
 
     /* --- Intro --- */
@@ -148,75 +148,11 @@
   </nav>
 
   <header class="hero">
-    <div class="hero-inner">
-      <h1 class="hero-title">Tim Beckman</h1>
-      <p class="hero-sub">Guitar • Vocal • Studio</p>
-      <a href="#acts" class="cta-scroll">↓ Explore the Acts</a>
+    <!-- Centered focal logo; replace src if your logo file differs -->
+    <div class="logo-wrap">
+      <img src="assets/tb-logo.png" alt="TB Monogram Logo" />
     </div>
   </header>
 
   <section class="intro">
-    <h2>Appalachian Roots • Modern Acoustic</h2>
-    <p>
-      I grew up in Garrett County, Maryland—country/Appalachia—with those roots shaping the way I write, arrange, and perform.
-      Music runs in the family: my dad, <a href="https://lynnbeckman.com" target="_blank" rel="noopener">Lynn Beckman</a>, has spent his life writing, recording, and performing.
-      I’ve carried that forward on stage and in the studio, blending classic Americana textures with a clean, modern sound.
-    </p>
-
-    <div class="gallery">
-      <img src="assets/tim-rick-guitar.jpg" alt="Tim and Rick playing guitars outside" />
-      <img src="assets/tim-dad-guitar.jpg" alt="Tim and his dad playing by the lake" />
-      <img src="assets/tim-solo-lake.JPG" alt="Tim performing near the water" />
-      <img src="assets/guitar-closeup.jpg" alt="Close-up guitar strings" />
-    </div>
-  </section>
-
-  <section id="acts" class="acts container">
-    <div class="grid">
-      <article class="card">
-        <img src="assets/tim-katie-live.jpeg" alt="Tim & Katie performing live" />
-        <div class="content">
-          <h3>Tim &amp; Katie</h3>
-          <p>Acoustic harmony. Familiar favorites with a fresh, rootsy edge.</p>
-          <a href="tim-and-katie.html" class="btn">View Tim &amp; Katie</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <img src="assets/boathouse-live.jpg" alt="Boathouse band live at venue" />
-        <div class="content">
-          <h3>Boathouse</h3>
-          <p>Full-band energy. Rock, pop, and party anthems built for the dance floor.</p>
-          <a href="boathouse.html" class="btn">View Boathouse</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <footer id="contact" class="site">
-    <p><strong>Tim Beckman</strong></p>
-    <p>
-      <a href="mailto:timbeckmanmusic@gmail.com">timbeckmanmusic@gmail.com</a> · Maryland
-    </p>
-    <div class="socials">
-      <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
-      <a href="https://youtube.com" target="_blank" rel="noopener">YouTube</a>
-    </div>
-    <p style="opacity:.6;font-size:.9rem;margin-top:12px">© 2025 Tim Beckman Music</p>
-  </footer>
-
-  <!-- make nav solid after passing hero -->
-  <script>
-    const nav = document.querySelector('.topnav');
-    const hero = document.querySelector('.hero');
-    const onScroll = () => {
-      const threshold = (hero?.offsetHeight || 200) - 10;
-      if (window.scrollY > threshold) nav.classList.add('solid');
-      else nav.classList.remove('solid');
-    };
-    window.addEventListener('scroll', onScroll);
-    onScroll();
-  </script>
-</body>
-</html>
+    <h2>A

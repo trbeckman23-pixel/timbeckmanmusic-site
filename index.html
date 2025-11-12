@@ -110,17 +110,38 @@ header.hero{
   </nav>
 
   <header class="hero">
-  <!-- Background image with fallbacks; sits behind the logo -->
-  <picture class="hero-bg">
-    <!-- add a webp here later if you have one -->
-    <source srcset="assets/hero-lake.jpeg?v=3" type="image/jpeg" />
-    <img src="assets/hero-lake.jpg?v=3" alt="" />
-  </picture>
+  <div class="hero-bg">
+    <!-- one <img> that auto-tries multiple filenames/extensions -->
+    <img id="hero-img" alt="" fetchpriority="high" loading="eager" decoding="async" />
+  </div>
 
   <div class="logo-wrap">
-    <img src="assets/tb-logo.png?v=3" alt="TB Monogram Logo">
+    <img src="/assets/tb-logo.png?v=6" alt="TB Monogram Logo">
   </div>
 </header>
+
+<script>
+  // Try common filename variants until one loads
+  (function () {
+    const hero = document.getElementById('hero-img');
+    const candidates = [
+      '/assets/hero-lake.webp?v=6',
+      '/assets/hero-lake.jpeg?v=6',
+      '/assets/hero-lake.jpg?v=6',
+      '/assets/hero-lake.JPG?v=6',
+      '/assets/Hero-lake.jpg?v=6',
+      '/assets/HERO-LAKE.JPG?v=6'
+    ];
+    let i = 0;
+    function tryNext() {
+      if (i >= candidates.length) return;
+      hero.src = candidates[i++];
+      hero.onerror = tryNext;
+    }
+    tryNext();
+  })();
+</script>
+
 
 
   <section class="intro" id="about">

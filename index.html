@@ -24,42 +24,48 @@
     /* HERO: dim photo + centered solid logo */
     /* hero container: remove CSS background image entirely */
 /* Use your image’s real aspect ratio here. Example: 3:2 */
-header.hero{
-  position:relative;
-  aspect-ratio: 3 / 2;  /* try 3/2 or 4/3 depending on your photo */
-  height:auto;
-  min-height:auto;
+/* HERO clean version — no bars, image scales to fill naturally */
+header.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;                /* full screen height */
+  min-height: 600px;            /* ensures good desktop presence */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
+/* container for the image */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
 
-/* full-bleed image behind content */
+/* make image fill entire hero smoothly */
 .hero-bg img {
-  width:100%;
-  height:100%;
-  object-fit:cover;          /* fills the area */
-  object-position:center;    /* keeps the focal point centered */
-  transform:scale(0.95);     /* optional slight zoom-out to reduce cropping */
-  filter:brightness(0.6);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;             /* fills with no bars */
+  object-position: center top;/* centers nicely */
+  filter: brightness(0.65);      /* dim for logo contrast */
 }
 
-
-
-/* logo centered, slightly smaller per your request */
-.logo-wrap{
-  position:relative;
-  z-index:2;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  max-width:min(70vw, 620px);
+/* center the logo cleanly on top */
+.logo-wrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.logo-wrap img{
-  width:min(62vw, 500px);   /* tweak this to taste */
-  height:auto;
-}
-@media (max-width:900px){
-  header.hero{ min-height:65vh; }
-  .logo-wrap img{ width:min(78vw, 480px); }
+
+.logo-wrap img {
+  width: min(60vw, 420px);       /* slightly smaller */
+  height: auto;
 }
 
 

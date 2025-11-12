@@ -6,149 +6,94 @@
   <title>Tim Beckman Music</title>
   <meta name="description" content="Tim Beckman is a Maryland musician blending Appalachian roots with modern acoustic sound. Explore Tim & Katie and Boathouse." />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
   <style>
-    :root { --cream:#f8f5f0; --navy:#1c2a35; --brass:#bca87f; --ink:#131a20; }
-/* --- Typography tweak to echo the logo look --- */
-:root {
-  --logo-serif: 'Playfair Display', serif;
-}
+    :root{
+      --cream:#f8f5f0; --navy:#1c2a35; --brass:#bca87f; --ink:#131a20;
+      --logo-serif:'Playfair Display',serif;
+    }
 
-/* brand + nav links use the display serif in small caps/upper */
-.brand-small{
-  font-family: var(--logo-serif);
-  font-weight: 700;
-  letter-spacing: .6px;
-  text-transform: uppercase;
-  color: var(--cream);
-  text-decoration: none;
-  font-size: 18px;
-}
-
-/* turn .nav-links into a proper list for dropdown */
-.nav-links{
-  display:flex; align-items:center; gap:22px;
-  list-style:none; margin:0; padding:0;
-  font-family: var(--logo-serif);
-  text-transform: uppercase;
-  letter-spacing: .8px;
-}
-.nav-links > li > a,
-.nav-links > li > .menu-label{
-  color:var(--cream); text-decoration:none; font-weight:700; opacity:.95;
-  padding:8px 4px; display:inline-block;
-}
-.nav-links a:hover{ opacity:1; text-decoration:underline; text-underline-offset:3px; }
-
-/* --- Dropdown --- */
-.menu-item{ position:relative; }
-.menu-item .submenu{
-  position:absolute; top:100%; left:0;
-  min-width:220px;
-  background:#10161b;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:10px;
-  padding:8px;
-  list-style:none; margin:8px 0 0 0;
-  display:none; z-index:100;
-  box-shadow:0 12px 30px rgba(0,0,0,.35);
-}
-.menu-item .submenu li a{
-  display:block; padding:10px 12px; border-radius:8px;
-  color:#e9e6df; text-decoration:none; font-weight:600; letter-spacing:.6px;
-}
-.menu-item .submenu li a:hover{
-  background:rgba(255,255,255,.06);
-}
-
-/* show submenu on hover and keyboard focus */
-.menu-item:hover .submenu,
-.menu-item:focus-within .submenu{ display:block; }
-
-/* Mobile tweaks */
-@media (max-width:900px){
-  .nav-inner{ flex-wrap:wrap; }
-  .nav-links{ gap:14px; }
-  .menu-item .submenu{
-    position:absolute; left:auto; right:0; min-width:200px;
-  }
-}
-
-    * { box-sizing:border-box; margin:0; padding:0; }
+    *{ box-sizing:border-box; margin:0; padding:0; }
     body{ font-family:'Montserrat',sans-serif; background:var(--cream); color:var(--ink); line-height:1.72; font-size:16.5px; }
     .container{ max-width:1120px; margin:0 auto; padding:0 20px; }
 
-    /* NAV */
-    .topnav{ position:sticky; top:0; z-index:50; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); background:rgba(16,22,27,0.25); }
+    /* ───────── NAV ───────── */
+    .topnav{
+      position:sticky; top:0; z-index:50;
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      background:rgba(16,22,27,0.25);
+    }
     .topnav.solid{ background:#10161b; }
-    .nav-inner{ max-width:1100px; margin:0 auto; padding:12px 20px; display:flex; align-items:center; justify-content:space-between; }
-    .brand-small{ color:transparent; user-select:none; } /* hide text label per request */
-    .nav-links a{ color:var(--cream); text-decoration:none; margin-left:18px; font-weight:500; opacity:.95; }
+
+    .nav-inner{
+      max-width:1100px; margin:0 auto; padding:12px 20px;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+
+    .brand-small{
+      font-family:var(--logo-serif); font-weight:700; letter-spacing:.6px;
+      text-transform:uppercase; color:var(--cream); text-decoration:none; font-size:18px;
+    }
+
+    .nav-links{
+      list-style:none; display:flex; align-items:center; gap:22px;
+      font-family:var(--logo-serif); text-transform:uppercase; letter-spacing:.8px;
+    }
+    .nav-links > li > a,
+    .nav-links > li > .menu-label{
+      color:var(--cream); text-decoration:none; font-weight:700; opacity:.95; padding:8px 4px; display:inline-block;
+    }
     .nav-links a:hover{ opacity:1; text-decoration:underline; text-underline-offset:3px; }
 
-    /* HERO: dim photo + centered solid logo */
-    /* hero container: remove CSS background image entirely */
-/* Use your image’s real aspect ratio here. Example: 3:2 */
-/* HERO clean version — no bars, image scales to fill naturally */
-/* HERO — image defines height; logo centered on top */
-header.hero{
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  text-align: center;
-  background: #0f151a;     /* only visible if image doesn’t fill vertically */
-}
+    /* Dropdown */
+    .menu-item{ position:relative; }
+    .submenu{
+      position:absolute; top:100%; left:0; min-width:220px;
+      background:#10161b; border:1px solid rgba(255,255,255,.12); border-radius:10px;
+      padding:8px; list-style:none; margin:8px 0 0 0; display:none; z-index:100;
+      box-shadow:0 12px 30px rgba(0,0,0,.35);
+    }
+    .submenu li a{
+      display:block; padding:10px 12px; border-radius:8px; color:#e9e6df; text-decoration:none; font-weight:600; letter-spacing:.6px;
+    }
+    .submenu li a:hover{ background:rgba(255,255,255,.06); }
+    .menu-item:hover .submenu,
+    .menu-item:focus-within .submenu{ display:block; }
 
-/* the photo sits in normal flow so the header takes its height */
-.hero-bg{
-  position: relative;
-  z-index: 0;
-}
-.hero-bg img{
-  display:block;
-  width:100%;
-  height:auto;
-  max-height:92vh;
-  margin:0 auto;
-  filter: grayscale(100%) contrast(1.15) brightness(0.65);
-  -webkit-filter: grayscale(100%) contrast(1.15) brightness(0.65); /* Safari */
-}
-.hero-bg img{
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: 92vh;
-  margin: 0 auto;
-  filter: grayscale(100%) brightness(0.62); /* ← add grayscale here */
-}
+    @media (max-width:900px){
+      .nav-inner{ flex-wrap:wrap; }
+      .nav-links{ gap:14px; }
+      .submenu{ right:0; left:auto; min-width:200px; }
+    }
 
-/* logo perfectly centered over the image */
-.logo-wrap{
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-  z-index: 2;
-  pointer-events: none;    /* clicks go through to page */
-}
-.logo-wrap img{
-  width: clamp(180px, 26vw, 480px);  /* responsive, proportional size */
-  height: auto;
-}
+    /* ───────── HERO ───────── */
+    header.hero{
+      position:relative; width:100%; overflow:hidden; text-align:center; background:#0f151a;
+    }
+    .hero-bg{ position:relative; z-index:0; }
+    .hero-bg img{
+      display:block; width:100%; height:auto; max-height:92vh; margin:0 auto;
+      filter:grayscale(100%) contrast(1.15) brightness(0.65);
+      -webkit-filter:grayscale(100%) contrast(1.15) brightness(0.65);
+    }
+    .logo-wrap{
+      position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+      z-index:2; pointer-events:none;
+    }
+    .logo-wrap img{ width:clamp(180px,26vw,480px); height:auto; }
 
-@media (max-width: 900px){
-  .hero-bg img{ max-height: 80vh; }   /* keep some breathing room on phones */
-  .logo-wrap img{ width: clamp(140px, 36vw, 360px); }
-}
-@media (min-width: 1100px){
-  .logo-wrap img{
-    width: clamp(220px, 28vw, 540px);
-  }
-}
+    @media (max-width:900px){
+      .hero-bg img{ max-height:80vh; }
+      .logo-wrap img{ width:clamp(160px,36vw,380px); }
+    }
+    @media (min-width:1100px){
+      .logo-wrap img{ width:clamp(220px,28vw,540px); }
+    }
 
-
-    /* INTRO, CARDS, FOOTER unchanged below */
+    /* ───────── INTRO / CARDS / FOOTER (unchanged) ───────── */
     section.intro{ padding:88px 0; text-align:center; background:var(--cream); }
-    section.intro h2{ font-family:'Playfair Display',serif; color:var(--navy); font-size: clamp(28px,3.2vw,40px); margin-bottom:16px; }
+    section.intro h2{ font-family:'Playfair Display',serif; color:var(--navy); font-size:clamp(28px,3.2vw,40px); margin-bottom:16px; }
     section.intro p{ max-width:760px; margin:0 auto 40px; }
     section.intro .gallery{ display:grid; grid-template-columns:1fr; gap:12px; max-width:900px; margin:0 auto; }
     @media (min-width:768px){ section.intro .gallery{ grid-template-columns:1fr 1fr; } }
@@ -161,7 +106,7 @@ header.hero{
     .card img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:grayscale(10%) brightness(.92) contrast(1.03); transform:scale(1.02); }
     .card:after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0) 25%, rgba(0,0,0,.7) 100%); }
     .card .content{ position:absolute; bottom:0; padding:32px; z-index:2; }
-    .card h3{ font-family:'Playfair Display',serif; font-size: clamp(24px,2.4vw,34px); margin-bottom:8px; }
+    .card h3{ font-family:'Playfair Display',serif; font-size:clamp(24px,2.4vw,34px); margin-bottom:8px; }
     .card p{ opacity:.9; max-width:520px; margin-bottom:14px; }
     .card .btn{ display:inline-block; background:var(--brass); border-radius:999px; padding:10px 18px; color:#1a1a1a; text-decoration:none; font-weight:700; }
     .card .btn:hover{ filter:brightness(.9); }
@@ -176,63 +121,56 @@ header.hero{
   </style>
 </head>
 <body>
+
+  <!-- NAV -->
   <nav class="topnav">
-  <div class="nav-inner">
-    <a class="brand-small" href="/" aria-label="Home">Tim Beckman</a>
+    <div class="nav-inner">
+      <a class="brand-small" href="/" aria-label="Home">Tim Beckman</a>
+      <ul class="nav-links">
+        <li class="menu-item has-sub">
+          <a href="#" class="menu-label">Music</a>
+          <ul class="submenu">
+            <li><a href="tim-and-katie.html">Tim &amp; Katie</a></li>
+            <li><a href="boathouse.html">Boathouse</a></li>
+            <li><a href="solo.html">Solo Act</a></li>
+            <li><a href="studio.html">Studio / Session Work</a></li>
+          </ul>
+        </li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
-    <ul class="nav-links">
-      <li class="menu-item has-sub">
-        <a href="#" class="menu-label">Music</a>
-        <ul class="submenu">
-          <li><a href="tim-and-katie.html">Tim &amp; Katie</a></li>
-          <li><a href="boathouse.html">Boathouse</a></li>
-          <li><a href="solo.html">Solo Act</a></li>
-          <li><a href="studio.html">Studio / Session Work</a></li>
-        </ul>
-      </li>
-
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </div>
-</nav>
-
-
+  <!-- HERO -->
   <header class="hero">
-  <div class="hero-bg">
-    <img id="hero-img" alt="" fetchpriority="high" loading="eager" decoding="async" />
-  </div>
+    <div class="hero-bg">
+      <img id="hero-img" alt="" fetchpriority="high" loading="eager" decoding="async" />
+    </div>
+    <div class="logo-wrap">
+      <img src="/assets/tb-logo.png?v=8" alt="TB Monogram Logo">
+    </div>
+  </header>
 
-  <div class="logo-wrap">
-    <img src="/assets/tb-logo.png?v=7" alt="TB Monogram Logo">
-  </div>
-</header>
+  <!-- HERO image filename fallback loader -->
+  <script>
+    (function () {
+      const hero = document.getElementById('hero-img');
+      const candidates = [
+        '/assets/hero-lake.webp?v=8',
+        '/assets/hero-lake.jpeg?v=8',
+        '/assets/hero-lake.jpg?v=8',
+        '/assets/hero-lake.JPG?v=8',
+        '/assets/Hero-lake.jpg?v=8',
+        '/assets/HERO-LAKE.JPG?v=8'
+      ];
+      let i = 0;
+      function tryNext(){ if(i >= candidates.length) return; hero.src = candidates[i++]; hero.onerror = tryNext; }
+      tryNext();
+    })();
+  </script>
 
-
-<script>
-  // Try common filename variants until one loads
-  (function () {
-    const hero = document.getElementById('hero-img');
-    const candidates = [
-      '/assets/hero-lake.webp?v=6',
-      '/assets/hero-lake.jpeg?v=6',
-      '/assets/hero-lake.jpg?v=6',
-      '/assets/hero-lake.JPG?v=6',
-      '/assets/Hero-lake.jpg?v=6',
-      '/assets/HERO-LAKE.JPG?v=6'
-    ];
-    let i = 0;
-    function tryNext() {
-      if (i >= candidates.length) return;
-      hero.src = candidates[i++];
-      hero.onerror = tryNext;
-    }
-    tryNext();
-  })();
-</script>
-
-
-
+  <!-- INTRO -->
   <section class="intro" id="about">
     <h2>Appalachian Roots • Modern Acoustic</h2>
     <p>
@@ -249,6 +187,7 @@ header.hero{
     </div>
   </section>
 
+  <!-- ACTS -->
   <section id="acts" class="acts container">
     <div class="grid">
       <article class="card">
@@ -271,6 +210,7 @@ header.hero{
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer id="contact" class="site">
     <p><strong>Tim Beckman</strong></p>
     <p><a href="mailto:timbeckmanmusic@gmail.com">timbeckmanmusic@gmail.com</a> · Maryland</p>

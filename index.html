@@ -23,15 +23,14 @@
 
     /* HERO: dim photo + centered solid logo */
     /* hero container: remove CSS background image entirely */
+/* Use your image’s real aspect ratio here. Example: 3:2 */
 header.hero{
   position:relative;
-  min-height:78vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  overflow:hidden;
+  aspect-ratio: 3 / 2;  /* try 3/2 or 4/3 depending on your photo */
+  height:auto;
+  min-height:auto;
 }
+
 
 /* full-bleed image behind content */
 .hero-bg img{

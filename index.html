@@ -68,16 +68,20 @@
 }
 
     /* top/bottom bars (intentional border look) — always symmetrical by design */
-    .hero::before, .hero::after{
-      content:"";
-      position:absolute; left:0; right:0; height:24px; background:var(--hero-bg); z-index:1;
-    }
-    .hero::before{ top:0; }
-    .hero-bg::after {
-  content:""; position:absolute; inset:0; z-index:1;
-  background:radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%);
-  pointer-events:none;
+    .hero::before, .hero::after {
+  content:"";
+  position:absolute; left:0; right:0; height:24px;
+  z-index:1;
 }
+.hero::before {
+  top:0;
+  background:linear-gradient(to bottom, rgba(19,26,32,1) 85%, rgba(19,26,32,0) 100%);
+}
+.hero::after {
+  bottom:0;
+  background:linear-gradient(to top, rgba(19,26,32,1) 85%, rgba(19,26,32,0) 100%);
+}
+
 
 
     /* center stack: logo + socials */

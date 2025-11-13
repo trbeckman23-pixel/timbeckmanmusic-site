@@ -46,27 +46,35 @@
     .submenu li a:hover{ background:rgba(0,0,0,.06); }
     .menu-item:hover .submenu, .menu-item:focus-within .submenu{ display:block; }
 
-    /* HERO — full-height, image covers, no bars by default */
+    /* HERO (full image visible; intentional letterbox bars) */
     header.hero{
       position:relative;
-      height:100vh;                 /* exact viewport height */
+      height:100vh;
       background:var(--hero-bg);
       overflow:hidden;
       text-align:center;
     }
     .hero-bg{
-      position:absolute;
-      inset:0;
-      z-index:0;
+      position:absolute; inset:0; z-index:0;
+      display:flex; align-items:center; justify-content:center;
+      background:var(--hero-bg);
     }
     .hero-bg img{
-      width:100%;
-      height:100%;
-      object-fit:cover;             /* fills without distorting */
+      max-width:100%;
+      max-height:100%;
+      width:auto; height:auto;
+      object-fit:contain; /* show full guitar, never crop */
       filter:grayscale(100%) contrast(1.05) brightness(0.9);
     }
+    /* top/bottom bars (intentional border look) — always symmetrical by design */
+    .hero::before, .hero::after{
+      content:"";
+      position:absolute; left:0; right:0; height:24px; background:var(--hero-bg); z-index:1;
+    }
+    .hero::before{ top:0; }
+    .hero::after{ bottom:0; }
 
-    /* Center stack: logo + socials */
+    /* center stack: logo + socials */
     .hero-center{
       position:absolute; left:50%; top:50%;
       transform:translate(-50%,-50%);
@@ -83,39 +91,31 @@
       to   { opacity:1; transform:translate(-50%,-50%); }
     }
     .hero-center img{
-      width:clamp(200px,27vw,510px); /* slightly smaller to ensure room for socials */
+      width:clamp(190px,26vw,480px); /* slightly smaller so socials fit cleanly */
       height:auto;
     }
 
     .social-icons{
       display:flex; gap:16px; align-items:center; justify-content:center;
-      margin-top:4px;
+      margin-top:2px;
     }
     .social-icons a{
       display:inline-flex; align-items:center; justify-content:center;
-      width:40px; height:40px; border-radius:999px;
+      width:38px; height:38px; border-radius:999px;
       background:rgba(0,0,0,0.5);
       box-shadow:0 2px 6px rgba(0,0,0,.35);
       transition:transform .2s ease, background .2s ease;
     }
     .social-icons a:hover{ transform:translateY(-3px); background:rgba(0,0,0,0.7); }
-    .social-icons svg{ width:20px; height:20px; fill:#fff; }
+    .social-icons svg{ width:18px; height:18px; fill:#fff; }
 
-    /* Short displays: keep socials visible and add letterbox bars ONLY if needed */
-    @media (max-height:820px){
+    /* Short displays: keep stack centered and visible */
+    @media (max-height:780px){
       .hero-center{ top:50%; gap:14px; }
-      .hero-center img{ width:clamp(190px,25vw,470px); }
-      .social-icons a{ width:36px; height:36px; }
-      .social-icons svg{ width:18px; height:18px; }
-    }
-    @media (max-height:740px){
-      /* Intentional top & bottom bars so it looks designed, not cropped */
-      .hero::before, .hero::after{
-        content:""; position:absolute; left:0; right:0; height:22px; background:var(--hero-bg); z-index:1;
-      }
-      .hero::before{ top:0; }
-      .hero::after{ bottom:0; }
-      .hero-center{ z-index:2; top:49%; } /* nudge up a touch so socials clear the bottom bar */
+      .hero-center img{ width:clamp(180px,24vw,440px); }
+      .social-icons a{ width:34px; height:34px; }
+      .social-icons svg{ width:17px; height:17px; }
+      .hero::before, .hero::after{ height:28px; } /* slightly thicker bars on very short screens */
     }
 
     /* ABOUT */
@@ -161,7 +161,7 @@
     </div>
 
     <div class="hero-center">
-      <img src="/assets/tb-logo.png?v=17" alt="Tim Beckman Logo" />
+      <img src="/assets/tb-logo.png?v=18" alt="Tim Beckman Logo" />
       <div class="social-icons" aria-label="Social links">
         <a href="https://instagram.com/timbeckmanmusic" target="_blank" rel="noopener" aria-label="Instagram">
           <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2A2.8 2.8 0 1 0 12 17.8 2.8 2.8 0 0 0 12 9.2zm5.4-1.6a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2z"/></svg>
@@ -183,12 +183,12 @@
     (function(){
       const hero=document.getElementById('hero-img');
       const candidates=[
-        '/assets/hero-lake.webp?v=17',
-        '/assets/hero-lake.jpeg?v=17',
-        '/assets/hero-lake.jpg?v=17',
-        '/assets/hero-lake.JPG?v=17',
-        '/assets/Hero-lake.jpg?v=17',
-        '/assets/HERO-LAKE.JPG?v=17'
+        '/assets/hero-lake.webp?v=18',
+        '/assets/hero-lake.jpeg?v=18',
+        '/assets/hero-lake.jpg?v=18',
+        '/assets/hero-lake.JPG?v=18',
+        '/assets/Hero-lake.jpg?v=18',
+        '/assets/HERO-LAKE.JPG?v=18'
       ];
       let i=0;
       function tryNext(){ if(i>=candidates.length) return; hero.src=candidates[i++]; hero.onerror=tryNext; }

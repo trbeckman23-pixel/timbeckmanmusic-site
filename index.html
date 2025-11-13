@@ -73,10 +73,18 @@
 
     /* Centered cluster: logo + icon links + email */
     .hero-center{
-      position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-      z-index:2;display:flex;flex-direction:column;align-items:center;gap:14px;
-      text-align:center;
-    }
+  position:absolute;
+  left:50%;
+  top:48%;                /* was 50% — move slightly upward */
+  transform:translate(-50%,-50%);
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
+  text-align:center;
+}
+
     .hero-center .logo{
       width:clamp(180px,24vw,460px);  /* slightly smaller per your request */
       height:auto;

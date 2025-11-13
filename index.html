@@ -13,6 +13,7 @@
       --brass:#bca87f;
       --ink:#131a20;
       --logo-serif:'Playfair Display',serif;
+      --hero-bg:#0f151a;
     }
 
     *{box-sizing:border-box;margin:0;padding:0;}
@@ -46,17 +47,18 @@
     .submenu li a:hover{background:rgba(0,0,0,.06);}
     .menu-item:hover .submenu, .menu-item:focus-within .submenu{display:block;}
 
-    /* HERO */
+    /* HERO (full image visible; centered) */
     header.hero{
       position:relative;
       height:100vh;
-      background:#0f151a;
+      background:var(--hero-bg);
       overflow:hidden;
       text-align:center;
     }
     .hero-bg{
-      position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-      background:#0f151a;
+      position:absolute;inset:0;z-index:0;
+      display:flex;align-items:center;justify-content:center;
+      background:var(--hero-bg);
     }
     .hero-bg img{
       max-width:100%;
@@ -67,11 +69,11 @@
       filter:grayscale(100%) contrast(1.05) brightness(0.9);
     }
 
-    /* Hairline top & bottom brass borders */
+    /* Hairline top & bottom brass borders (subtle) */
     .hero::before, .hero::after{
       content:"";
       position:absolute;left:0;right:0;height:6px;z-index:2;
-      background:#0f151a;
+      background:var(--hero-bg);
     }
     .hero::before{top:0;border-bottom:1px solid var(--brass);}
     .hero::after{bottom:0;border-top:1px solid var(--brass);}
@@ -86,7 +88,6 @@
       opacity:0;animation:fadeIn 2.8s cubic-bezier(.22,.61,.36,1) forwards .25s;
     }
     @keyframes fadeIn{from{opacity:0;transform:translate(-50%,-48%);}to{opacity:1;transform:translate(-50%,-50%);}}
-
     .hero-center img{width:clamp(190px,26vw,470px);height:auto;}
 
     .social-icons{
@@ -108,39 +109,106 @@
       .social-icons svg{width:17px;height:17px;}
       .hero-center{gap:12px;}
     }
-.videos{
-  padding:90px 20px;
-  background:var(--cream);
-  text-align:center;
-}
-.videos h2{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(28px,3.2vw,40px);
-  color:var(--navy);
-  margin-bottom:28px;
-}
-.video-embed{
-  position:relative;
-  width:100%;
-  max-width:900px;
-  margin:0 auto;
-  padding-bottom:56.25%;
-  height:0;
-  overflow:hidden;
-  border-radius:16px;
-  box-shadow:0 6px 24px rgba(0,0,0,0.25);
-}
-.video-embed iframe{
-  position:absolute;
-  top:0; left:0;
-  width:100%; height:100%;
-  border:0;
-}
 
     /* ABOUT */
     section.about-me{padding:100px 20px;background:var(--cream);text-align:center;}
     section.about-me h2{font-family:'Playfair Display',serif;font-size:clamp(32px,3.5vw,46px);color:var(--navy);margin-bottom:28px;}
     section.about-me .copy{max-width:760px;margin:0 auto;font-size:17px;line-height:1.8;color:var(--ink);text-align:left;}
+
+    /* WATCH + EVENTS */
+    section.watch {
+      background: var(--cream);
+      padding: 80px 20px;
+    }
+    .watch .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr; /* video left larger than events */
+      gap: 28px;
+      align-items: start;
+    }
+    .watch h2{
+      font-family:'Playfair Display',serif; color:var(--navy);
+      font-size:clamp(28px,3.2vw,40px); margin:0 0 14px;
+    }
+
+    /* Video embed (16:9) */
+    .video-embed {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 14px;
+      box-shadow: 0 6px 24px rgba(0,0,0,.18);
+      background: #000;
+    }
+    .video-embed iframe {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+
+    /* Events */
+    .events {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.06);
+      padding: 16px;
+    }
+    .events h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 2.6vw, 28px);
+      color: var(--navy);
+      margin: 6px 6px 12px;
+    }
+    .event {
+      display: grid;
+      grid-template-columns: 84px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border-radius: 12px;
+    }
+    .event + .event { border-top: 1px dashed rgba(0,0,0,.12); }
+    .event .date {
+      text-align: center;
+      border: 1px solid rgba(0,0,0,.15);
+      border-radius: 12px;
+      padding: 10px 8px;
+      background: #fafafa;
+    }
+    .event .date .mon {
+      font-weight: 700; letter-spacing: .4px; color: var(--navy);
+      font-size: 12px; text-transform: uppercase;
+    }
+    .event .date .day {
+      font-weight: 800; font-size: 22px; line-height: 1.1; color: var(--ink);
+    }
+    .event .meta h4 {
+      font-size: 16.5px; margin-bottom: 4px; color: var(--ink);
+    }
+    .event .meta .where {
+      font-size: 14px; opacity: .85; margin-bottom: 6px;
+    }
+    .event .meta .cta {
+      display: inline-block;
+      font-weight: 700;
+      text-decoration: none;
+      background: var(--brass);
+      color: #1a1a1a;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.12);
+    }
+    .event .meta .cta:hover { filter: brightness(.92); }
+
+    /* Mobile stack */
+    @media (max-width: 900px) {
+      .watch .wrap { grid-template-columns: 1fr; }
+    }
 
     /* FOOTER */
     footer.site{background:linear-gradient(180deg,#10161b,#0c1116);color:#cfd7dd;padding:48px 20px;text-align:center;}
@@ -168,6 +236,7 @@
           </ul>
         </li>
         <li><a href="#about">About</a></li>
+        <li><a href="#watch">Watch</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
@@ -180,7 +249,7 @@
     </div>
 
     <div class="hero-center">
-      <img src="/assets/tb-logo.png?v=19" alt="Tim Beckman Logo" />
+      <img src="/assets/tb-logo.png?v=20" alt="Tim Beckman Logo" />
       <div class="social-icons" aria-label="Social links">
         <a href="https://instagram.com/timbeckmanmusic" target="_blank" rel="noopener" aria-label="Instagram">
           <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2A2.8 2.8 0 1 0 12 17.8 2.8 2.8 0 0 0 12 9.2zm5.4-1.6a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2z"/></svg>
@@ -198,23 +267,25 @@
     </div>
   </header>
 
+  <!-- HERO image loader with fallbacks -->
   <script>
     (function(){
       const hero=document.getElementById('hero-img');
       const candidates=[
-        '/assets/hero-lake.webp?v=19',
-        '/assets/hero-lake.jpeg?v=19',
-        '/assets/hero-lake.jpg?v=19',
-        '/assets/hero-lake.JPG?v=19',
-        '/assets/Hero-lake.jpg?v=19',
-        '/assets/HERO-LAKE.JPG?v=19'
+        '/assets/hero-lake.webp?v=20',
+        '/assets/hero-lake.jpeg?v=20',
+        '/assets/hero-lake.jpg?v=20',
+        '/assets/hero-lake.JPG?v=20',
+        '/assets/Hero-lake.jpg?v=20',
+        '/assets/HERO-LAKE.JPG?v=20'
       ];
       let i=0;
-      function tryNext(){if(i>=candidates.length)return;hero.src=candidates[i++];hero.onerror=tryNext;}
+      function tryNext(){ if(i>=candidates.length) return; hero.src=candidates[i++]; hero.onerror=tryNext; }
       tryNext();
     })();
   </script>
 
+  <!-- ABOUT -->
   <section id="about" class="about-me">
     <h2>The Obligatory About Me Section</h2>
     <div class="copy">
@@ -224,19 +295,67 @@
     </div>
   </section>
 
-  <section id="videos" class="videos">
-  <h2>Latest Videos</h2>
-  <div class="video-embed">
-    <iframe
-      src="https://www.youtube.com/embed?UCr94kpV8B3v6tGQPJ8pf0iQ"
-      title="Tim Beckman Music on YouTube"
-      allowfullscreen
-      loading="lazy">
-    </iframe>
-  </div>
-</section>
+  <!-- WATCH + EVENTS -->
+  <section id="watch" class="watch">
+    <div class="wrap">
+      <!-- LEFT: Video -->
+      <div>
+        <h2>Latest Videos</h2>
+        <div class="video-embed">
+          <iframe
+            src="https://www.youtube.com/embed/videoseries?list=UUr94kpV8B3v6tGQPJ8pf0iQ"
+            title="Tim Beckman Music on YouTube"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
+      </div>
 
+      <!-- RIGHT: Events -->
+      <aside class="events" aria-label="Upcoming events">
+        <h3>Upcoming Shows</h3>
 
+        <div class="event">
+          <div class="date">
+            <div class="mon">DEC</div>
+            <div class="day">06</div>
+          </div>
+          <div class="meta">
+            <h4>Tim &amp; Katie — O’Loughlin’s Pub</h4>
+            <div class="where">Arnold, MD · 7:00–10:00 PM</div>
+            <a class="cta" href="#" target="_blank" rel="noopener">Details</a>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="date">
+            <div class="mon">DEC</div>
+            <div class="day">14</div>
+          </div>
+          <div class="meta">
+            <h4>Boathouse — Blackwall Hitch</h4>
+            <div class="where">Annapolis, MD · 9:00–12:00 AM</div>
+            <a class="cta" href="#" target="_blank" rel="noopener">Details</a>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="date">
+            <div class="mon">JAN</div>
+            <div class="day">10</div>
+          </div>
+          <div class="meta">
+            <h4>Solo — Private Event</h4>
+            <div class="where">Baltimore, MD</div>
+            <a class="cta" href="#" target="_blank" rel="noopener">Details</a>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer id="contact" class="site">
     <p><strong>Tim Beckman</strong></p>
     <p><a href="mailto:timbeckmanmusic@gmail.com">timbeckmanmusic@gmail.com</a> · Maryland</p>
@@ -250,3 +369,4 @@
 
 </body>
 </html>
+

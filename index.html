@@ -10,153 +10,117 @@
     :root{
       --cream:#f8f5f0;
       --navy:#1c2a35;
+      --brass:#bca87f;
       --ink:#131a20;
       --logo-serif:'Playfair Display',serif;
-      --hero-bg:#0f151a;
     }
 
     *{box-sizing:border-box;margin:0;padding:0;}
     body{font-family:'Montserrat',sans-serif;background:var(--cream);color:var(--ink);line-height:1.72;font-size:16.5px;}
     .container{max-width:1120px;margin:0 auto;padding:0 20px;}
 
-    /* NAVBAR */
+    /* NAV */
     .topnav{
-      position:sticky; top:0; z-index:50;
+      position:sticky;top:0;z-index:50;
       background:var(--cream);
       border-bottom:1px solid rgba(0,0,0,.12);
     }
     .nav-inner{
-      max-width:1100px; margin:0 auto; padding:12px 20px;
-      display:flex; align-items:center; justify-content:flex-end;
+      max-width:1100px;margin:0 auto;padding:12px 20px;
+      display:flex;align-items:center;justify-content:flex-end;
     }
     .nav-links{
-      list-style:none; display:flex; align-items:center; gap:22px;
-      font-family:var(--logo-serif); text-transform:uppercase; letter-spacing:.8px;
+      list-style:none;display:flex;align-items:center;gap:22px;
+      font-family:var(--logo-serif);text-transform:uppercase;letter-spacing:.8px;
     }
-    .nav-links a{ color:var(--ink); text-decoration:none; font-weight:700; opacity:.9; padding:8px 4px; }
-    .nav-links a:hover{ opacity:1; text-decoration:underline; text-underline-offset:3px; }
-    .menu-item{ position:relative; }
+    .nav-links a{color:var(--ink);text-decoration:none;font-weight:700;opacity:.9;padding:8px 4px;}
+    .nav-links a:hover{opacity:1;text-decoration:underline;text-underline-offset:3px;}
+    .menu-item{position:relative;}
     .submenu{
-      position:absolute; top:100%; left:0; min-width:220px;
-      background:#fff; border:1px solid rgba(0,0,0,.12); border-radius:10px;
-      padding:8px; list-style:none; margin-top:8px; display:none; z-index:100;
+      position:absolute;top:100%;left:0;min-width:220px;
+      background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:10px;
+      padding:8px;list-style:none;margin-top:8px;display:none;z-index:100;
       box-shadow:0 12px 30px rgba(0,0,0,.15);
     }
-    .submenu li a{ display:block; padding:10px 12px; border-radius:8px; color:#000; }
-    .submenu li a:hover{ background:rgba(0,0,0,.06); }
-    .menu-item:hover .submenu, .menu-item:focus-within .submenu{ display:block; }
+    .submenu li a{display:block;padding:10px 12px;border-radius:8px;color:#000;}
+    .submenu li a:hover{background:rgba(0,0,0,.06);}
+    .menu-item:hover .submenu, .menu-item:focus-within .submenu{display:block;}
 
-    /* HERO (full image visible; intentional letterbox bars) */
+    /* HERO */
     header.hero{
       position:relative;
       height:100vh;
-      background:var(--hero-bg);
+      background:#0f151a;
       overflow:hidden;
       text-align:center;
     }
     .hero-bg{
-      position:absolute; inset:0; z-index:0;
-      display:flex; align-items:center; justify-content:center;
-      background:var(--hero-bg);
+      position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+      background:#0f151a;
     }
-    .hero-bg img {
-  width:100%;
-  height:100%;
-  object-fit: contain;
-  object-position: center center;
-  filter:grayscale(100%) contrast(1.05) brightness(0.9);
-}
+    .hero-bg img{
+      max-width:100%;
+      max-height:100%;
+      width:auto;height:auto;
+      object-fit:contain;
+      object-position:center center;
+      filter:grayscale(100%) contrast(1.05) brightness(0.9);
+    }
 
-    /* top/bottom bars (intentional border look) — always symmetrical by design */
-    .hero::before,
-.hero::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 48px; /* doubled thickness for visibility */
-  z-index: 1;
-  background: linear-gradient(
-    to bottom,
-    rgba(28, 42, 53, 1) 60%,  /* deep navy tone (matches palette) */
-    rgba(28, 42, 53, 0.85) 80%,
-    rgba(28, 42, 53, 0) 100%
-  );
-  border-top: 2px solid #bca87f;   /* brass accent */
-  border-bottom: 2px solid #bca87f;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-}
+    /* Hairline top & bottom brass borders */
+    .hero::before, .hero::after{
+      content:"";
+      position:absolute;left:0;right:0;height:6px;z-index:2;
+      background:#0f151a;
+    }
+    .hero::before{top:0;border-bottom:1px solid var(--brass);}
+    .hero::after{bottom:0;border-top:1px solid var(--brass);}
 
-.hero::after {
-  top: auto;
-  bottom: 0;
-  background: linear-gradient(
-    to top,
-    rgba(28, 42, 53, 1) 60%,
-    rgba(28, 42, 53, 0.85) 80%,
-    rgba(28, 42, 53, 0) 100%
-  );
-}
-
-
-
-
-    /* center stack: logo + socials */
+    /* Center stack: logo + socials */
     .hero-center{
-      position:absolute; left:50%; top:50%;
+      position:absolute;left:50%;top:50%;
       transform:translate(-50%,-50%);
-      z-index:2;
-      display:flex; flex-direction:column; align-items:center;
-      gap:18px;
-      opacity:0;
-      animation:fadeIn 2.8s cubic-bezier(.22,.61,.36,1) forwards;
-      animation-delay:.25s;
-      padding:0 12px;
+      z-index:3;
+      display:flex;flex-direction:column;align-items:center;
+      gap:16px;padding:0 12px;
+      opacity:0;animation:fadeIn 2.8s cubic-bezier(.22,.61,.36,1) forwards .25s;
     }
-    @keyframes fadeIn {
-      from { opacity:0; transform:translate(-50%,-48%); }
-      to   { opacity:1; transform:translate(-50%,-50%); }
-    }
-    .hero-center img{
-      width:clamp(190px,26vw,480px); /* slightly smaller so socials fit cleanly */
-      height:auto;
-    }
+    @keyframes fadeIn{from{opacity:0;transform:translate(-50%,-48%);}to{opacity:1;transform:translate(-50%,-50%);}}
+
+    .hero-center img{width:clamp(190px,26vw,470px);height:auto;}
 
     .social-icons{
-      display:flex; gap:16px; align-items:center; justify-content:center;
-      margin-top:2px;
+      display:flex;gap:16px;align-items:center;justify-content:center;
     }
     .social-icons a{
-      display:inline-flex; align-items:center; justify-content:center;
-      width:38px; height:38px; border-radius:999px;
-      background:rgba(0,0,0,0.5);
+      display:inline-flex;align-items:center;justify-content:center;
+      width:38px;height:38px;border-radius:999px;
+      background:rgba(0,0,0,.5);
       box-shadow:0 2px 6px rgba(0,0,0,.35);
-      transition:transform .2s ease, background .2s ease;
+      transition:transform .2s ease,background .2s ease;
     }
-    .social-icons a:hover{ transform:translateY(-3px); background:rgba(0,0,0,0.7); }
-    .social-icons svg{ width:18px; height:18px; fill:#fff; }
+    .social-icons a:hover{transform:translateY(-3px);background:rgba(0,0,0,.7);}
+    .social-icons svg{width:18px;height:18px;fill:#fff;}
 
-    /* Short displays: keep stack centered and visible */
-    @media (max-height:780px){
-      .hero-center{ top:50%; gap:14px; }
-      .hero-center img{ width:clamp(180px,24vw,440px); }
-      .social-icons a{ width:34px; height:34px; }
-      .social-icons svg{ width:17px; height:17px; }
-      .hero::before, .hero::after{ height:28px; } /* slightly thicker bars on very short screens */
+    @media(max-height:780px){
+      .hero-center img{width:clamp(180px,24vw,430px);}
+      .social-icons a{width:34px;height:34px;}
+      .social-icons svg{width:17px;height:17px;}
+      .hero-center{gap:12px;}
     }
 
     /* ABOUT */
-    section.about-me{ padding:100px 20px; background:var(--cream); text-align:center; }
-    section.about-me h2{ font-family:'Playfair Display',serif; font-size:clamp(32px,3.5vw,46px); color:var(--navy); margin-bottom:28px; }
-    section.about-me .copy{ max-width:760px; margin:0 auto; font-size:17px; line-height:1.8; color:var(--ink); text-align:left; }
+    section.about-me{padding:100px 20px;background:var(--cream);text-align:center;}
+    section.about-me h2{font-family:'Playfair Display',serif;font-size:clamp(32px,3.5vw,46px);color:var(--navy);margin-bottom:28px;}
+    section.about-me .copy{max-width:760px;margin:0 auto;font-size:17px;line-height:1.8;color:var(--ink);text-align:left;}
 
     /* FOOTER */
-    footer.site{ background:linear-gradient(180deg,#10161b,#0c1116); color:#cfd7dd; padding:48px 20px; text-align:center; }
-    footer.site a{ color:#e9e6df; text-decoration:none; border-bottom:1px dotted rgba(255,255,255,0.3); }
-    footer.site a:hover{ border-bottom-color:#fff; }
-    footer.site p, footer.site a{ font-size:15px; }
-    .socials{ margin-top:16px; display:flex; justify-content:center; gap:16px; }
-    .socials a{ color:#cfd7dd; text-decoration:none; font-size:18px; }
+    footer.site{background:linear-gradient(180deg,#10161b,#0c1116);color:#cfd7dd;padding:48px 20px;text-align:center;}
+    footer.site a{color:#e9e6df;text-decoration:none;border-bottom:1px dotted rgba(255,255,255,0.3);}
+    footer.site a:hover{border-bottom-color:#fff;}
+    footer.site p,footer.site a{font-size:15px;}
+    .socials{margin-top:16px;display:flex;justify-content:center;gap:16px;}
+    .socials a{color:#cfd7dd;text-decoration:none;font-size:18px;}
   </style>
 </head>
 
@@ -188,7 +152,7 @@
     </div>
 
     <div class="hero-center">
-      <img src="/assets/tb-logo.png?v=18" alt="Tim Beckman Logo" />
+      <img src="/assets/tb-logo.png?v=19" alt="Tim Beckman Logo" />
       <div class="social-icons" aria-label="Social links">
         <a href="https://instagram.com/timbeckmanmusic" target="_blank" rel="noopener" aria-label="Instagram">
           <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2A2.8 2.8 0 1 0 12 17.8 2.8 2.8 0 0 0 12 9.2zm5.4-1.6a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2z"/></svg>
@@ -210,39 +174,28 @@
     (function(){
       const hero=document.getElementById('hero-img');
       const candidates=[
-        '/assets/hero-lake.webp?v=18',
-        '/assets/hero-lake.jpeg?v=18',
-        '/assets/hero-lake.jpg?v=18',
-        '/assets/hero-lake.JPG?v=18',
-        '/assets/Hero-lake.jpg?v=18',
-        '/assets/HERO-LAKE.JPG?v=18'
+        '/assets/hero-lake.webp?v=19',
+        '/assets/hero-lake.jpeg?v=19',
+        '/assets/hero-lake.jpg?v=19',
+        '/assets/hero-lake.JPG?v=19',
+        '/assets/Hero-lake.jpg?v=19',
+        '/assets/HERO-LAKE.JPG?v=19'
       ];
       let i=0;
-      function tryNext(){ if(i>=candidates.length) return; hero.src=candidates[i++]; hero.onerror=tryNext; }
+      function tryNext(){if(i>=candidates.length)return;hero.src=candidates[i++];hero.onerror=tryNext;}
       tryNext();
     })();
   </script>
 
-  <!-- ABOUT -->
   <section id="about" class="about-me">
     <h2>The Obligatory About Me Section</h2>
     <div class="copy">
-      <p>I grew up in a house where guitars were basically furniture and someone was always singing — usually whether you wanted them to or not.
-        My dad (<a href="https://lynnbeckman.com" target="_blank" rel="noopener" style="color:var(--navy); text-decoration:none;">lynnbeckman.com</a>)
-        played classic country, my brothers blasted Van Halen, AC/DC, and Clapton, and somewhere between honky-tonk and hair metal, I decided I liked both.
-      </p>
-      <p>These days, I sing and play guitar, bass, drums, mandolin, harmonica, and just enough piano to fake being impressive.
-        My influences are all over the map — Garth Brooks, Alan Jackson, Brooks & Dunn, SRV, Knopfler, Prince, even Snoop, Nirvana, and Foo Fighters.
-        Basically, if it grooves, I’m in.
-      </p>
-      <p>I split my time between a few projects: <strong>Tim & Katie</strong> (acoustic duo),
-        <strong>Boathouse</strong> (the full-band mayhem), and my solo shows that land somewhere between country storytelling and barroom rock.
-        I like songs with heart, guitars with bite, and crowds that don’t take themselves too seriously — because I sure don’t.
-      </p>
+      <p>I grew up in a house where guitars were basically furniture and someone was always singing — usually whether you wanted them to or not. My dad (<a href="https://lynnbeckman.com" target="_blank" rel="noopener" style="color:var(--navy);text-decoration:none;">lynnbeckman.com</a>) played classic country, my brothers blasted Van Halen, AC/DC, and Clapton, and somewhere between honky-tonk and hair metal, I decided I liked both.</p>
+      <p>These days, I sing and play guitar, bass, drums, mandolin, harmonica, and just enough piano to fake being impressive. My influences are all over the map — Garth Brooks, Alan Jackson, Brooks & Dunn, SRV, Knopfler, Prince, even Snoop, Nirvana, and Foo Fighters. Basically, if it grooves, I’m in.</p>
+      <p>I split my time between a few projects: <strong>Tim & Katie</strong> (acoustic duo), <strong>Boathouse</strong> (the full-band mayhem), and my solo shows that land somewhere between country storytelling and barroom rock. I like songs with heart, guitars with bite, and crowds that don’t take themselves too seriously — because I sure don’t.</p>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer id="contact" class="site">
     <p><strong>Tim Beckman</strong></p>
     <p><a href="mailto:timbeckmanmusic@gmail.com">timbeckmanmusic@gmail.com</a> · Maryland</p>

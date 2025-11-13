@@ -150,7 +150,7 @@
       border: 0;
     }
 
-    /* Events */
+    /* Events (Google Calendar) */
     .events {
       background: #fff;
       border: 1px solid rgba(0,0,0,.08);
@@ -164,50 +164,23 @@
       color: var(--navy);
       margin: 6px 6px 12px;
     }
-    .event {
-      display: grid;
-      grid-template-columns: 84px 1fr;
-      gap: 12px;
-      align-items: center;
-      padding: 12px;
+    .gcal-frame {
+      border: 1px solid rgba(0,0,0,.08);
       border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,.06);
+      background: #fff;
     }
-    .event + .event { border-top: 1px dashed rgba(0,0,0,.12); }
-    .event .date {
-      text-align: center;
-      border: 1px solid rgba(0,0,0,.15);
-      border-radius: 12px;
-      padding: 10px 8px;
-      background: #fafafa;
+    .gcal-frame iframe {
+      width: 100%;
+      height: 520px;  /* adjust to taste */
+      border: 0;
     }
-    .event .date .mon {
-      font-weight: 700; letter-spacing: .4px; color: var(--navy);
-      font-size: 12px; text-transform: uppercase;
-    }
-    .event .date .day {
-      font-weight: 800; font-size: 22px; line-height: 1.1; color: var(--ink);
-    }
-    .event .meta h4 {
-      font-size: 16.5px; margin-bottom: 4px; color: var(--ink);
-    }
-    .event .meta .where {
-      font-size: 14px; opacity: .85; margin-bottom: 6px;
-    }
-    .event .meta .cta {
-      display: inline-block;
-      font-weight: 700;
-      text-decoration: none;
-      background: var(--brass);
-      color: #1a1a1a;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(0,0,0,.12);
-    }
-    .event .meta .cta:hover { filter: brightness(.92); }
 
     /* Mobile stack */
     @media (max-width: 900px) {
       .watch .wrap { grid-template-columns: 1fr; }
+      .gcal-frame iframe { height: 420px; }
     }
 
     /* FOOTER */
@@ -219,7 +192,6 @@
     .socials a{color:#cfd7dd;text-decoration:none;font-size:18px;}
   </style>
 </head>
-
 <body>
 
   <!-- NAV -->
@@ -249,7 +221,7 @@
     </div>
 
     <div class="hero-center">
-      <img src="/assets/tb-logo.png?v=20" alt="Tim Beckman Logo" />
+      <img src="/assets/tb-logo.png?v=21" alt="Tim Beckman Logo" />
       <div class="social-icons" aria-label="Social links">
         <a href="https://instagram.com/timbeckmanmusic" target="_blank" rel="noopener" aria-label="Instagram">
           <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2A2.8 2.8 0 1 0 12 17.8 2.8 2.8 0 0 0 12 9.2zm5.4-1.6a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2z"/></svg>
@@ -272,12 +244,12 @@
     (function(){
       const hero=document.getElementById('hero-img');
       const candidates=[
-        '/assets/hero-lake.webp?v=20',
-        '/assets/hero-lake.jpeg?v=20',
-        '/assets/hero-lake.jpg?v=20',
-        '/assets/hero-lake.JPG?v=20',
-        '/assets/Hero-lake.jpg?v=20',
-        '/assets/HERO-LAKE.JPG?v=20'
+        '/assets/hero-lake.webp?v=21',
+        '/assets/hero-lake.jpeg?v=21',
+        '/assets/hero-lake.jpg?v=21',
+        '/assets/hero-lake.JPG?v=21',
+        '/assets/Hero-lake.jpg?v=21',
+        '/assets/HERO-LAKE.JPG?v=21'
       ];
       let i=0;
       function tryNext(){ if(i>=candidates.length) return; hero.src=candidates[i++]; hero.onerror=tryNext; }
@@ -298,7 +270,7 @@
   <!-- WATCH + EVENTS -->
   <section id="watch" class="watch">
     <div class="wrap">
-      <!-- LEFT: Video -->
+      <!-- LEFT: Video (uses syntax you confirmed works) -->
       <div>
         <h2>Latest Videos</h2>
         <div class="video-embed">
@@ -311,58 +283,19 @@
         </div>
       </div>
 
-      <!-- RIGHT: Events -->
+      <!-- RIGHT: Google Calendar (Agenda view) -->
       <aside class="events" aria-label="Upcoming events">
-  <h3>Upcoming Shows</h3>
-  <div class="gcal-frame">
-    <iframe
-      src="https://calendar.google.com/calendar/embed?src=timbeckmanmusic%40gmail.com&ctz=America%2FNew_York&mode=AGENDA&showTitle=0&showPrint=0&showTabs=0&showNav=0"
-      style="border:0"
-      frameborder="0"
-      scrolling="no"
-      allowfullscreen
-      loading="lazy">
-    </iframe>
-  </div>
-</aside>
-
-
-        <div class="event">
-          <div class="date">
-            <div class="mon">DEC</div>
-            <div class="day">06</div>
-          </div>
-          <div class="meta">
-            <h4>Tim &amp; Katie — O’Loughlin’s Pub</h4>
-            <div class="where">Arnold, MD · 7:00–10:00 PM</div>
-            <a class="cta" href="#" target="_blank" rel="noopener">Details</a>
-          </div>
+        <h3>Upcoming Shows</h3>
+        <div class="gcal-frame">
+          <iframe
+            title="Music Calendar"
+            src="https://calendar.google.com/calendar/embed?src=timbeckmanmusic%40gmail.com&ctz=America%2FNew_York&mode=AGENDA&showTitle=0&showPrint=0&showTabs=0&showNav=0"
+            loading="lazy">
+          </iframe>
         </div>
-
-        <div class="event">
-          <div class="date">
-            <div class="mon">DEC</div>
-            <div class="day">14</div>
-          </div>
-          <div class="meta">
-            <h4>Boathouse — Blackwall Hitch</h4>
-            <div class="where">Annapolis, MD · 9:00–12:00 AM</div>
-            <a class="cta" href="#" target="_blank" rel="noopener">Details</a>
-          </div>
+        <div class="cal-links" style="display:flex;gap:12px;margin-top:10px;flex-wrap:wrap;">
+          <a href="https://calendar.google.com/calendar/u/0?cid=timbeckmanmusic@gmail.com" target="_blank" rel="noopener" style="font-weight:700;text-decoration:none;background:var(--brass);color:#1a1a1a;padding:8px 12px;border-radius:999px;border:1px solid rgba(0,0,0,.12);">Open in Google Calendar</a>
         </div>
-
-        <div class="event">
-          <div class="date">
-            <div class="mon">JAN</div>
-            <div class="day">10</div>
-          </div>
-          <div class="meta">
-            <h4>Solo — Private Event</h4>
-            <div class="where">Baltimore, MD</div>
-            <a class="cta" href="#" target="_blank" rel="noopener">Details</a>
-          </div>
-        </div>
-
       </aside>
     </div>
   </section>
@@ -381,4 +314,3 @@
 
 </body>
 </html>
-

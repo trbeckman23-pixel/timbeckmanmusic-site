@@ -76,7 +76,7 @@
       filter:grayscale(100%) contrast(1.05) brightness(0.9);
     }
 
-    /* Hairline top & bottom brass borders (subtle) */
+    /* Hairline top & bottom brass borders */
     .hero::before,
     .hero::after{
       content:"";
@@ -325,7 +325,7 @@
     </div>
 
     <div class="hero-center">
-      <img src="/assets/tb-logo.png?v=30" alt="Tim Beckman Logo" />
+      <img src="/assets/tb-logo.png?v=40" alt="Tim Beckman Logo" />
       <div class="social-icons" aria-label="Social links">
         <a href="https://instagram.com/timbeckmanmusic" target="_blank" rel="noopener" aria-label="Instagram">
           <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2A2.8 2.8 0 1 0 12 17.8 2.8 2.8 0 0 0 12 9.2zm5.4-1.6a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2z"/></svg>
@@ -348,12 +348,12 @@
     (function(){
       const hero = document.getElementById('hero-img');
       const candidates = [
-        '/assets/hero-lake.webp?v=30',
-        '/assets/hero-lake.jpeg?v=30',
-        '/assets/hero-lake.jpg?v=30',
-        '/assets/hero-lake.JPG?v=30',
-        '/assets/Hero-lake.jpg?v=30',
-        '/assets/HERO-LAKE.JPG?v=30'
+        '/assets/hero-lake.webp?v=40',
+        '/assets/hero-lake.jpeg?v=40',
+        '/assets/hero-lake.jpg?v=40',
+        '/assets/hero-lake.JPG?v=40',
+        '/assets/Hero-lake.jpg?v=40',
+        '/assets/HERO-LAKE.JPG?v=40'
       ];
       let i = 0;
       function tryNext(){
@@ -378,17 +378,17 @@
   <!-- WATCH + EVENTS -->
   <section id="watch" class="watch">
     <div class="wrap">
-      <!-- LEFT: Video (syntax you said works) -->
+      <!-- LEFT: Random latest video -->
       <div>
         <h2>Latest Videos</h2>
         <div class="video-embed">
           <iframe
-  src="https://www.youtube.com/embed?listType=user_uploads&list=UCr94kpV8B3v6tGQPJ8pf0iQ"
-  title="Tim Beckman Music — Latest Uploads"
-  allowfullscreen
-  loading="lazy">
-</iframe>
-
+            id="yt-random"
+            title="Tim Beckman Music — Video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
         </div>
       </div>
 
@@ -418,8 +418,45 @@
     <p style="opacity:.6;font-size:.9rem;margin-top:12px">© 2025 Tim Beckman Music</p>
   </footer>
 
-  <!-- EVENTS DATA (edit this array when you add gigs) -->
+  <!-- YT API + EVENTS DATA -->
   <script>
+    // ---- YouTube Data API: load latest uploads, pick one at random ----
+    (async function loadRandomVideo() {
+      const API_KEY = "AIzaSyCPo9SSELKsjj-EZpTziwZbwLFuLZUBitU";
+      const CHANNEL_ID = "UCr94kpV8B3v6tGQPJ8pf0iQ";
+      const iframe = document.getElementById("yt-random");
+      if (!iframe) return;
+
+      try {
+        const url =
+          "https://www.googleapis.com/youtube/v3/search" +
+          "?part=snippet,id" +
+          "&order=date" +
+          "&maxResults=10" +
+          "&type=video" +
+          "&channelId=" + CHANNEL_ID +
+          "&key=" + API_KEY;
+
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("YouTube API error: " + res.status);
+        const data = await res.json();
+
+        const videos = (data.items || []).filter(
+          item => item.id && item.id.videoId
+        );
+        if (!videos.length) throw new Error("No videos returned");
+
+        const random = videos[Math.floor(Math.random() * videos.length)];
+        const id = random.id.videoId;
+        iframe.src = "https://www.youtube-nocookie.com/embed/" + id;
+      } catch (err) {
+        console.error("YT API error, falling back:", err);
+        // Fallback: your uploads playlist (may show unavailable, but only on failure)
+        iframe.src = "https://www.youtube.com/embed?listType=user_uploads&list=UCr94kpV8B3v6tGQPJ8pf0iQ";
+      }
+    })();
+
+    // ---- Editable events list (manual for now) ----
     const gigs = [
       {
         when: "Fri, Dec 6 · 7:00–10:00 PM",

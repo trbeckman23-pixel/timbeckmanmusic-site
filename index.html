@@ -94,6 +94,41 @@
     }
     .hero-socials a:hover{ transform:translateY(-2px); opacity:.9; }
     .hero-socials svg{ width:18px;height:18px; fill:#111; }
+/* --- Updated hero socials for better visibility --- */
+.hero-socials{
+  display:flex;
+  gap:18px;
+  align-items:center;
+  justify-content:center;
+  margin-top:6px;
+}
+
+/* darker semi-transparent bubbles behind bright icons */
+.hero-socials a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:38px;
+  height:38px;
+  border-radius:999px;
+  background:rgba(0,0,0,0.45);      /* dark bubble for contrast */
+  box-shadow:0 2px 6px rgba(0,0,0,0.35);
+  transition:transform .15s ease, opacity .15s ease, background .15s ease;
+}
+
+/* white icons that pop */
+.hero-socials svg{
+  width:18px;
+  height:18px;
+  fill:#fff;
+}
+
+/* subtle hover lift and glow */
+.hero-socials a:hover{
+  transform:translateY(-2px);
+  background:rgba(0,0,0,0.65);
+  opacity:1;
+}
 
     .hero-email{
       margin-top:2px;

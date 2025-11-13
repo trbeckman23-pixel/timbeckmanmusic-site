@@ -12,6 +12,7 @@
       --navy:#1c2a35;
       --ink:#131a20;
       --logo-serif:'Playfair Display',serif;
+      --hero-bg:#0f151a;
     }
 
     *{box-sizing:border-box;margin:0;padding:0;}
@@ -45,44 +46,47 @@
     .submenu li a:hover{ background:rgba(0,0,0,.06); }
     .menu-item:hover .submenu, .menu-item:focus-within .submenu{ display:block; }
 
-    /* HERO */
+    /* HERO — full-height, image covers, no bars by default */
     header.hero{
-      position:relative; width:100%;
-      background:#0f151a;
-      min-height:88vh;                 /* gives room for logo + socials */
-      overflow:hidden; text-align:center;
+      position:relative;
+      height:100vh;                 /* exact viewport height */
+      background:var(--hero-bg);
+      overflow:hidden;
+      text-align:center;
+    }
+    .hero-bg{
+      position:absolute;
+      inset:0;
+      z-index:0;
     }
     .hero-bg img{
-      display:block; width:100%; height:100%;
-      object-fit:cover;                /* fill area while keeping composition */
-      max-height:100vh;
+      width:100%;
+      height:100%;
+      object-fit:cover;             /* fills without distorting */
       filter:grayscale(100%) contrast(1.05) brightness(0.9);
     }
 
-    /* center stack: logo + socials (fade-in) */
+    /* Center stack: logo + socials */
     .hero-center{
-      position:absolute; left:50%; top:52%;        /* a hair lower so nav doesn't crop logo */
+      position:absolute; left:50%; top:50%;
       transform:translate(-50%,-50%);
       z-index:2;
       display:flex; flex-direction:column; align-items:center;
       gap:18px;
       opacity:0;
-      animation:fadeIn 2.8s cubic-bezier(.22,.61,.36,1) forwards; /* slower, smoother */
+      animation:fadeIn 2.8s cubic-bezier(.22,.61,.36,1) forwards;
       animation-delay:.25s;
-      padding:0 12px;                  /* tiny side padding for small phones */
+      padding:0 12px;
     }
     @keyframes fadeIn {
       from { opacity:0; transform:translate(-50%,-48%); }
-      to   { opacity:1; transform:translate(-50%,-52%); }
+      to   { opacity:1; transform:translate(-50%,-50%); }
     }
-
-    /* LOGO */
     .hero-center img{
-      width:clamp(210px,28vw,520px);   /* slightly smaller max to ensure socials fit */
+      width:clamp(200px,27vw,510px); /* slightly smaller to ensure room for socials */
       height:auto;
     }
 
-    /* SOCIAL ICONS */
     .social-icons{
       display:flex; gap:16px; align-items:center; justify-content:center;
       margin-top:4px;
@@ -91,26 +95,27 @@
       display:inline-flex; align-items:center; justify-content:center;
       width:40px; height:40px; border-radius:999px;
       background:rgba(0,0,0,0.5);
-      transition:transform .2s ease, background .2s ease;
       box-shadow:0 2px 6px rgba(0,0,0,.35);
+      transition:transform .2s ease, background .2s ease;
     }
     .social-icons a:hover{ transform:translateY(-3px); background:rgba(0,0,0,0.7); }
     .social-icons svg{ width:20px; height:20px; fill:#fff; }
 
-    /* Short screens (e.g., laptops with dock / iPad landscape) */
+    /* Short displays: keep socials visible and add letterbox bars ONLY if needed */
     @media (max-height:820px){
-      .hero-center{ top:54%; gap:14px; }
-      .hero-center img{ width:clamp(200px,26vw,480px); }
+      .hero-center{ top:50%; gap:14px; }
+      .hero-center img{ width:clamp(190px,25vw,470px); }
       .social-icons a{ width:36px; height:36px; }
       .social-icons svg{ width:18px; height:18px; }
     }
-
-    /* Phones */
-    @media (max-width:900px){
-      .hero-center{ top:52%; }
-      .hero-center img{ width:clamp(200px,48vw,440px); }
-      .social-icons a{ width:36px; height:36px; }
-      .social-icons svg{ width:18px; height:18px; }
+    @media (max-height:740px){
+      /* Intentional top & bottom bars so it looks designed, not cropped */
+      .hero::before, .hero::after{
+        content:""; position:absolute; left:0; right:0; height:22px; background:var(--hero-bg); z-index:1;
+      }
+      .hero::before{ top:0; }
+      .hero::after{ bottom:0; }
+      .hero-center{ z-index:2; top:49%; } /* nudge up a touch so socials clear the bottom bar */
     }
 
     /* ABOUT */
@@ -156,7 +161,7 @@
     </div>
 
     <div class="hero-center">
-      <img src="/assets/tb-logo.png?v=16" alt="Tim Beckman Logo" />
+      <img src="/assets/tb-logo.png?v=17" alt="Tim Beckman Logo" />
       <div class="social-icons" aria-label="Social links">
         <a href="https://instagram.com/timbeckmanmusic" target="_blank" rel="noopener" aria-label="Instagram">
           <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2A2.8 2.8 0 1 0 12 17.8 2.8 2.8 0 0 0 12 9.2zm5.4-1.6a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2z"/></svg>
@@ -178,12 +183,12 @@
     (function(){
       const hero=document.getElementById('hero-img');
       const candidates=[
-        '/assets/hero-lake.webp?v=16',
-        '/assets/hero-lake.jpeg?v=16',
-        '/assets/hero-lake.jpg?v=16',
-        '/assets/hero-lake.JPG?v=16',
-        '/assets/Hero-lake.jpg?v=16',
-        '/assets/HERO-LAKE.JPG?v=16'
+        '/assets/hero-lake.webp?v=17',
+        '/assets/hero-lake.jpeg?v=17',
+        '/assets/hero-lake.jpg?v=17',
+        '/assets/hero-lake.JPG?v=17',
+        '/assets/Hero-lake.jpg?v=17',
+        '/assets/HERO-LAKE.JPG?v=17'
       ];
       let i=0;
       function tryNext(){ if(i>=candidates.length) return; hero.src=candidates[i++]; hero.onerror=tryNext; }

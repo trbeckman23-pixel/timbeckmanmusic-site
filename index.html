@@ -108,6 +108,34 @@
       .social-icons svg{width:17px;height:17px;}
       .hero-center{gap:12px;}
     }
+.videos{
+  padding:90px 20px;
+  background:var(--cream);
+  text-align:center;
+}
+.videos h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,3.2vw,40px);
+  color:var(--navy);
+  margin-bottom:28px;
+}
+.video-embed{
+  position:relative;
+  width:100%;
+  max-width:900px;
+  margin:0 auto;
+  padding-bottom:56.25%;
+  height:0;
+  overflow:hidden;
+  border-radius:16px;
+  box-shadow:0 6px 24px rgba(0,0,0,0.25);
+}
+.video-embed iframe{
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  border:0;
+}
 
     /* ABOUT */
     section.about-me{padding:100px 20px;background:var(--cream);text-align:center;}
@@ -195,6 +223,19 @@
       <p>I split my time between a few projects: <strong>Tim & Katie</strong> (acoustic duo), <strong>Boathouse</strong> (the full-band mayhem), and my solo shows that land somewhere between country storytelling and barroom rock. I like songs with heart, guitars with bite, and crowds that don’t take themselves too seriously — because I sure don’t.</p>
     </div>
   </section>
+
+  <section id="videos" class="videos">
+  <h2>Latest Videos</h2>
+  <div class="video-embed">
+    <iframe
+      src="https://www.youtube.com/embed?listType=user_uploads&list=timbeckmanmusic"
+      title="Tim Beckman Music on YouTube"
+      allowfullscreen
+      loading="lazy">
+    </iframe>
+  </div>
+</section>
+
 
   <footer id="contact" class="site">
     <p><strong>Tim Beckman</strong></p>

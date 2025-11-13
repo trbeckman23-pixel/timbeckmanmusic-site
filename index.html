@@ -556,29 +556,30 @@
         </p>
 
         <!-- hidden long-form bio (revealed on “Read more”) -->
-        <div class="bio-extra">
-          <p>
-            Those early bar gigs are where I learned how to perform, how to read a room, and how
-            to keep going even when a monitor dies or a guy named “Big Ron” requests <em>Free
-            Bird</em> for the fourth time.
-          </p>
+      <div class="bio-extra" id="bio-extra">
+  <p>
+    Those early bar gigs are where I learned how to perform, how to read a room, and how
+    to keep going even when a monitor dies or a guy named “Big Ron” requests <em>Free
+    Bird</em> for the fourth time.
+  </p>
 
-          <p>
-            Since then, I’ve played pretty much everything with strings: guitar, bass, drums,
-            mandolin, harmonica, and just enough piano to fake being impressive. My influences are
-            all over the map — Garth Brooks, Alan Jackson, Brooks &amp; Dunn, SRV, Mark Knopfler,
-            Joe Walsh, Prince, Nirvana, Foo Fighters, and a healthy dose of 90s and 2000s rock and
-            hip hop.
-          </p>
+  <p>
+    Since then, I’ve played pretty much everything with strings: guitar, bass, drums,
+    mandolin, harmonica, and just enough piano to fake being impressive. My influences are
+    all over the map — Garth Brooks, Alan Jackson, Brooks &amp; Dunn, SRV, Mark Knopfler,
+    Joe Walsh, Prince, Nirvana, Foo Fighters, and a healthy dose of 90s and 2000s rock and
+    hip hop.
+  </p>
 
-          <p>
-            I play because music has always been the through-line in my life — the thing that
-            connects family, friends, strangers, and stories. I like songs with heart, guitars with
-            bite, and crowds that don’t take themselves too seriously… because I sure don’t.
-          </p>
-        </div>
+  <p>
+    I play because music has always been the through-line in my life — the thing that
+    connects family, friends, strangers, and stories. I like songs with heart, guitars with
+    bite, and crowds that don’t take themselves too seriously… because I sure don’t.
+  </p>
+</div>
 
-        <button type="button" class="bio-toggle">Read more</button>
+<button type="button" class="bio-toggle" id="bio-toggle">Read more</button>
+
       </div>
     </div>
   </div>
@@ -809,18 +810,22 @@
       }
     })();
   </script>
-  <script>
-  (function () {
-    const toggle = document.querySelector(".bio-toggle");
-    const extra = document.querySelector(".bio-extra");
+ <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggle = document.getElementById("bio-toggle");
+    const extra  = document.getElementById("bio-extra");
     if (!toggle || !extra) return;
 
-    toggle.addEventListener("click", () => {
-      const open = extra.classList.toggle("is-open");
-      toggle.textContent = open ? "Read less" : "Read more";
+    let isOpen = false;
+
+    toggle.addEventListener("click", function () {
+      isOpen = !isOpen;
+      extra.style.display = isOpen ? "block" : "none";
+      toggle.textContent = isOpen ? "Read less" : "Read more";
     });
-  })();
+  });
 </script>
+
 
 </body>
 </html>

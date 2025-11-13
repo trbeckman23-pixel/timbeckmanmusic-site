@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tim Beckman Music</title>
   <meta name="description" content="Tim Beckman is a Maryland musician blending Appalachian roots with modern acoustic sound." />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@600;700&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root{
       --cream:#f8f5f0;
@@ -130,25 +130,75 @@
     }
 
     /* ABOUT */
-    section.about-me{
-      padding:100px 20px;
-      background:var(--cream);
-      text-align:center;
-    }
-    section.about-me h2{
-      font-family:'Playfair Display',serif;
-      font-size:clamp(32px,3.5vw,46px);
-      color:var(--navy);
-      margin-bottom:28px;
-    }
-    section.about-me .copy{
-      max-width:760px;
-      margin:0 auto;
-      font-size:17px;
-      line-height:1.8;
-      color:var(--ink);
-      text-align:left;
-    }
+    /* ABOUT – photo with overlay text */
+section.about-me{
+  padding:90px 20px;
+  background:var(--cream);
+  text-align:center;
+}
+
+.about-card{
+  position:relative;
+  max-width:900px;
+  margin:0 auto;
+}
+
+.about-card img{
+  width:100%;
+  height:auto;
+  display:block;
+  border-radius:18px;
+  box-shadow:0 10px 28px rgba(0,0,0,.22);
+  object-fit:cover;
+}
+
+/* overlay box on top of photo */
+.about-overlay{
+  position:absolute;
+  left:8%;
+  right:8%;
+  bottom:8%;
+  background:rgba(15,21,26,.78);
+  color:var(--cream);
+  border-radius:14px;
+  padding:20px 24px;
+  backdrop-filter:blur(4px);
+  text-align:left;
+}
+
+/* handwritten heading */
+.about-handwritten{
+  font-family:'Caveat', cursive;
+  font-size:clamp(26px,3vw,34px);
+  margin:0 0 8px;
+}
+
+/* body copy */
+.about-copy{
+  font-size:15.5px;
+  line-height:1.8;
+}
+.about-copy a{
+  color:var(--brass);
+  text-decoration:none;
+}
+.about-copy a:hover{
+  text-decoration:underline;
+}
+
+/* Mobile tweaks */
+@media(max-width:900px){
+  .about-card{
+    max-width:600px;
+  }
+  .about-overlay{
+    left:6%;
+    right:6%;
+    bottom:6%;
+    padding:16px 18px;
+  }
+}
+
 
     /* WATCH + EVENTS */
     section.watch{
@@ -368,25 +418,29 @@
 
   <!-- ABOUT -->
   <!-- ABOUT -->
+<!-- ABOUT -->
 <section id="about" class="about-me">
-  <h2>The Obligatory About Me Section</h2>
+  <div class="about-card">
+    <img src="/assets/tim-headshot-pine.jpeg" alt="Tim Beckman with guitar" />
 
-  <div class="about-wrap">
-    <div class="about-photo">
-      <img src="/assets/tim-headshot-pines.jpeg" alt="Tim Beckman Headshot" />
-    </div>
-
-    <div class="copy">
-      <p>I grew up in a house where guitars were basically furniture and someone was always singing — usually whether you wanted them to or not. My dad (<a href="https://lynnbeckman.com" target="_blank" rel="noopener" style="color:var(--navy); text-decoration:none;">lynnbeckman.com</a>) played classic country, my brothers blasted Van Halen, AC/DC, and Clapton, and somewhere between honky-tonk and hair metal, I decided I liked both.</p>
-
-      <p>I started playing in bar bands at 16 with my oldest brother and have basically been making noise in one form or another ever since.</p>
-
-      <p>These days, I sing and play guitar, bass, drums, mandolin, harmonica, and just enough piano to fake being impressive. My influences are all over the map — Garth Brooks, Brooks & Dunn, SRV, Knopfler, Prince, Nirvana, Foo Fighters, even Snoop. Basically, if it grooves, I’m in.</p>
-
-      <p>I split my time between a few projects: <strong>Tim & Katie</strong> (acoustic duo), <strong>Boathouse</strong> (full-band mayhem), and my solo shows that land somewhere between country storytelling and barroom rock.</p>
+    <div class="about-overlay">
+      <h2 class="about-handwritten">The Obligatory About Me Section</h2>
+      <div class="about-copy">
+        <p>
+          I grew up in a house where guitars were basically furniture and someone was always singing — usually whether you wanted them to or not. My dad
+          (<a href="https://lynnbeckman.com" target="_blank" rel="noopener">lynnbeckman.com</a>) played classic country, my brothers blasted Van Halen and AC/DC, and somewhere between honky-tonk and hair metal, I decided I liked both.
+        </p>
+        <p>
+          I started playing in bar bands at 16 with my oldest brother and have basically been making noise in one form or another ever since.
+        </p>
+        <p>
+          These days I split my time between Tim &amp; Katie, Boathouse, and solo shows — mixing country roots, rock energy, and just enough sarcasm to keep things interesting.
+        </p>
+      </div>
     </div>
   </div>
 </section>
+
 
 
   <!-- WATCH + EVENTS -->

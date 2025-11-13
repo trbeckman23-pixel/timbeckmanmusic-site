@@ -150,37 +150,42 @@
       border: 0;
     }
 
-    /* Events (Google Calendar) */
+    /* Events: stacked lines */
     .events {
-      background: #fff;
-      border: 1px solid rgba(0,0,0,.08);
-      border-radius: 14px;
-      box-shadow: 0 8px 20px rgba(0,0,0,.06);
-      padding: 16px;
+      background:#fff; border:1px solid rgba(0,0,0,.08);
+      border-radius:14px; box-shadow:0 8px 20px rgba(0,0,0,.06);
+      padding:16px;
     }
-    .events h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(22px, 2.6vw, 28px);
-      color: var(--navy);
-      margin: 6px 6px 12px;
+    .events h3{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(22px,2.6vw,28px);
+      color:var(--navy); margin:6px 6px 12px;
     }
-    .gcal-frame {
-      border: 1px solid rgba(0,0,0,.08);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,.06);
-      background: #fff;
+    .events-list{ display:flex; flex-direction:column; gap:10px; }
+    .ev{
+      padding:12px; border-radius:12px; border:1px dashed rgba(0,0,0,.12);
+      background:#fafafa;
     }
-    .gcal-frame iframe {
-      width: 100%;
-      height: 520px;  /* adjust to taste */
-      border: 0;
+    .ev .line1{ font-weight:800; color:var(--ink); margin-bottom:2px; }
+    .ev .line2{ opacity:.85; }
+    .ev .meta{ font-size:13px; opacity:.7; margin-top:6px; }
+    .ev .cta{
+      display:inline-block; margin-top:8px; font-weight:700; text-decoration:none;
+      background:var(--brass); color:#1a1a1a; padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(0,0,0,.12);
     }
+    .ev .cta:hover{ filter:brightness(.92); }
+
+    .cal-links { display:flex; gap:12px; margin-top:12px; flex-wrap:wrap; }
+    .cal-links a{
+      font-weight:700; text-decoration:none; background:var(--brass); color:#1a1a1a;
+      padding:8px 12px; border-radius:999px; border:1px solid rgba(0,0,0,.12);
+    }
+    .cal-links a:hover{ filter:brightness(.92); }
 
     /* Mobile stack */
     @media (max-width: 900px) {
       .watch .wrap { grid-template-columns: 1fr; }
-      .gcal-frame iframe { height: 420px; }
     }
 
     /* FOOTER */
@@ -221,7 +226,7 @@
     </div>
 
     <div class="hero-center">
-      <img src="/assets/tb-logo.png?v=21" alt="Tim Beckman Logo" />
+      <img src="/assets/tb-logo.png?v=22" alt="Tim Beckman Logo" />
       <div class="social-icons" aria-label="Social links">
         <a href="https://instagram.com/timbeckmanmusic" target="_blank" rel="noopener" aria-label="Instagram">
           <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2A2.8 2.8 0 1 0 12 17.8 2.8 2.8 0 0 0 12 9.2zm5.4-1.6a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2z"/></svg>
@@ -244,12 +249,12 @@
     (function(){
       const hero=document.getElementById('hero-img');
       const candidates=[
-        '/assets/hero-lake.webp?v=21',
-        '/assets/hero-lake.jpeg?v=21',
-        '/assets/hero-lake.jpg?v=21',
-        '/assets/hero-lake.JPG?v=21',
-        '/assets/Hero-lake.jpg?v=21',
-        '/assets/HERO-LAKE.JPG?v=21'
+        '/assets/hero-lake.webp?v=22',
+        '/assets/hero-lake.jpeg?v=22',
+        '/assets/hero-lake.jpg?v=22',
+        '/assets/hero-lake.JPG?v=22',
+        '/assets/Hero-lake.jpg?v=22',
+        '/assets/HERO-LAKE.JPG?v=22'
       ];
       let i=0;
       function tryNext(){ if(i>=candidates.length) return; hero.src=candidates[i++]; hero.onerror=tryNext; }
@@ -270,31 +275,23 @@
   <!-- WATCH + EVENTS -->
   <section id="watch" class="watch">
     <div class="wrap">
-      <!-- LEFT: Video (uses syntax you confirmed works) -->
+      <!-- LEFT: Video (privacy-enhanced + fallback) -->
       <div>
         <h2>Latest Videos</h2>
         <div class="video-embed">
-          <iframe
-            src="https://www.youtube.com/embed?listType=user_uploads&list=UCr94kpV8B3v6tGQPJ8pf0iQ"
-            title="Tim Beckman Music — Latest Uploads"
-            allowfullscreen
-            loading="lazy">
-          </iframe>
+          <iframe id="yt-latest" title="Tim Beckman Music — Latest Uploads" allowfullscreen loading="lazy"></iframe>
         </div>
       </div>
 
-      <!-- RIGHT: Google Calendar (Agenda view) -->
+      <!-- RIGHT: Stacked events -->
       <aside class="events" aria-label="Upcoming events">
         <h3>Upcoming Shows</h3>
-        <div class="gcal-frame">
-          <iframe
-            title="Music Calendar"
-            src="https://calendar.google.com/calendar/embed?src=timbeckmanmusic%40gmail.com&ctz=America%2FNew_York&mode=AGENDA&showTitle=0&showPrint=0&showTabs=0&showNav=0"
-            loading="lazy">
-          </iframe>
-        </div>
-        <div class="cal-links" style="display:flex;gap:12px;margin-top:10px;flex-wrap:wrap;">
-          <a href="https://calendar.google.com/calendar/u/0?cid=timbeckmanmusic@gmail.com" target="_blank" rel="noopener" style="font-weight:700;text-decoration:none;background:var(--brass);color:#1a1a1a;padding:8px 12px;border-radius:999px;border:1px solid rgba(0,0,0,.12);">Open in Google Calendar</a>
+        <div id="events" class="events-list"></div>
+
+        <div class="cal-links">
+          <a href="https://calendar.google.com/calendar/u/0?cid=timbeckmanmusic@gmail.com" target="_blank" rel="noopener">
+            Open full calendar
+          </a>
         </div>
       </aside>
     </div>
@@ -312,5 +309,50 @@
     <p style="opacity:.6;font-size:.9rem;margin-top:12px">© 2025 Tim Beckman Music</p>
   </footer>
 
+  <!-- YT fallback + Events data -->
+  <script>
+    // ----- YouTube latest uploads: try nocookie UU playlist, then UC uploads syntax
+    (function () {
+      const tries = [
+        "https://www.youtube-nocookie.com/embed/videoseries?list=UUr94kpV8B3v6tGQPJ8pf0iQ", // UU = uploads playlist
+        "https://www.youtube.com/embed?listType=user_uploads&list=UCr94kpV8B3v6tGQPJ8pf0iQ" // UC = channel id
+      ];
+      const el = document.getElementById("yt-latest");
+      let i = 0;
+      const next = () => { if (i < tries.length) el.src = tries[i++]; };
+      next(); setTimeout(next, 1800); // simple fallback swap
+    })();
+
+    // ----- Editable events list (stacked)
+    const gigs = [
+      {
+        when: "Fri, Dec 6 · 7:00–10:00 PM",
+        line1: "Tim & Katie @ O’Loughlin’s",
+        line2: "O’Loughlin’s Restaurant & Pub — Arnold, MD",
+        url: "#"
+      },
+      {
+        when: "Sat, Dec 14 · 9:00–12:00 AM",
+        line1: "Boathouse @ Blackwall Hitch",
+        line2: "Blackwall Hitch — Annapolis, MD",
+        url: "#"
+      },
+      {
+        when: "Fri, Jan 10 · Time TBA",
+        line1: "Solo — Private Event",
+        line2: "Baltimore, MD",
+        url: "#"
+      }
+    ];
+    document.getElementById("events").innerHTML =
+      gigs.map(g => `
+        <div class="ev">
+          <div class="line1">${g.line1}</div>
+          <div class="line2">${g.line2}</div>
+          <div class="meta">${g.when}</div>
+          ${g.url ? `<a class="cta" href="${g.url}" target="_blank" rel="noopener">Details</a>` : ``}
+        </div>
+      `).join("");
+  </script>
 </body>
 </html>

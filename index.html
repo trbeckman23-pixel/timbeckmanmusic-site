@@ -124,6 +124,7 @@
       background:rgba(0,0,0,.5);
       box-shadow:0 2px 6px rgba(0,0,0,.35);
       transition:transform .2s ease,background .2s ease;
+      border-bottom:none; /* override footer link style */
     }
     .social-icons a:hover{
       transform:translateY(-3px);
@@ -317,16 +318,16 @@
     footer.site a:hover{border-bottom-color:#fff;}
     footer.site p,
     footer.site a{font-size:15px;}
-    .socials{
-      margin-top:16px;
-      display:flex;
-      justify-content:center;
-      gap:16px;
+
+    /* make footer social icons a bit smaller */
+    .footer-icons a{
+      width:32px;
+      height:32px;
+      box-shadow:0 1px 4px rgba(0,0,0,.4);
     }
-    .socials a{
-      color:#cfd7dd;
-      text-decoration:none;
-      font-size:18px;
+    .footer-icons svg{
+      width:16px;
+      height:16px;
     }
   </style>
 </head>
@@ -446,23 +447,28 @@
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer id="contact" class="site">
-  <p><strong>Tim Beckman</strong></p>
-  <p><a href="mailto:timbeckmanmusic@gmail.com">timbeckmanmusic@gmail.com</a> · Maryland</p>
+    <p><strong>Tim Beckman</strong></p>
+    <p><a href="mailto:timbeckmanmusic@gmail.com">timbeckmanmusic@gmail.com</a> · Maryland</p>
 
-  <!-- Matching circular social icons -->
-  <div class="social-icons" style="margin-top:20px;">
-    <a href="https://instagram.com/timbeckmanmusic" target="_blank" rel="noopener" aria-label="Instagram">
-      <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2A2.8 2.8 0 1 0 12 17.8 2.8 2.8 0 0 0 12 9.2zm5.4-1.6a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2z"/></svg>
-    </a>
+    <div class="social-icons footer-icons" aria-label="Social links (footer)" style="margin-top:20px;">
+      <a href="https://instagram.com/timbeckmanmusic" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2A2.8 2.8 0 1 0 12 17.8 2.8 2.8 0 0 0 12 9.2zm5.4-1.6a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2z"/></svg>
+      </a>
+      <a href="https://facebook.com/timandkatieacoustic" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M13 3h3a1 1 0 0 1 1 1v3h-3a2 2 0 0 0-2 2v3h5l-1 4h-4v8h-4v-8H6v-4h3V9a5 5 0 0 1 5-5z"/></svg>
+      </a>
+      <a href="https://youtube.com/@timbeckmanmusic" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24"><path d="M23.5 7.6a3 3 0 0 0-2.1-2.1C19.5 5 12 5 12 5s-7.5 0-9.4.5A3 3 0 0 0 .5 7.6 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 4.4 3 3 0 0 0 2.1 2.1C4.5 19 12 19 12 19s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-4.4zM9.8 15.2V8.8L15.5 12l-5.7 3.2z"/></svg>
+      </a>
+      <a href="mailto:timbeckmanmusic@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24"><path d="M2 5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5zm2 0l8 6 8-6H4zm16 14V8l-8 6-8-6v11h16z"/></svg>
+      </a>
+    </div>
 
-    <a href="https://facebook.com/timandkatieacoustic" target="_blank" rel="noopener" aria-label="Facebook">
-      <svg viewBox="0 0 24 24"><path d="M13 3h3a1 1 0 0 1 1 1v3h-3a2 2 0 0 0-2 2v3h5l-1 4h-4v8h-4v-8H6v-4h3V9a5 5 0 0 1 5-5z"/></svg>
-    </a>
-
-    <a href="https://youtube.com/@timbeckmanmusic" target="_blank" rel="noopener" aria-label="YouTube">
-      <svg viewBox="0 0 24 24"><path d="M23.5 7.6a3 3 0 0 0-2.1-2.1C19.5 5 12 5 12 5s-7.5 0-9.4.5A3 3 0 0 0 .5 7.6 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 4.4 3 3 0 0 0
-
+    <p style="opacity:.6;font-size:.9rem;margin-top:14px">© TB Music</p>
+  </footer>
 
   <!-- YT + CALENDAR SCRIPTS -->
   <script>
@@ -569,6 +575,5 @@
       }
     })();
   </script>
-
 </body>
 </html>

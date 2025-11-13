@@ -205,6 +205,7 @@
       display:flex;
       flex-direction:column;
       gap:10px;
+      min-height:40px;
     }
     .ev{
       padding:12px;
@@ -392,10 +393,12 @@
         </div>
       </div>
 
-      <!-- RIGHT: Stacked events (manual list + calendar link) -->
+      <!-- RIGHT: Events from Google Calendar -->
       <aside class="events" aria-label="Upcoming events">
         <h3>Upcoming Shows</h3>
-        <div id="events" class="events-list"></div>
+        <div id="events" class="events-list">
+          <!-- filled by JS -->
+        </div>
 
         <div class="cal-links">
           <a href="https://calendar.google.com/calendar/u/0?cid=timbeckmanmusic@gmail.com" target="_blank" rel="noopener">
@@ -418,12 +421,14 @@
     <p style="opacity:.6;font-size:.9rem;margin-top:12px">© 2025 Tim Beckman Music</p>
   </footer>
 
-  <!-- YT API + EVENTS DATA -->
+  <!-- YT API + CALENDAR EVENTS -->
   <script>
+    const API_KEY = "AIzaSyCPo9SSELKsjj-EZpTziwZbwLFuLZUBitU";
+    const YT_CHANNEL_ID = "UCr94kpV8B3v6tGQPJ8pf0iQ";
+    const CALENDAR_ID = "timbeckmanmusic@gmail.com";
+
     // ---- YouTube Data API: load latest uploads, pick one at random ----
     (async function loadRandomVideo() {
-      const API_KEY = "AIzaSyCPo9SSELKsjj-EZpTziwZbwLFuLZUBitU";
-      const CHANNEL_ID = "UCr94kpV8B3v6tGQPJ8pf0iQ";
       const iframe = document.getElementById("yt-random");
       if (!iframe) return;
 
@@ -434,7 +439,7 @@
           "&order=date" +
           "&maxResults=10" +
           "&type=video" +
-          "&channelId=" + CHANNEL_ID +
+          "&channelId=" + YT_CHANNEL_ID +
           "&key=" + API_KEY;
 
         const res = await fetch(url);
@@ -451,42 +456,77 @@
         iframe.src = "https://www.youtube-nocookie.com/embed/" + id;
       } catch (err) {
         console.error("YT API error, falling back:", err);
-        // Fallback: your uploads playlist (may show unavailable, but only on failure)
-        iframe.src = "https://www.youtube.com/embed?listType=user_uploads&list=UCr94kpV8B3v6tGQPJ8pf0iQ";
+        // Fallback: uploads playlist
+        iframe.src = "https://www.youtube.com/embed?listType=user_uploads&list=" + YT_CHANNEL_ID;
       }
     })();
 
-    // ---- Editable events list (manual for now) ----
-    const gigs = [
-      {
-        when: "Fri, Dec 6 · 7:00–10:00 PM",
-        line1: "Tim & Katie @ O’Loughlin’s",
-        line2: "O’Loughlin’s Restaurant & Pub — Arnold, MD",
-        url: "#"
-      },
-      {
-        when: "Sat, Dec 14 · 9:00–12:00 AM",
-        line1: "Boathouse @ Blackwall Hitch",
-        line2: "Blackwall Hitch — Annapolis, MD",
-        url: "#"
-      },
-      {
-        when: "Fri, Jan 10 · Time TBA",
-        line1: "Solo — Private Event",
-        line2: "Baltimore, MD",
-        url: "#"
-      }
-    ];
+    // ---- Google Calendar API: load upcoming events ----
+    (async function loadCalendarEvents() {
+      const container = document.getElementById("events");
+      if (!container) return;
 
-    document.getElementById("events").innerHTML =
-      gigs.map(g => `
-        <div class="ev">
-          <div class="line1">${g.line1}</div>
-          <div class="line2">${g.line2}</div>
-          <div class="meta">${g.when}</div>
-          ${g.url ? `<a class="cta" href="${g.url}" target="_blank" rel="noopener">Details</a>` : ``}
-        </div>
-      `).join("");
+      // show simple loading text
+      container.innerHTML = `<div class="ev"><div class="line1">Loading shows…</div></div>`;
+
+      try {
+        const timeMin = encodeURIComponent(new Date().toISOString());
+        const url =
+          "https://www.googleapis.com/calendar/v3/calendars/" +
+          encodeURIComponent(CALENDAR_ID) +
+          "/events?key=" + API_KEY +
+          "&singleEvents=true" +
+          "&orderBy=startTime" +
+          "&timeMin=" + timeMin +
+          "&maxResults=10";
+
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("Calendar API error: " + res.status);
+        const data = await res.json();
+        const items = (data.items || []).filter(ev => ev.status !== "cancelled");
+
+        if (!items.length) {
+          container.innerHTML = `<div class="ev">
+            <div class="line1">No upcoming shows on the calendar (yet).</div>
+            <div class="line2">Check back soon or open the full calendar.</div>
+          </div>`;
+          return;
+        }
+
+        const optsDateTime = { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" };
+        const optsDateOnly = { weekday: "short", month: "short", day: "numeric" };
+
+        container.innerHTML = items.map(ev => {
+          const start = ev.start && (ev.start.dateTime || ev.start.date);
+          let whenText = "";
+          if (start) {
+            const d = new Date(start);
+            whenText = ev.start.dateTime
+              ? d.toLocaleString("en-US", optsDateTime)
+              : d.toLocaleDateString("en-US", optsDateOnly);
+          }
+
+          const summary = ev.summary || "Untitled event";
+          const location = ev.location || "Location TBA";
+          const link = ev.htmlLink || "";
+
+          return `
+            <div class="ev">
+              <div class="line1">${summary}</div>
+              <div class="line2">${location}</div>
+              ${whenText ? `<div class="meta">${whenText}</div>` : ""}
+              ${link ? `<a class="cta" href="${link}" target="_blank" rel="noopener">Details</a>` : ""}
+            </div>
+          `;
+        }).join("");
+      } catch (err) {
+        console.error("Calendar API error:", err);
+        container.innerHTML = `<div class="ev">
+          <div class="line1">Couldn’t load shows from the calendar.</div>
+          <div class="line2">You can still open the full calendar using the button below.</div>
+        </div>`;
+      }
+    })();
   </script>
 </body>
 </html>

@@ -68,20 +68,36 @@
 }
 
     /* top/bottom bars (intentional border look) — always symmetrical by design */
-    .hero::before, .hero::after {
-  content:"";
-  position:absolute; left:0; right:0; height:24px;
-  z-index:1;
+    .hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 48px; /* doubled thickness for visibility */
+  z-index: 1;
+  background: linear-gradient(
+    to bottom,
+    rgba(28, 42, 53, 1) 60%,  /* deep navy tone (matches palette) */
+    rgba(28, 42, 53, 0.85) 80%,
+    rgba(28, 42, 53, 0) 100%
+  );
+  border-top: 2px solid #bca87f;   /* brass accent */
+  border-bottom: 2px solid #bca87f;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
-.hero::before {
-  top:0;
-  background:linear-gradient(to bottom, rgba(19,26,32,1) 85%, rgba(19,26,32,0) 100%);
+
+.hero::after {
+  top: auto;
+  bottom: 0;
+  background: linear-gradient(
+    to top,
+    rgba(28, 42, 53, 1) 60%,
+    rgba(28, 42, 53, 0.85) 80%,
+    rgba(28, 42, 53, 0) 100%
+  );
 }
-.hero-bg::after {
-  content:""; position:absolute; inset:0; z-index:1;
-  background:radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%);
-  pointer-events:none;
-}
+
 
 
 

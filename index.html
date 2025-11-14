@@ -6,8 +6,8 @@
   <title>Tim Beckman Music</title>
   <meta name="description" content="Tim Beckman is a Maryland musician blending Appalachian roots with modern acoustic sound." />
 
-  <!-- Fonts: body + display/handwritten -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -15,95 +15,65 @@
       --navy:#1c2a35;
       --brass:#bca87f;
       --ink:#131a20;
-      --display:'Caveat',cursive;
+      --display:'Caveat', cursive;
       --hero-bg:#0f151a;
     }
 
     *{box-sizing:border-box;margin:0;padding:0;}
-    body{
-      font-family:'Montserrat',sans-serif;
-      background:var(--cream);
-      color:var(--ink);
-      line-height:1.72;
-      font-size:16.5px;
-    }
-    .container{max-width:1120px;margin:0 auto;padding:0 20px;}
+    body{font-family:'Montserrat',sans-serif;background:var(--cream);color:var(--ink);line-height:1.7;}
 
     /* NAV */
     .topnav{
       position:sticky;top:0;z-index:50;
       background:var(--cream);
-      border-bottom:1px solid rgba(0,0,0,.12);
+      border-bottom:1px solid rgba(0,0,0,.1);
     }
     .nav-inner{
       max-width:1100px;margin:0 auto;padding:12px 20px;
-      display:flex;align-items:center;justify-content:flex-end;
+      display:flex;justify-content:flex-end;
     }
     .nav-links{
-      list-style:none;display:flex;align-items:center;gap:22px;
-      font-family:var(--display);text-transform:uppercase;letter-spacing:.8px;
+      list-style:none;display:flex;gap:22px;
+      font-family:var(--display);font-size:20px;
     }
-    .nav-links a,
-    .menu-label{
-      color:var(--ink);text-decoration:none;font-weight:600;opacity:.9;padding:8px 4px;
+    .nav-links a{
+      color:var(--ink);text-decoration:none;font-weight:700;opacity:.9;
     }
-    .nav-links a:hover,
-    .menu-label:hover{
-      opacity:1;text-decoration:underline;text-underline-offset:3px;
-    }
+    .nav-links a:hover{text-decoration:underline;text-underline-offset:3px;opacity:1;}
+
     .menu-item{position:relative;}
     .submenu{
-      position:absolute;top:100%;left:0;min-width:220px;
-      background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:10px;
-      padding:8px;list-style:none;margin-top:8px;display:none;z-index:100;
+      position:absolute;top:100%;left:0;min-width:200px;
+      background:#fff;border:1px solid rgba(0,0,0,.15);
+      border-radius:10px;padding:8px;display:none;z-index:100;
       box-shadow:0 12px 30px rgba(0,0,0,.15);
     }
     .submenu li a{
-      display:block;padding:10px 12px;border-radius:8px;color:#000;font-family:'Montserrat',sans-serif;
+      display:block;padding:10px;border-radius:8px;color:var(--ink);font-size:15px;
+      font-family:'Montserrat',sans-serif;
     }
-    .submenu li a:hover{background:rgba(0,0,0,.06);}
-    .menu-item:hover .submenu,
-    .menu-item:focus-within .submenu{display:block;}
+    .submenu li a:hover{background:rgba(0,0,0,.08);}
+    .menu-item:hover .submenu{display:block;}
 
     /* HERO */
     header.hero{
-      position:relative;
-      height:100vh;
-      background:var(--hero-bg);
-      overflow:hidden;
-      text-align:center;
+      position:relative;height:100vh;background:var(--hero-bg);
+      overflow:hidden;text-align:center;
     }
-    .hero-bg{
-      position:absolute;inset:0;z-index:0;
-      display:flex;align-items:center;justify-content:center;
-      background:var(--hero-bg);
-    }
+    .hero-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
     .hero-bg img{
-      max-width:100%;
-      max-height:100%;
-      width:auto;height:auto;
-      object-fit:contain;
-      object-position:center center;
-      filter:grayscale(100%) contrast(1.05) brightness(0.9);
+      max-width:100%;max-height:100%;object-fit:contain;
+      filter:grayscale(100%) contrast(1.05) brightness(.9);
     }
-
-    /* subtle brass borders */
-    .hero::before,
-    .hero::after{
-      content:"";
-      position:absolute;left:0;right:0;height:6px;z-index:2;
-      background:var(--hero-bg);
+    .hero::before,.hero::after{
+      content:"";position:absolute;left:0;right:0;height:6px;z-index:2;background:var(--hero-bg);
     }
     .hero::before{top:0;border-bottom:1px solid var(--brass);}
     .hero::after{bottom:0;border-top:1px solid var(--brass);}
 
-    /* center stack: logo + socials */
     .hero-center{
-      position:absolute;left:50%;top:50%;
-      transform:translate(-50%,-50%);
-      z-index:3;
-      display:flex;flex-direction:column;align-items:center;
-      gap:16px;padding:0 12px;
+      position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+      display:flex;flex-direction:column;align-items:center;gap:16px;
       opacity:0;animation:fadeIn 2.8s cubic-bezier(.22,.61,.36,1) forwards .25s;
     }
     @keyframes fadeIn{
@@ -111,390 +81,149 @@
       to{opacity:1;transform:translate(-50%,-50%);}
     }
     .hero-center img{
-      width:clamp(190px,26vw,430px);
-      height:auto;
+      width:clamp(180px,26vw,450px);height:auto;
     }
 
-    .social-icons{
-      display:flex;gap:16px;align-items:center;justify-content:center;
-    }
+    .social-icons{display:flex;gap:16px;}
     .social-icons a{
-      display:inline-flex;align-items:center;justify-content:center;
       width:38px;height:38px;border-radius:999px;
-      background:rgba(0,0,0,.5);
-      box-shadow:0 2px 6px rgba(0,0,0,.35);
-      transition:transform .2s ease,background .2s ease;
-      border-bottom:none; /* override footer link style */
+      background:rgba(0,0,0,.55);display:flex;
+      justify-content:center;align-items:center;
+      transition:.3s;
     }
-    .social-icons a:hover{
-      transform:translateY(-3px);
-      background:rgba(0,0,0,.7);
-    }
-    .social-icons svg{
-      width:18px;height:18px;fill:#fff;
-    }
-    @media(max-height:780px){
-      .hero-center img{width:clamp(180px,24vw,400px);}
-      .social-icons a{width:34px;height:34px;}
-      .social-icons svg{width:17px;height:17px;}
-      .hero-center{gap:12px;}
-    }
+    .social-icons a:hover{transform:translateY(-3px);background:rgba(0,0,0,.75);}
+    .social-icons svg{width:18px;height:18px;fill:#fff;}
 
-    /* ABOUT – photo with overlay text */
-    section.about-me{
-      padding:90px 20px;
-      background:var(--cream);
-    }
-    .about-card{
-      position:relative;
-      max-width:900px;
-      margin:0 auto;
-    }
+    /* ABOUT */
+    section.about-me{padding:90px 20px;background:var(--cream);}
+    .about-card{max-width:1100px;margin:0 auto;position:relative;}
     .about-card img{
-  width:100%;
-  height:auto;               /* keep the full aspect ratio */
-  border-radius:18px;
-  box-shadow:0 10px 28px rgba(0,0,0,.22);
-  display:block;
-}
+      width:100%;height:auto;border-radius:18px;
+      box-shadow:0 10px 26px rgba(0,0,0,.22);
+    }
 
     .about-overlay{
-      position:absolute;
-      left:7%;
-      right:7%;
-      bottom:3%;
-      background:rgba(15,21,26,.82);
-      color:var(--cream);
-      border-radius:14px;
-      padding:14px 18px;
+      position:absolute;left:7%;right:7%;bottom:4%;
+      background:rgba(15,21,26,.82);border-radius:14px;
+      color:var(--cream);padding:20px;
       backdrop-filter:blur(4px);
     }
-    .about-title{
+    .about-overlay h2{
       font-family:var(--display);
-      font-size:clamp(26px,3vw,34px);
-      margin:0 0 6px;
-    }
-    .about-copy{
-      font-size:15.5px;
-      line-height:1.8;
-    }
-    .about-copy a{
-      color:var(--brass);
-      text-decoration:none;
-    }
-    .about-copy a:hover{text-decoration:underline;}
-
-    @media(max-width:900px){
-      section.about-me{padding:70px 16px;}
-      .about-card{max-width:620px;}
-      .about-overlay{
-        left:6%;
-        right:6%;
-        bottom:6%;
-        padding:14px 16px;
-      }
-          .bio-copy p{
-      margin-bottom:10px;
+      font-size:clamp(32px,3.5vw,46px);
+      margin-bottom:12px;
     }
 
-    .bio-extra{
-      display:none;
-      margin-top:6px;
-    }
+    .bio-copy p{margin-bottom:10px;}
 
-    .bio-extra.is-open{
-      display:block;
-    }
-
+    .bio-extra{display:none;}
     .bio-toggle{
-      margin-top:12px;
-      border:none;
-      border-radius:999px;
-      padding:7px 16px;
-      font-size:14px;
-      font-weight:700;
-      font-family:'Montserrat',sans-serif;
-      cursor:pointer;
-      background:var(--brass);
-      color:#1a1a1a;
+      margin-top:10px;background:var(--brass);
+      padding:7px 16px;border-radius:999px;border:none;
+      font-weight:700;cursor:pointer;
       box-shadow:0 3px 10px rgba(0,0,0,.25);
-      transition:transform .15s ease, filter .15s ease;
-    }
-    .bio-toggle:hover{
-      filter:brightness(.94);
-      transform:translateY(-1px);
-    }
-    .bio-copy p{
-      margin-bottom:10px;
     }
 
-    .bio-extra{
-      display:none;      /* important: starts hidden */
-      margin-top:6px;
-    }
-
-    .bio-toggle{
-      margin-top:12px;
-      border:none;
-      border-radius:999px;
-      padding:7px 16px;
-      font-size:14px;
-      font-weight:700;
-      font-family:'Montserrat',sans-serif;
-      cursor:pointer;
-      background:var(--brass);
-      color:#1a1a1a;
-      box-shadow:0 3px 10px rgba(0,0,0,.25);
-      transition:transform .15s ease, filter .15s ease;
-    }
-    .bio-toggle:hover{
-      filter:brightness(.94);
-      transform:translateY(-1px);
-    }
-
-    }
-
-    /* WATCH + EVENTS */
-    section.watch{
-      background:var(--cream);
-      padding:80px 20px;
-    }
+    /* WATCH SECTION */
+    section.watch{background:var(--cream);padding:80px 20px;}
     .watch .wrap{
-      max-width:1100px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns:1.8fr 1fr; /* wider video column */
-      gap:28px;
-      align-items:start;
+      max-width:1100px;margin:0 auto;
+      display:grid;grid-template-columns:1.5fr 1fr;gap:28px;
     }
     .watch h2{
       font-family:var(--display);
-      color:var(--navy);
-      font-size:clamp(28px,3.2vw,40px);
-      margin:0 0 14px;
+      font-size:clamp(28px,3vw,40px);
+      color:var(--navy);margin-bottom:10px;
     }
-
     .video-embed{
-      position:relative;
-      width:100%;
-      padding-bottom:62.5%; /* slightly taller than 16:9 */
-      height:0;
-      overflow:hidden;
-      border-radius:14px;
+      position:relative;width:100%;padding-bottom:56.25%;
+      border-radius:14px;overflow:hidden;background:#000;
       box-shadow:0 6px 24px rgba(0,0,0,.18);
-      background:#000;
     }
     .video-embed iframe{
-      position:absolute;inset:0;
-      width:100%;height:100%;
-      border:0;
+      position:absolute;inset:0;width:100%;height:100%;
     }
 
+    /* EVENTS SECTION */
     .events{
-      background:#fff;
-      border:1px solid rgba(0,0,0,.08);
-      border-radius:14px;
+      background:#fff;border-radius:14px;
+      border:1px solid rgba(0,0,0,.08);padding:16px;
       box-shadow:0 8px 20px rgba(0,0,0,.06);
-      padding:16px;
     }
     .events h3{
       font-family:var(--display);
-      font-size:clamp(22px,2.6vw,28px);
-      color:var(--navy);
-      margin:6px 6px 12px;
-    }
-    .events-list{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      min-height:40px;
+      font-size:clamp(24px,3vw,32px);
+      color:var(--navy);margin-bottom:12px;
     }
     .ev{
-      padding:12px;
-      border-radius:12px;
+      padding:12px;border-radius:12px;
       border:1px dashed rgba(0,0,0,.12);
-      background:#fafafa;
+      background:#fafafa;margin-bottom:10px;
     }
-    .ev .line1{
-      font-weight:800;
-      color:var(--ink);
-      margin-bottom:2px;
-    }
+    .ev .line1{font-weight:800;}
     .ev .line2{opacity:.85;}
-    .ev .meta{
-      font-size:13px;
-      opacity:.7;
-      margin-top:6px;
-    }
-    .ev .cta{
-      display:inline-block;
-      margin-top:8px;
-      font-weight:700;
-      text-decoration:none;
-      background:var(--brass);
-      color:#1a1a1a;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid rgba(0,0,0,.12);
-      font-family:'Montserrat',sans-serif;
-    }
-    .ev .cta:hover{filter:brightness(.92);}
+    .ev .meta{font-size:13px;opacity:.7;margin-top:6px;}
 
-    .cal-links{
-      display:flex;
-      gap:12px;
-      margin-top:12px;
-      flex-wrap:wrap;
-    }
-    .cal-links a{
-      font-weight:700;
-      text-decoration:none;
-      background:var(--brass);
-      color:#1a1a1a;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(0,0,0,.12);
-      font-family:'Montserrat',sans-serif;
-    }
-    .cal-links a:hover{filter:brightness(.92);}
-
-    @media(max-width:900px){
-      .watch .wrap{grid-template-columns:1fr;}
-    }
-    /* CONTACT */
-    section.contact{
+    /* GEAR SECTION */
+    section.gear{
       background:var(--cream);
-      padding:80px 20px 60px;
+      padding:80px 20px;text-align:center;
     }
-    .contact-inner{
-      max-width:900px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns:1.4fr 1fr;
-      gap:32px;
-      align-items:flex-start;
-    }
-    @media(max-width:900px){
-      .contact-inner{
-        grid-template-columns:1fr;
-      }
-    }
-    .contact-card{
-      background:#ffffff;
-      border-radius:18px;
-      box-shadow:0 10px 28px rgba(0,0,0,.16);
-      padding:24px 24px 26px;
-    }
-    .contact h2{
+    .gear-inner{max-width:1100px;margin:0 auto;}
+    .gear h2{
       font-family:var(--display);
-      font-size:clamp(28px,3vw,38px);
-      color:var(--navy);
-      margin-bottom:10px;
+      font-size:clamp(28px,3.2vw,40px);
+      margin-bottom:6px;color:var(--navy);
     }
-    .contact p.lead{
-      margin-bottom:18px;
-      font-size:15.5px;
+    .gear-lead{
+      font-size:16px;opacity:.85;margin-bottom:30px;
     }
 
-    .contact-form label{
-      display:block;
-      font-size:14px;
-      font-weight:600;
-      margin-bottom:6px;
+    .brand-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+      gap:22px;
     }
-    .contact-form input,
-    .contact-form textarea{
-      width:100%;
-      border-radius:10px;
-      border:1px solid rgba(0,0,0,.18);
-      padding:9px 11px;
-      font-family:'Montserrat',sans-serif;
-      font-size:15px;
-      margin-bottom:14px;
-      background:#fbfbfb;
+    .brand-card{
+      background:#fff;border-radius:16px;padding:18px 12px 14px;
+      box-shadow:0 8px 20px rgba(0,0,0,.08);
+      display:flex;flex-direction:column;align-items:center;
+      transition:.3s;
     }
-    .contact-form textarea{
-      min-height:110px;
-      resize:vertical;
+    .brand-card:hover{
+      transform:translateY(-4px);box-shadow:0 12px 26px rgba(0,0,0,.12);
     }
-    .contact-form input:focus,
-    .contact-form textarea:focus{
-      outline:none;
-      border-color:var(--brass);
-      box-shadow:0 0 0 2px rgba(188,168,127,.35);
-      background:#fff;
+    .brand-card img{
+      max-width:90px;max-height:40px;filter:grayscale(100%);opacity:.9;
     }
-
-    .btn-send{
-      display:inline-block;
-      border-radius:999px;
-      border:none;
-      padding:10px 20px;
-      font-size:15px;
-      font-weight:700;
-      font-family:'Montserrat',sans-serif;
-      background:var(--brass);
-      color:#1a1a1a;
-      cursor:pointer;
-      box-shadow:0 4px 10px rgba(0,0,0,.18);
-      transition:transform .15s ease, filter .15s ease;
-    }
-    .btn-send:hover{
-      filter:brightness(.94);
-      transform:translateY(-1px);
-    }
-
-    .contact-side p{
-      font-size:14.5px;
-      line-height:1.7;
-      margin-bottom:12px;
-    }
-    .contact-side strong{
-      font-weight:700;
-    }
-    .contact-side .social-icons{
-      margin-top:10px;
-      margin-bottom:12px;
-    }
+    .brand-card span{font-size:13px;opacity:.8;font-weight:600;margin-top:4px;}
 
     /* FOOTER */
     footer.site{
-      background:linear-gradient(180deg,#10161b,#0c1116);
-      color:#cfd7dd;
-      padding:48px 20px;
-      text-align:center;
+      background:#0e1317;color:#cfd7dd;
+      text-align:center;padding:40px 20px;margin-top:40px;
     }
-    footer.site a{
-      color:#e9e6df;
-      text-decoration:none;
-      border-bottom:1px dotted rgba(255,255,255,0.3);
+    .footer-socials{display:flex;justify-content:center;gap:16px;margin-bottom:12px;}
+    .footer-socials a{
+      width:38px;height:38px;border-radius:999px;
+      background:rgba(255,255,255,.15);
+      display:flex;align-items:center;justify-content:center;transition:.3s;
     }
-    footer.site a:hover{border-bottom-color:#fff;}
-    footer.site p,
-    footer.site a{font-size:15px;}
-
-    /* make footer social icons a bit smaller */
-    .footer-icons a{
-      width:32px;
-      height:32px;
-      box-shadow:0 1px 4px rgba(0,0,0,.4);
-    }
-    .footer-icons svg{
-      width:16px;
-      height:16px;
-    }
+    .footer-socials a:hover{background:rgba(255,255,255,.25);}
+    footer.site p{opacity:.6;font-size:14px;margin-top:12px;}
   </style>
 </head>
+
 <body>
 
   <!-- NAV -->
   <nav class="topnav">
     <div class="nav-inner">
       <ul class="nav-links">
-        <li class="menu-item has-sub">
+        <li class="menu-item">
           <a href="#" class="menu-label">My Music</a>
           <ul class="submenu">
-            <li><a href="tim-and-katie.html">Tim &amp; Katie</a></li>
+            <li><a href="tim-and-katie.html">Tim & Katie</a></li>
             <li><a href="boathouse.html">Boathouse</a></li>
             <li><a href="solo.html">Solo Act</a></li>
             <li><a href="studio.html">Studio / Session Work</a></li>
@@ -502,6 +231,7 @@
         </li>
         <li><a href="#about">About</a></li>
         <li><a href="#watch">Watch</a></li>
+        <li><a href="#gear">Gear</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
@@ -510,367 +240,203 @@
   <!-- HERO -->
   <header class="hero">
     <div class="hero-bg">
-      <img id="hero-img" alt="Hero Background" fetchpriority="high" loading="eager" decoding="async" />
+      <img id="hero-img" alt="" />
     </div>
 
     <div class="hero-center">
-      <img src="/assets/tb-logo.png?v=40" alt="Tim Beckman Logo" />
-      <div class="social-icons" aria-label="Social links">
-        <a href="https://instagram.com/timbeckmanmusic" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2A2.8 2.8 0 1 0 12 17.8 2.8 2.8 0 0 0 12 9.2zm5.4-1.6a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2z"/></svg>
+      <img src="/assets/tb-logo.png" alt="TB Logo" />
+
+      <div class="social-icons">
+        <a href="https://instagram.com/timbeckmanmusic" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"/></svg>
         </a>
-        <a href="https://facebook.com/timandkatieacoustic" target="_blank" rel="noopener" aria-label="Facebook">
-          <svg viewBox="0 0 24 24"><path d="M13 3h3a1 1 0 0 1 1 1v3h-3a2 2 0 0 0-2 2v3h5l-1 4h-4v8h-4v-8H6v-4h3V9a5 5 0 0 1 5-5z"/></svg>
+        <a href="https://facebook.com/timandkatieacoustic" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M13 3h3v3h-3v2h3v4h-3v8h-4v-8H6v-4h3V9a5 5 0 0 1 5-5z"/></svg>
         </a>
-        <a href="https://youtube.com/@timbeckmanmusic" target="_blank" rel="noopener" aria-label="YouTube">
-          <svg viewBox="0 0 24 24"><path d="M23.5 7.6a3 3 0 0 0-2.1-2.1C19.5 5 12 5 12 5s-7.5 0-9.4.5A3 3 0 0 0 .5 7.6 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 4.4 3 3 0 0 0 2.1 2.1C4.5 19 12 19 12 19s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-4.4zM9.8 15.2V8.8L15.5 12l-5.7 3.2z"/></svg>
+        <a href="https://youtube.com/@timbeckmanmusic" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M23 7a3 3 0 0 0-2-2C19 4 12 4 12 4S5 4 3 5a3 3 0 0 0-2 2 31 31 0 0 0 0 10 3 3 0 0 0 2 2c2 1 9 1 9 1s7 0 9-1a3 3 0 0 0 2-2 31 31 0 0 0 0-10zM9 15V9l6 3-6 3z"/></svg>
         </a>
-        <a href="mailto:timbeckmanmusic@gmail.com" aria-label="Email">
-          <svg viewBox="0 0 24 24"><path d="M2 5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5zm2 0l8 6 8-6H4zm16 14V8l-8 6-8-6v11h16z"/></svg>
+        <a href="mailto:timbeckmanmusic@gmail.com">
+          <svg viewBox="0 0 24 24"><path d="M2 5h20v14H2V5zm2 0l8 6 8-6H4z"/></svg>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- HERO image loader with fallbacks -->
+  <!-- HERO IMAGE LOADER -->
   <script>
     (function(){
-      const hero = document.getElementById('hero-img');
-      const candidates = [
-        '/assets/hero-lake.webp?v=40',
-        '/assets/hero-lake.jpeg?v=40',
-        '/assets/hero-lake.jpg?v=40',
-        '/assets/hero-lake.JPG?v=40',
-        '/assets/Hero-lake.jpg?v=40',
-        '/assets/HERO-LAKE.JPG?v=40'
+      const hero=document.getElementById('hero-img');
+      const files=[
+        '/assets/hero-lake.webp',
+        '/assets/hero-lake.jpeg',
+        '/assets/hero-lake.jpg',
+        '/assets/hero-lake.JPG'
       ];
-      let i = 0;
-      function tryNext(){
-        if(i >= candidates.length) return;
-        hero.src = candidates[i++];
-        hero.onerror = tryNext;
-      }
+      let i=0;
+      function tryNext(){if(i>=files.length)return;hero.src=files[i++];hero.onerror=tryNext;}
       tryNext();
     })();
   </script>
 
   <!-- ABOUT -->
   <section id="about" class="about-me">
-  <div class="about-card">
-    <img src="/assets/tim-headshot-pines.jpeg" alt="Tim Beckman with guitar" />
+    <div class="about-card">
+      <img src="/assets/tim-headshot-pines.jpeg" alt="Tim Beckman" />
 
-    <div class="about-overlay">
-      <h2 class="about-title">The Obligatory About Me Section</h2>
+      <div class="about-overlay">
+        <h2>The Obligatory About Me Section</h2>
 
-      <div class="bio-copy">
-        <!-- SHORT BIO (always visible) -->
-        <p>
-          I grew up in a house where guitars were basically furniture and someone was always
-          singing — usually whether you wanted them to or not. My dad
-          (<a href="https://lynnbeckman.com" target="_blank" rel="noopener">lynnbeckman.com</a>)
-          played classic country, my brothers blasted Van Halen and AC/DC, and somewhere between
-          honky-tonk and hair metal, I decided I liked both.
-        </p>
+        <div class="bio-copy">
+          <p>I grew up in a house where guitars were basically furniture and someone was always singing — usually whether you wanted them to or not.</p>
 
-        <p>
-          I started playing in bar bands at 16 with my oldest brother and have basically been
-          making noise in one form or another ever since.
-        </p>
+          <p>I started playing in bar bands at 16 with my oldest brother and have basically been making noise ever since.</p>
 
-        <p>
-          These days I split my time between Tim &amp; Katie, Boathouse, and solo shows — mixing
-          country roots, rock energy, and just enough sarcasm to keep things interesting.
-        </p>
+          <p>These days I split my time between Tim & Katie, Boathouse, and solo shows — mixing country roots, rock energy, and sarcasm.</p>
 
-        <!-- LONG BIO (starts hidden) -->
-        <div class="bio-extra" id="bio-extra">
-          <p>
-            Those early bar gigs are where I learned how to perform, how to read a room, and how
-            to keep going even when a monitor dies or a guy named “Big Ron” requests
-            <em>Free Bird</em> for the fourth time.
-          </p>
+          <div class="bio-extra" id="bio-extra">
+            <p>Those early bar gigs taught me how to perform, how to read a room, and how to survive when a guy named Big Ron demands Free Bird for the fourth time.</p>
+            <p>I’ve played pretty much everything with strings and my influences are all over the map — Garth Brooks to SRV to Prince to Foo Fighters.</p>
+            <p>I like songs with heart, guitars with bite, and crowds that don’t take themselves too seriously… because I sure don’t.</p>
+          </div>
 
-          <p>
-            Since then, I’ve played pretty much everything with strings: guitar, bass, drums,
-            mandolin, harmonica, and just enough piano to fake being impressive. My influences are
-            all over the map — Garth Brooks, Alan Jackson, Brooks &amp; Dunn, SRV, Mark Knopfler,
-            Joe Walsh, Prince, Nirvana, Foo Fighters, and a healthy dose of 90s and 2000s rock and
-            hip hop.
-          </p>
-
-          <p>
-            I play because music has always been the through-line in my life — the thing that
-            connects family, friends, strangers, and stories. I like songs with heart, guitars with
-            bite, and crowds that don’t take themselves too seriously… because I sure don’t.
-          </p>
+          <button type="button" id="bio-toggle" class="bio-toggle">Read more</button>
         </div>
-
-        <!-- TOGGLE BUTTON -->
-        <button type="button" class="bio-toggle" id="bio-toggle">Read more</button>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
+  <!-- READ MORE SCRIPT -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle=document.getElementById("bio-toggle");
+      const extra=document.getElementById("bio-extra");
 
+      extra.style.display="none";
+      toggle.textContent="Read more";
+
+      toggle.addEventListener("click",()=>{
+        const hidden=extra.style.display==="none";
+        extra.style.display=hidden?"block":"none";
+        toggle.textContent=hidden?"Read less":"Read more";
+      });
+    });
+  </script>
 
   <!-- WATCH + EVENTS -->
   <section id="watch" class="watch">
     <div class="wrap">
-      <!-- LEFT: random latest video -->
       <div>
         <h2>Latest Videos</h2>
         <div class="video-embed">
-          <iframe
-            id="yt-random"
-            title="Tim Beckman Music — Video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-            loading="lazy">
-          </iframe>
+          <iframe id="yt-random" allowfullscreen></iframe>
         </div>
       </div>
 
-      <!-- RIGHT: events from Google Calendar -->
-      <aside class="events" aria-label="Upcoming events">
+      <aside class="events">
         <h3>Upcoming Shows</h3>
-        <div id="events" class="events-list">
-          <!-- filled by JS -->
-        </div>
+        <div id="events"></div>
         <div class="cal-links">
-          <a href="https://calendar.google.com/calendar/u/0?cid=timbeckmanmusic@gmail.com" target="_blank" rel="noopener">
-            Open full calendar
-          </a>
+          <a href="https://calendar.google.com/calendar/u/0?cid=timbeckmanmusic@gmail.com" target="_blank">Full Calendar</a>
         </div>
       </aside>
     </div>
   </section>
-  <!-- CONTACT -->
-  <section id="contact" class="contact">
-    <div class="contact-inner">
-      <!-- LEFT: form -->
-      <div class="contact-card">
-        <h2>Get in Touch</h2>
-        <p class="lead">
-          Booking, studio work, questions, or just want to talk guitars? Drop me a note below.
-        </p>
 
-        <!-- mailto-based form -->
-        <form
-          class="contact-form"
-          action="mailto:timbeckmanmusic@gmail.com"
-          method="POST"
-          enctype="text/plain"
-        >
-          <label for="name">Name</label>
-          <input id="name" name="Name" type="text" placeholder="Your name" required />
+  <!-- YOUTUBE + CALENDAR SCRIPTS -->
+  <script>
+    const API="AIzaSyCPo9SSELKsjj-EZpTziwZbwLFuLZUBitU";
+    const CH="UCr94kpV8B3v6tGQPJ8pf0iQ";
+    const CAL="timbeckmanmusic@gmail.com";
 
-          <label for="email">Email</label>
-          <input id="email" name="Email" type="email" placeholder="you@example.com" required />
+    (async function loadYT(){
+      const iframe=document.getElementById("yt-random");
+      const res=await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet,id&order=date&maxResults=10&type=video&channelId=${CH}&key=${API}`);
+      const data=await res.json();
+      const vids=data.items.filter(v=>v.id.videoId);
+      const pick=vids[Math.floor(Math.random()*vids.length)].id.videoId;
+      iframe.src=`https://www.youtube-nocookie.com/embed/${pick}`;
+    })();
 
-          <label for="subject">Subject</label>
-          <input id="subject" name="Subject" type="text" placeholder="Booking, studio session, etc." />
+    (async function loadCal(){
+      const box=document.getElementById("events");
+      box.innerHTML="Loading…";
 
-          <label for="message">Message</label>
-          <textarea id="message" name="Message" placeholder="Tell me what you're looking for..." required></textarea>
+      const res=await fetch(`https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CAL)}/events?singleEvents=true&orderBy=startTime&maxResults=3&timeMin=${encodeURIComponent(new Date().toISOString())}&key=${API}`);
+      const data=await res.json();
+      const items=data.items||[];
 
-          <button type="submit" class="btn-send">Send Message</button>
-        </form>
+      box.innerHTML=items.map(ev=>{
+        const d=new Date(ev.start.dateTime||ev.start.date);
+        const date=d.toLocaleString("en-US",{month:"short",day:"numeric",weekday:"short"});
+        return `
+          <div class="ev">
+            <div class="line1">${ev.summary}</div>
+            <div class="line2">${ev.location||"Location TBA"}</div>
+            <div class="meta">${date}</div>
+          </div>
+        `;
+      }).join("");
+    })();
+  </script>
 
-        <p style="font-size:12px;opacity:.7;margin-top:8px;">
-          Submitting will open your default email app with this info pre-filled.
-        </p>
-      </div>
+  <!-- GEAR SECTION -->
+  <section id="gear" class="gear">
+    <div class="gear-inner">
+      <h2>Gear I Actually Use</h2>
+      <p class="gear-lead">Black-and-white logos only. Because classy.</p>
 
-      <!-- RIGHT: socials + quick blurb -->
-      <div class="contact-card contact-side">
-        <p><strong>Prefer socials?</strong></p>
-        <p>You can always reach me or see what I’m up to here:</p>
+      <div class="brand-grid">
+        <div class="brand-card"><img src="/assets/brands/fender.png"><span>Fender</span></div>
+        <div class="brand-card"><img src="/assets/brands/martin.png"><span>Martin</span></div>
+        <div class="brand-card"><img src="/assets/brands/taylor.png"><span>Taylor</span></div>
+        <div class="brand-card"><img src="/assets/brands/prs.png"><span>PRS</span></div>
+        <div class="brand-card"><img src="/assets/brands/gretsch.png"><span>Gretsch</span></div>
 
-        <div class="social-icons footer-icons" aria-label="Social links (contact)">
-          <a href="https://instagram.com/timbeckmanmusic" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2A2.8 2.8 0 1 0 12 17.8 2.8 2.8 0 0 0 12 9.2zm5.4-1.6a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2z"/></svg>
-          </a>
-          <a href="https://facebook.com/timandkatieacoustic" target="_blank" rel="noopener" aria-label="Facebook">
-            <svg viewBox="0 0 24 24"><path d="M13 3h3a1 1 0 0 1 1 1v3h-3a2 2 0 0 0-2 2v3h5l-1 4h-4v8h-4v-8H6v-4h3V9a5 5 0 0 1 5-5z"/></svg>
-          </a>
-          <a href="https://youtube.com/@timbeckmanmusic" target="_blank" rel="noopener" aria-label="YouTube">
-            <svg viewBox="0 0 24 24"><path d="M23.5 7.6a3 3 0 0 0-2.1-2.1C19.5 5 12 5 12 5s-7.5 0-9.4.5A3 3 0 0 0 .5 7.6 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 4.4 3 3 0 0 0 2.1 2.1C4.5 19 12 19 12 19s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-4.4zM9.8 15.2V8.8L15.5 12l-5.7 3.2z"/></svg>
-          </a>
-          <a href="mailto:timbeckmanmusic@gmail.com" aria-label="Email">
-            <svg viewBox="0 0 24 24"><path d="M2 5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5zm2 0l8 6 8-6H4zm16 14V8l-8 6-8-6v11h16z"/></svg>
-          </a>
-        </div>
+        <div class="brand-card"><img src="/assets/brands/boss.png"><span>Boss</span></div>
+        <div class="brand-card"><img src="/assets/brands/line6.png"><span>Line 6</span></div>
+        <div class="brand-card"><img src="/assets/brands/wampler.png"><span>Wampler</span></div>
+        <div class="brand-card"><img src="/assets/brands/keeley.png"><span>Keeley</span></div>
 
-        <p>
-          Or email me directly at<br />
-          <a href="mailto:timbeckmanmusic@gmail.com">timbeckmanmusic@gmail.com</a>
-        </p>
+        <div class="brand-card"><img src="/assets/brands/universalaudio.png"><span>Universal Audio</span></div>
+        <div class="brand-card"><img src="/assets/brands/shure.png"><span>Shure</span></div>
+        <div class="brand-card"><img src="/assets/brands/behringer.png"><span>Behringer</span></div>
+        <div class="brand-card"><img src="/assets/brands/qsc.png"><span>QSC</span></div>
+
+        <div class="brand-card"><img src="/assets/brands/zildjian.png"><span>Zildjian</span></div>
+        <div class="brand-card"><img src="/assets/brands/evans.png"><span>Evans</span></div>
+        <div class="brand-card"><img src="/assets/brands/vicfirth.png"><span>Vic Firth</span></div>
+
+        <div class="brand-card"><img src="/assets/brands/ernieball.png"><span>Ernie Ball</span></div>
+        <div class="brand-card"><img src="/assets/brands/daddario.png"><span>D’Addario</span></div>
+
+        <div class="brand-card"><img src="/assets/brands/apple.png"><span>Apple</span></div>
+        <div class="brand-card"><img src="/assets/brands/logicpro.png"><span>Logic Pro</span></div>
+
+        <div class="brand-card"><img src="/assets/brands/alesis.png"><span>Alesis</span></div>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer id="site-footer" class="site">
-    <p><strong>Tim Beckman</strong></p>
-    <p><a href="mailto:timbeckmanmusic@gmail.com">timbeckmanmusic@gmail.com</a> · Maryland</p>
-
-    <div class="social-icons footer-icons" aria-label="Social links (footer)" style="margin-top:20px;">
-      <a href="https://instagram.com/timbeckmanmusic" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2A2.8 2.8 0 1 0 12 17.8 2.8 2.8 0 0 0 12 9.2zm5.4-1.6a1.1 1.1 0 1 0 0-2.2 1.1 1.1 0 0 0 0 2.2z"/></svg>
+  <footer id="contact" class="site">
+    <div class="footer-socials">
+      <a href="https://instagram.com/timbeckmanmusic" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"/></svg>
       </a>
-      <a href="https://facebook.com/timandkatieacoustic" target="_blank" rel="noopener" aria-label="Facebook">
-        <svg viewBox="0 0 24 24"><path d="M13 3h3a1 1 0 0 1 1 1v3h-3a2 2 0 0 0-2 2v3h5l-1 4h-4v8h-4v-8H6v-4h3V9a5 5 0 0 1 5-5z"/></svg>
+      <a href="https://facebook.com/timandkatieacoustic" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M13 3h3v3h-3v2h3v4h-3v8h-4v-8H6v-4h3V9a5 5 0 0 1 5-5z"/></svg>
       </a>
-      <a href="https://youtube.com/@timbeckmanmusic" target="_blank" rel="noopener" aria-label="YouTube">
-        <svg viewBox="0 0 24 24"><path d="M23.5 7.6a3 3 0 0 0-2.1-2.1C19.5 5 12 5 12 5s-7.5 0-9.4.5A3 3 0 0 0 .5 7.6 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 4.4 3 3 0 0 0 2.1 2.1C4.5 19 12 19 12 19s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-4.4zM9.8 15.2V8.8L15.5 12l-5.7 3.2z"/></svg>
+      <a href="https://youtube.com/@timbeckmanmusic" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M23 7a3 3 0 0 0-2-2C19 4 12 4 12 4S5 4 3 5a3 3 0 0 0-2 2 31 31 0 0 0 0 10 3 3 0 0 0 2 2c2 1 9 1 9 1s7 0 9-1a3 3 0 0 0 2-2 31 31 0 0 0 0-10zM9 15V9l6 3-6 3z"/></svg>
       </a>
-      <a href="mailto:timbeckmanmusic@gmail.com" aria-label="Email">
-        <svg viewBox="0 0 24 24"><path d="M2 5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5zm2 0l8 6 8-6H4zm16 14V8l-8 6-8-6v11h16z"/></svg>
+      <a href="mailto:timbeckmanmusic@gmail.com">
+        <svg viewBox="0 0 24 24"><path d="M2 5h20v14H2V5zm2 0l8 6 8-6H4z"/></svg>
       </a>
     </div>
 
-    <p style="opacity:.6;font-size:.9rem;margin-top:14px">© TB Music</p>
+    <p>© TB Music</p>
   </footer>
-
-  <!-- YT + CALENDAR SCRIPTS -->
-  <script>
-    const API_KEY = "AIzaSyCPo9SSELKsjj-EZpTziwZbwLFuLZUBitU";
-    const YT_CHANNEL_ID = "UCr94kpV8B3v6tGQPJ8pf0iQ";
-    const CALENDAR_ID = "timbeckmanmusic@gmail.com";
-
-    // YouTube: load latest uploads, pick one at random
-    (async function loadRandomVideo() {
-      const iframe = document.getElementById("yt-random");
-      if (!iframe) return;
-
-      try {
-        const url =
-          "https://www.googleapis.com/youtube/v3/search" +
-          "?part=snippet,id" +
-          "&order=date" +
-          "&maxResults=10" +
-          "&type=video" +
-          "&channelId=" + YT_CHANNEL_ID +
-          "&key=" + API_KEY;
-
-        const res = await fetch(url);
-        if (!res.ok) throw new Error("YouTube API error: " + res.status);
-        const data = await res.json();
-
-        const videos = (data.items || []).filter(
-          item => item.id && item.id.videoId
-        );
-        if (!videos.length) throw new Error("No videos returned");
-
-        const random = videos[Math.floor(Math.random() * videos.length)];
-        const id = random.id.videoId;
-        iframe.src = "https://www.youtube-nocookie.com/embed/" + id;
-      } catch (err) {
-        console.error("YT API error, falling back:", err);
-        iframe.src = "https://www.youtube.com/embed?listType=user_uploads&list=" + YT_CHANNEL_ID;
-      }
-    })();
-
-    // Google Calendar: upcoming events
-    (async function loadCalendarEvents() {
-      const container = document.getElementById("events");
-      if (!container) return;
-
-      container.innerHTML = `<div class="ev"><div class="line1">Loading shows…</div></div>`;
-
-      try {
-        const timeMin = encodeURIComponent(new Date().toISOString());
-        const url =
-          "https://www.googleapis.com/calendar/v3/calendars/" +
-          encodeURIComponent(CALENDAR_ID) +
-          "/events?key=" + API_KEY +
-          "&singleEvents=true" +
-          "&orderBy=startTime" +
-          "&timeMin=" + timeMin +
-          "&maxResults=3";
-
-        const res = await fetch(url);
-        if (!res.ok) throw new Error("Calendar API error: " + res.status);
-        const data = await res.json();
-        const items = (data.items || []).filter(ev => ev.status !== "cancelled");
-
-        if (!items.length) {
-          container.innerHTML = `<div class="ev">
-            <div class="line1">No upcoming shows on the calendar (yet).</div>
-            <div class="line2">Check back soon or open the full calendar.</div>
-          </div>`;
-          return;
-        }
-
-        const optsDateTime = { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" };
-        const optsDateOnly = { weekday: "short", month: "short", day: "numeric" };
-
-        container.innerHTML = items.map(ev => {
-          const start = ev.start && (ev.start.dateTime || ev.start.date);
-          let whenText = "";
-          if (start) {
-            const d = new Date(start);
-            whenText = ev.start.dateTime
-              ? d.toLocaleString("en-US", optsDateTime)
-              : d.toLocaleDateString("en-US", optsDateOnly);
-          }
-
-          const summary = ev.summary || "Untitled event";
-          const location = ev.location || "Location TBA";
-          const link = ev.htmlLink || "";
-
-          return `
-            <div class="ev">
-              <div class="line1">${summary}</div>
-              <div class="line2">${location}</div>
-              ${whenText ? `<div class="meta">${whenText}</div>` : ""}
-              ${link ? `<a class="cta" href="${link}" target="_blank" rel="noopener">Details</a>` : ""}
-            </div>
-          `;
-        }).join("");
-      } catch (err) {
-        console.error("Calendar API error:", err);
-        container.innerHTML = `<div class="ev">
-          <div class="line1">Couldn’t load shows from the calendar.</div>
-          <div class="line2">You can still open the full calendar using the button below.</div>
-        </div>`;
-      }
-    })();
-  </script>
- <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const toggle = document.getElementById("bio-toggle");
-    const extra  = document.getElementById("bio-extra");
-    if (!toggle || !extra) return;
-
-    let isOpen = false;
-
-    toggle.addEventListener("click", function () {
-      isOpen = !isOpen;
-      extra.style.display = isOpen ? "block" : "none";
-      toggle.textContent = isOpen ? "Read less" : "Read more";
-    });
-  });
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const toggle = document.getElementById("bio-toggle");
-    const extra  = document.getElementById("bio-extra");
-    if (!toggle || !extra) return;
-
-    // force hidden on load
-    extra.style.display = "none";
-    toggle.textContent = "Read more";
-
-    toggle.addEventListener("click", () => {
-      const isHidden = extra.style.display === "none";
-      extra.style.display = isHidden ? "block" : "none";
-      toggle.textContent = isHidden ? "Read less" : "Read more";
-    });
-  });
-</script>
-
 
 </body>
 </html>

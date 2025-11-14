@@ -530,8 +530,10 @@
   const API_KEY      = "AIzaSyCPo9SSELKsjj-EZpTziwZbwLFuLZUBitU";
   const YT_CHANNEL_ID = "UCr94kpV8B3v6tGQPJ8pf0iQ";
   const CALENDAR_ID   = "timbeckmanmusic@gmail.com";
+  const UPLOADS_FALLBACK_URL =
+    `https://www.youtube.com/embed?listType=user_uploads&list=${YT_CHANNEL_ID}`;
 
-  // --- YouTube: random recent *embeddable* video ---
+  // --- YouTube: random recent *embeddable* video, with safe fallback ---
   (async function loadRandomVideo() {
     const iframe = document.getElementById("yt-random");
     if (!iframe) return;
@@ -539,7 +541,7 @@
     try {
       const url =
         "https://www.googleapis.com/youtube/v3/search" +
-        "?part=snippet,id" +
+        "?part=snippet" +
         "&order=date" +
         "&maxResults=10" +
         "&type=video" +
@@ -550,21 +552,20 @@
       const res = await fetch(url);
       if (!res.ok) throw new Error("YouTube API error: " + res.status);
 
-      const data  = await res.json();
-      const vids  = (data.items || []).filter(
+      const data = await res.json();
+      const videos = (data.items || []).filter(
         item => item.id && item.id.videoId
       );
-      if (!vids.length) throw new Error("No embeddable videos returned");
+      if (!videos.length) throw new Error("No embeddable videos returned");
 
-      const random = vids[Math.floor(Math.random() * vids.length)];
-      const id     = random.id.videoId;
+      const random = videos[Math.floor(Math.random() * videos.length)];
+      const id = random.id.videoId;
 
       iframe.src = "https://www.youtube.com/embed/" + id;
     } catch (err) {
-      console.error("YT API error, falling back:", err);
-      // Fallback: uploads playlist embed
-      iframe.src =
-        "https://www.youtube.com/embed?listType=playlist&list=UUr94kpV8B3v6tGQPJ8pf0iQ";
+      console.error("YT API error, using uploads playlist instead:", err);
+      // This is the syntax that you confirmed works
+      iframe.src = UPLOADS_FALLBACK_URL;
     }
   })();
 

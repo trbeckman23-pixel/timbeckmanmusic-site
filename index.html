@@ -526,11 +526,15 @@
   <script>
     // --- YouTube: use uploads playlist (no API key needed) ---
     (function () {
-      const iframe = document.getElementById("yt-random");
-      if (!iframe) return;
-      iframe.src =
-        "https://www.youtube.com/embed?listType=user_uploads&list=UUr94kpV8B3v6tGQPJ8pf0iQ";
-    })();
+    const iframe = document.getElementById("yt-random");
+    if (!iframe) return;
+
+    // uploads playlist for channel UCr94kpV8B3v6tGQPJ8pf0iQ
+    const uploadsPlaylistId = "UUr94kpV8B3v6tGQPJ8pf0iQ";
+
+    iframe.src =
+      "https://www.youtube.com/embed/videoseries?list=" + uploadsPlaylistId;
+  })();
 
     // --- Google Calendar: next 3 upcoming shows ---
     const API_KEY = "AIzaSyCPo9SSELKsjj-EZpTziwZbwLFuLZUBitU";

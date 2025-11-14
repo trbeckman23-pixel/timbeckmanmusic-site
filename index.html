@@ -525,16 +525,16 @@
   <!-- YOUTUBE (playlist) + CALENDAR SCRIPTS -->
   <script>
     // --- YouTube: use uploads playlist (no API key needed) ---
-    (function () {
+    <script>
+  (function () {
     const iframe = document.getElementById("yt-random");
     if (!iframe) return;
 
-    // uploads playlist for channel UCr94kpV8B3v6tGQPJ8pf0iQ
-    const uploadsPlaylistId = "UUr94kpV8B3v6tGQPJ8pf0iQ";
-
-    iframe.src =
-      "https://www.youtube.com/embed/videoseries?list=" + uploadsPlaylistId;
+    const testVideoId = "ABCDEFG1234"; // replace with your real ID
+    iframe.src = "https://www.youtube.com/embed/" + testVideoId;
   })();
+</script>
+
 
     // --- Google Calendar: next 3 upcoming shows ---
     const API_KEY = "AIzaSyCPo9SSELKsjj-EZpTziwZbwLFuLZUBitU";

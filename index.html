@@ -20,7 +20,12 @@
     }
 
     *{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:'Montserrat',sans-serif;background:var(--cream);color:var(--ink);line-height:1.7;}
+    body{
+      font-family:'Montserrat',sans-serif;
+      background:var(--cream);
+      color:var(--ink);
+      line-height:1.7;
+    }
 
     /* NAV */
     .topnav{
@@ -39,7 +44,11 @@
     .nav-links a{
       color:var(--ink);text-decoration:none;font-weight:700;opacity:.9;
     }
-    .nav-links a:hover{text-decoration:underline;text-underline-offset:3px;opacity:1;}
+    .nav-links a:hover{
+      text-decoration:underline;
+      text-underline-offset:3px;
+      opacity:1;
+    }
 
     .menu-item{position:relative;}
     .submenu{
@@ -382,7 +391,7 @@
 
         <a href="https://youtube.com/@timbeckmanmusic" target="_blank" rel="noopener" aria-label="YouTube">
           <svg viewBox="0 0 24 24">
-            <path d="M23.5 7.6a3 3 0 0 0-2.1-2.1C19.5 5 12 5 12 5S4.5 5 2.6 5.5A3 3 0 0 0 .5 7.6 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 4.4 3 3 0 0 0 2.1 2.1C4.5 19 12 19 12 19s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-4.4zM9.8 15.2V8.8L15.5 12l-5.7 3.2z" />
+            <path d="M23.5 7.6a3 3 0 0 0-2.1-2.1C19.5 5 12 5 12 5s-7.5 0-9.4.5A3 3 0 0 0 .5 7.6 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 4.4 3 3 0 0 0 2.1 2.1C4.5 19 12 19 12 19s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-4.4zM9.8 15.2V8.8L15.5 12l-5.7 3.2z" />
           </svg>
         </a>
 
@@ -494,7 +503,16 @@
       <!-- LEFT: YouTube -->
       <div>
         <h2>Latest Videos</h2>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/izvHZKjJWgs?si=zVRy6XWjQaYJifty" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <div class="video-embed">
+          <iframe
+            src="https://www.youtube.com/embed/izvHZKjJWgs?si=zVRy6XWjQaYJifty"
+            title="YouTube video player"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
       </div>
 
       <!-- RIGHT: Upcoming Shows -->
@@ -514,21 +532,8 @@
     </div>
   </section>
 
-  <!-- YOUTUBE (playlist) + CALENDAR SCRIPTS -->
+  <!-- CALENDAR SCRIPT -->
   <script>
-    // --- YouTube: use uploads playlist (no API key needed) ---
-    <script>
-  (function () {
-    const iframe = document.getElementById("yt-random");
-    if (!iframe) return;
-
-    const testVideoId = "eQxlk97B8t4"; // replace with your real ID
-    iframe.src = "https://www.youtube.com/embed/"eQxlk97B8t4;
-  })();
-</script>
-
-
-    // --- Google Calendar: next 3 upcoming shows ---
     const API_KEY = "AIzaSyCPo9SSELKsjj-EZpTziwZbwLFuLZUBitU";
     const CALENDAR_ID = "timbeckmanmusic@gmail.com";
 

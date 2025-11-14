@@ -224,6 +224,33 @@
       filter:brightness(.94);
       transform:translateY(-1px);
     }
+    .bio-copy p{
+      margin-bottom:10px;
+    }
+
+    .bio-extra{
+      display:none;      /* important: starts hidden */
+      margin-top:6px;
+    }
+
+    .bio-toggle{
+      margin-top:12px;
+      border:none;
+      border-radius:999px;
+      padding:7px 16px;
+      font-size:14px;
+      font-weight:700;
+      font-family:'Montserrat',sans-serif;
+      cursor:pointer;
+      background:var(--brass);
+      color:#1a1a1a;
+      box-shadow:0 3px 10px rgba(0,0,0,.25);
+      transition:transform .15s ease, filter .15s ease;
+    }
+    .bio-toggle:hover{
+      filter:brightness(.94);
+      transform:translateY(-1px);
+    }
 
     }
 
@@ -533,10 +560,10 @@
     <img src="/assets/tim-headshot-pines.jpeg" alt="Tim Beckman with guitar" />
 
     <div class="about-overlay">
-      <h2>The Obligatory About Me Section</h2>
+      <h2 class="about-title">The Obligatory About Me Section</h2>
 
       <div class="bio-copy">
-        <!-- always-visible short bio -->
+        <!-- SHORT BIO (always visible) -->
         <p>
           I grew up in a house where guitars were basically furniture and someone was always
           singing — usually whether you wanted them to or not. My dad
@@ -555,35 +582,36 @@
           country roots, rock energy, and just enough sarcasm to keep things interesting.
         </p>
 
-        <!-- hidden long-form bio (revealed on “Read more”) -->
-      <div class="bio-extra" id="bio-extra">
-  <p>
-    Those early bar gigs are where I learned how to perform, how to read a room, and how
-    to keep going even when a monitor dies or a guy named “Big Ron” requests <em>Free
-    Bird</em> for the fourth time.
-  </p>
+        <!-- LONG BIO (starts hidden) -->
+        <div class="bio-extra" id="bio-extra">
+          <p>
+            Those early bar gigs are where I learned how to perform, how to read a room, and how
+            to keep going even when a monitor dies or a guy named “Big Ron” requests
+            <em>Free Bird</em> for the fourth time.
+          </p>
 
-  <p>
-    Since then, I’ve played pretty much everything with strings: guitar, bass, drums,
-    mandolin, harmonica, and just enough piano to fake being impressive. My influences are
-    all over the map — Garth Brooks, Alan Jackson, Brooks &amp; Dunn, SRV, Mark Knopfler,
-    Joe Walsh, Prince, Nirvana, Foo Fighters, and a healthy dose of 90s and 2000s rock and
-    hip hop.
-  </p>
+          <p>
+            Since then, I’ve played pretty much everything with strings: guitar, bass, drums,
+            mandolin, harmonica, and just enough piano to fake being impressive. My influences are
+            all over the map — Garth Brooks, Alan Jackson, Brooks &amp; Dunn, SRV, Mark Knopfler,
+            Joe Walsh, Prince, Nirvana, Foo Fighters, and a healthy dose of 90s and 2000s rock and
+            hip hop.
+          </p>
 
-  <p>
-    I play because music has always been the through-line in my life — the thing that
-    connects family, friends, strangers, and stories. I like songs with heart, guitars with
-    bite, and crowds that don’t take themselves too seriously… because I sure don’t.
-  </p>
-</div>
+          <p>
+            I play because music has always been the through-line in my life — the thing that
+            connects family, friends, strangers, and stories. I like songs with heart, guitars with
+            bite, and crowds that don’t take themselves too seriously… because I sure don’t.
+          </p>
+        </div>
 
-<button type="button" class="bio-toggle" id="bio-toggle">Read more</button>
-
+        <!-- TOGGLE BUTTON -->
+        <button type="button" class="bio-toggle" id="bio-toggle">Read more</button>
       </div>
     </div>
   </div>
 </section>
+
 
 
   <!-- WATCH + EVENTS -->
@@ -822,6 +850,23 @@
       isOpen = !isOpen;
       extra.style.display = isOpen ? "block" : "none";
       toggle.textContent = isOpen ? "Read less" : "Read more";
+    });
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.getElementById("bio-toggle");
+    const extra  = document.getElementById("bio-extra");
+    if (!toggle || !extra) return;
+
+    // force hidden on load
+    extra.style.display = "none";
+    toggle.textContent = "Read more";
+
+    toggle.addEventListener("click", () => {
+      const isHidden = extra.style.display === "none";
+      extra.style.display = isHidden ? "block" : "none";
+      toggle.textContent = isHidden ? "Read less" : "Read more";
     });
   });
 </script>

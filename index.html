@@ -119,26 +119,39 @@
       fill:#fff;
     }
 
-    /* ABOUT */
-    section.about-me{padding:90px 20px;background:var(--cream);}
-    .about-card{max-width:1100px;margin:0 auto;position:relative;}
+    /* ABOUT – side-by-side card */
+    section.about-me{
+      padding:90px 20px;
+      background:var(--cream);
+    }
+    .about-card{
+      max-width:1100px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) minmax(0, 1.3fr);
+      gap:32px;
+      align-items:center;
+    }
     .about-card img{
-      width:100%;height:auto;border-radius:18px;
+      width:100%;
+      height:auto;
+      border-radius:18px;
       box-shadow:0 10px 26px rgba(0,0,0,.22);
     }
-
     .about-overlay{
-      position:absolute;left:7%;right:7%;bottom:4%;
-      background:rgba(15,21,26,.82);border-radius:14px;
-      color:var(--cream);padding:20px;
-      backdrop-filter:blur(4px);
+      position:static;
+      background:#fff;
+      border-radius:14px;
+      color:var(--ink);
+      padding:24px 24px 20px;
+      box-shadow:0 10px 26px rgba(0,0,0,.06);
     }
     .about-overlay h2{
       font-family:var(--display);
       font-size:clamp(32px,3.5vw,46px);
       margin-bottom:12px;
+      color:var(--navy);
     }
-
     .bio-copy p{margin-bottom:10px;}
     .bio-extra{display:none;}
     .bio-toggle{
@@ -146,6 +159,16 @@
       padding:7px 16px;border-radius:999px;border:none;
       font-weight:700;cursor:pointer;
       box-shadow:0 3px 10px rgba(0,0,0,.25);
+    }
+
+    @media(max-width:900px){
+      .about-card{
+        grid-template-columns:1fr;
+        gap:20px;
+      }
+      .about-overlay{
+        margin-top:8px;
+      }
     }
 
     /* WATCH SECTION */
@@ -388,7 +411,7 @@
     })();
   </script>
 
-    <!-- ABOUT -->
+  <!-- ABOUT -->
   <section id="about" class="about-me">
     <div class="about-card">
       <img src="/assets/tim-headshot-pines.jpeg" alt="Tim Beckman with guitar" />
@@ -446,9 +469,7 @@
     </div>
   </section>
 
-
   <!-- READ MORE SCRIPT -->
-    <!-- READ MORE SCRIPT -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const toggle = document.getElementById("bio-toggle");
@@ -468,7 +489,6 @@
     });
   </script>
 
-
   <!-- WATCH + SHOWS -->
   <section id="watch" class="watch">
     <div class="wrap">
@@ -486,8 +506,8 @@
         </div>
       </div>
 
-       <!-- RIGHT: Upcoming shows -->
-      <aside class="events" aria-label="Upcoming events">
+      <!-- RIGHT: Upcoming shows (anchor target for "Shows" in nav) -->
+      <aside id="shows" class="events" aria-label="Upcoming events">
         <h3>Upcoming Shows</h3>
         <div id="events" class="events-list"></div>
 
@@ -501,56 +521,79 @@
     </div>
   </section>
 
-  <!-- YOUTUBE + CALENDAR SCRIPTS -->
+  <!-- YOUTUBE + CALENDAR SCRIPTS (single, working version) -->
   <script>
-    const API="AIzaSyCPo9SSELKsjj-EZpTziwZbwLFuLZUBitU";
-    const CH="UCr94kpV8B3v6tGQPJ8pf0iQ";
-    const CAL="timbeckmanmusic@gmail.com";
+    const API = "AIzaSyCPo9SSELKsjj-EZpTziwZbwLFuLZUBitU";
+    const CH  = "UCr94kpV8B3v6tGQPJ8pf0iQ";
+    const CAL = "timbeckmanmusic@gmail.com";
 
-    // YouTube: random recent video (use regular youtube.com to avoid "unavailable")
+    // YouTube: random recent video (use regular youtube.com)
     (async function loadYT(){
-      const iframe=document.getElementById("yt-random");
+      const iframe = document.getElementById("yt-random");
+      if (!iframe) return;
+
       try {
-        const res=await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet,id&order=date&maxResults=10&type=video&channelId=${CH}&key=${API}`);
-        const data=await res.json();
-        const vids=(data.items||[]).filter(v=>v.id && v.id.videoId);
-        if(!vids.length) throw new Error("No videos");
-        const pick=vids[Math.floor(Math.random()*vids.length)].id.videoId;
-        iframe.src=`https://www.youtube.com/embed/${pick}`;
-      } catch(e){
-        console.error(e);
-        iframe.src=`https://www.youtube.com/embed?listType=user_uploads&list=${CH}`;
+        const res = await fetch(
+          `https://www.googleapis.com/youtube/v3/search?part=snippet,id&order=date&maxResults=10&type=video&channelId=${CH}&key=${API}`
+        );
+        const data  = await res.json();
+        const vids  = (data.items || []).filter(v => v.id && v.id.videoId);
+        if (!vids.length) throw new Error("No videos");
+
+        const pick = vids[Math.floor(Math.random() * vids.length)].id.videoId;
+        iframe.src = `https://www.youtube.com/embed/${pick}`;
+      } catch (e) {
+        console.error("YT fallback:", e);
+        iframe.src = `https://www.youtube.com/embed?listType=user_uploads&list=${CH}`;
       }
     })();
 
     // Google Calendar: next 3 shows
     (async function loadCal(){
-      const box=document.getElementById("events");
-      box.innerHTML="Loading…";
-      try{
-        const res=await fetch(
+      const box = document.getElementById("events");
+      if (!box) return;
+
+      box.innerHTML = "Loading…";
+
+      try {
+        const res = await fetch(
           `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CAL)}/events?singleEvents=true&orderBy=startTime&maxResults=3&timeMin=${encodeURIComponent(new Date().toISOString())}&key=${API}`
         );
-        const data=await res.json();
-        const items=data.items||[];
-        if(!items.length){
-          box.innerHTML="<div class='ev'><div class='line1'>No upcoming shows on the calendar (yet).</div></div>";
+        const data  = await res.json();
+        const items = data.items || [];
+        if (!items.length) {
+          box.innerHTML = `
+            <div class="ev">
+              <div class="line1">No upcoming shows on the calendar (yet).</div>
+            </div>`;
           return;
         }
-        box.innerHTML=items.map(ev=>{
-          const d=new Date(ev.start.dateTime||ev.start.date);
-          const date=d.toLocaleString("en-US",{month:"short",day:"numeric",weekday:"short"});
+
+        box.innerHTML = items.map(ev => {
+          const start = ev.start && (ev.start.dateTime || ev.start.date);
+          const d     = start ? new Date(start) : null;
+          const date  = d
+            ? d.toLocaleString("en-US", {
+                month: "short",
+                day: "numeric",
+                weekday: "short"
+              })
+            : "";
+
           return `
             <div class="ev">
-              <div class="line1">${ev.summary}</div>
-              <div class="line2">${ev.location||"Location TBA"}</div>
-              <div class="meta">${date}</div>
-            </div>
-          `;
+              <div class="line1">${ev.summary || "Untitled event"}</div>
+              <div class="line2">${ev.location || "Location TBA"}</div>
+              ${date ? `<div class="meta">${date}</div>` : ""}
+            </div>`;
         }).join("");
-      }catch(e){
-        console.error(e);
-        box.innerHTML="<div class='ev'><div class='line1'>Couldn’t load shows from the calendar.</div></div>";
+      } catch (e) {
+        console.error("Calendar error:", e);
+        box.innerHTML = `
+          <div class="ev">
+            <div class="line1">Couldn’t load shows from the calendar.</div>
+            <div class="line2">You can still open the full calendar using the button below.</div>
+          </div>`;
       }
     })();
   </script>
@@ -641,7 +684,7 @@
 
       <a href="https://youtube.com/@timbeckmanmusic" target="_blank" aria-label="YouTube">
         <svg viewBox="0 0 24 24">
-          <path d="M23.5 7.6a3 3 0 0 0-2.1-2.1C19.5 5 12 5 12 5s-7.5 0-9.4.5A3 3 0 0 0 .5 7.6 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 4.4 3 3 0 0 0 2.1 2.1C4.5 19 12 19 12 19s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-4.4zM9.8 15.2V8.8L15.5 12l-5.7 3.2z"/>
+          <path d="M23.5 7.6a3 3 0 0 0-2.1-2.1C19.5 5 12 5 12 5s-7.5 5-9.4.5A3 3 0 0 0 .5 7.6 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 4.4 3 3 0 0 0 2.1 2.1C4.5 19 12 19 12 19s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-4.4zM9.8 15.2V8.8L15.5 12l-5.7 3.2z"/>
         </svg>
       </a>
 
@@ -654,84 +697,6 @@
 
     <p>© TB Music</p>
   </footer>
-  <script>
-    const API = "AIzaSyCPo9SSELKsjj-EZpTziwZbwLFuLZUBitU";
-    const CH  = "UCr94kpV8B3v6tGQPJ8pf0iQ";
-    const CAL = "timbeckmanmusic@gmail.com";
-
-    // Load a random recent YouTube video
-    (async function loadYT(){
-      const iframe = document.getElementById("yt-random");
-      if (!iframe) return;
-
-      try {
-        const res = await fetch(
-          `https://www.googleapis.com/youtube/v3/search?part=snippet,id&order=date&maxResults=10&type=video&channelId=${CH}&key=${API}`
-        );
-        const data  = await res.json();
-        const vids  = (data.items || []).filter(v => v.id && v.id.videoId);
-
-        if (!vids.length) throw new Error("No videos");
-
-        const pick = vids[Math.floor(Math.random() * vids.length)].id.videoId;
-        iframe.src  = `https://www.youtube-nocookie.com/embed/${pick}`;
-      } catch (e) {
-        console.error("YT fallback:", e);
-        iframe.src = `https://www.youtube.com/embed?listType=user_uploads&list=${CH}`;
-      }
-    })();
-
-    // Load next 3 Google Calendar events
-    (async function loadCal(){
-      const box = document.getElementById("events");
-      if (!box) return;
-
-      box.innerHTML = "Loading…";
-
-      try {
-        const res = await fetch(
-          `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CAL)}/events?singleEvents=true&orderBy=startTime&maxResults=3&timeMin=${encodeURIComponent(new Date().toISOString())}&key=${API}`
-        );
-        const data  = await res.json();
-        const items = data.items || [];
-
-        if (!items.length) {
-          box.innerHTML = `
-            <div class="ev">
-              <div class="line1">No upcoming shows on the calendar (yet).</div>
-            </div>`;
-          return;
-        }
-
-        box.innerHTML = items.map(ev => {
-          const start = ev.start && (ev.start.dateTime || ev.start.date);
-          const d     = start ? new Date(start) : null;
-          const date  = d
-            ? d.toLocaleString("en-US", {
-                month: "short",
-                day: "numeric",
-                weekday: "short"
-              })
-            : "";
-
-          return `
-            <div class="ev">
-              <div class="line1">${ev.summary || "Untitled event"}</div>
-              <div class="line2">${ev.location || "Location TBA"}</div>
-              ${date ? `<div class="meta">${date}</div>` : ""}
-              ${ev.htmlLink ? `<a class="cta" href="${ev.htmlLink}" target="_blank" rel="noopener">Details</a>` : ""}
-            </div>`;
-        }).join("");
-      } catch (e) {
-        console.error("Calendar error:", e);
-        box.innerHTML = `
-          <div class="ev">
-            <div class="line1">Couldn’t load shows from the calendar.</div>
-            <div class="line2">You can still open the full calendar using the button below.</div>
-          </div>`;
-      }
-    })();
-  </script>
 
 </body>
 </html>

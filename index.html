@@ -528,25 +528,41 @@
     const CAL = "timbeckmanmusic@gmail.com";
 
     // YouTube: random recent video (use regular youtube.com)
-    (async function loadYT(){
-      const iframe = document.getElementById("yt-random");
-      if (!iframe) return;
+   // YouTube: random recent *embeddable* video
+(async function loadYT(){
+  const iframe = document.getElementById("yt-random");
+  if (!iframe) return;
 
-      try {
-        const res = await fetch(
-          `https://www.googleapis.com/youtube/v3/search?part=snippet,id&order=date&maxResults=10&type=video&channelId=${CH}&key=${API}`
-        );
-        const data  = await res.json();
-        const vids  = (data.items || []).filter(v => v.id && v.id.videoId);
-        if (!vids.length) throw new Error("No videos");
+  try {
+    const res = await fetch(
+      `https://www.googleapis.com/youtube/v3/search` +
+      `?part=snippet` +
+      `&order=date` +
+      `&maxResults=10` +
+      `&type=video` +
+      `&videoEmbeddable=true` +
+      `&channelId=${CH}` +
+      `&key=${API}`
+    );
 
-        const pick = vids[Math.floor(Math.random() * vids.length)].id.videoId;
-        iframe.src = `https://www.youtube.com/embed/${pick}`;
-      } catch (e) {
-        console.error("YT fallback:", e);
-        iframe.src = `https://www.youtube.com/embed?listType=user_uploads&list=${CH}`;
-      }
-    })();
+    if (!res.ok) throw new Error("YouTube API error: " + res.status);
+    const data  = await res.json();
+
+    // only keep items with a videoId
+    const vids  = (data.items || []).filter(
+      v => v.id && v.id.videoId
+    );
+    if (!vids.length) throw new Error("No embeddable videos returned");
+
+    // pick one at random
+    const pick = vids[Math.floor(Math.random() * vids.length)].id.videoId;
+    iframe.src = `https://www.youtube.com/embed/${pick}`;
+  } catch (e) {
+    console.error("YT API error, falling back:", e);
+    // Fallback: uploads playlist using playlist embed
+    iframe.src = "https://www.youtube.com/embed?listType=playlist&list=UUr94kpV8B3v6tGQPJ8pf0iQ";
+  }
+})();
 
     // Google Calendar: next 3 shows
     (async function loadCal(){

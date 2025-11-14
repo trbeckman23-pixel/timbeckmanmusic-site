@@ -6,7 +6,7 @@
   <title>Tim Beckman Music</title>
   <meta name="description" content="Tim Beckman is a Maryland musician blending Appalachian roots with modern acoustic sound." />
 
-  <!-- Fonts (Correct Fonts version) -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
@@ -15,18 +15,12 @@
       --navy:#1c2a35;
       --brass:#bca87f;
       --ink:#131a20;
-      --display:'Caveat', cursive;  /* script font for headers/nav */
+      --display:'Caveat', cursive;
       --hero-bg:#0f151a;
     }
 
     *{box-sizing:border-box;margin:0;padding:0;}
-    body{
-      font-family:'Montserrat',sans-serif;
-      background:var(--cream);
-      color:var(--ink);
-      line-height:1.7;
-      font-size:16.5px;
-    }
+    body{font-family:'Montserrat',sans-serif;background:var(--cream);color:var(--ink);line-height:1.7;}
 
     /* NAV */
     .topnav{
@@ -45,11 +39,7 @@
     .nav-links a{
       color:var(--ink);text-decoration:none;font-weight:700;opacity:.9;
     }
-    .nav-links a:hover{
-      text-decoration:underline;
-      text-underline-offset:3px;
-      opacity:1;
-    }
+    .nav-links a:hover{text-decoration:underline;text-underline-offset:3px;opacity:1;}
 
     .menu-item{position:relative;}
     .submenu{
@@ -112,7 +102,7 @@
       width:44px;
       height:44px;
       border-radius:50%;
-      background:#000;              /* solid black for max contrast */
+      background:#000;
       transition:transform .2s ease, background .2s ease;
     }
 
@@ -126,10 +116,10 @@
     .footer-social svg{
       width:22px;
       height:22px;
-      fill:#fff;                    /* Instagram uses stroke overrides below */
+      fill:#fff;
     }
 
-    /* ABOUT – overlay layout from About Me file */
+    /* ABOUT */
     section.about-me{padding:90px 20px;background:var(--cream);}
     .about-card{max-width:1100px;margin:0 auto;position:relative;}
     .about-card img{
@@ -169,23 +159,13 @@
       font-size:clamp(28px,3vw,40px);
       color:var(--navy);margin-bottom:10px;
     }
-
     .video-embed{
-      position:relative;
-      width:100%;
-      padding-bottom:56.25%;          /* 16:9 */
-      border-radius:14px;
-      overflow:hidden;
-      background:#000;
+      position:relative;width:100%;padding-bottom:56.25%;
+      border-radius:14px;overflow:hidden;background:#000;
       box-shadow:0 6px 24px rgba(0,0,0,.18);
     }
     .video-embed iframe{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      border:0;                       /* ensure video fills box cleanly */
-      display:block;
+      position:absolute;inset:0;width:100%;height:100%;border:0;
     }
 
     /* EVENTS SECTION */
@@ -207,8 +187,23 @@
     .ev .line1{font-weight:800;}
     .ev .line2{opacity:.85;}
     .ev .meta{font-size:13px;opacity:.7;margin-top:6px;}
+    .cal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+    }
+    .cal-links a{
+      font-weight:700;
+      text-decoration:none;
+      background:var(--brass);
+      color:#1a1a1a;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.12);
+    }
 
-    /* GEAR SECTION (unchanged) */
+    /* GEAR SECTION */
     section.gear{
       background:var(--cream);
       padding:80px 20px;text-align:center;
@@ -241,6 +236,67 @@
       max-width:90px;max-height:40px;filter:grayscale(100%);opacity:.9;
     }
 
+    /* CONTACT SECTION */
+    section.contact{
+      background:var(--cream);
+      padding:80px 20px;
+    }
+    .contact-inner{
+      max-width:700px;
+      margin:0 auto;
+    }
+    .contact-inner h2{
+      font-family:var(--display);
+      font-size:clamp(28px,3vw,40px);
+      color:var(--navy);
+      margin-bottom:16px;
+      text-align:center;
+    }
+    .contact-inner p{
+      text-align:center;
+      margin-bottom:20px;
+    }
+    .contact-form{
+      display:grid;
+      gap:14px;
+    }
+    .contact-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+    }
+    .contact-form label{
+      font-weight:600;
+      font-size:14px;
+    }
+    .contact-form input,
+    .contact-form textarea{
+      width:100%;
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid rgba(0,0,0,.18);
+      font-family:'Montserrat',sans-serif;
+      font-size:15px;
+    }
+    .contact-form textarea{
+      min-height:120px;
+      resize:vertical;
+    }
+    .contact-form button{
+      margin-top:4px;
+      align-self:flex-start;
+      background:var(--brass);
+      color:#1a1a1a;
+      border:none;
+      border-radius:999px;
+      padding:9px 18px;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .contact-form button:hover{
+      filter:brightness(.94);
+    }
+
     /* FOOTER */
     footer.site{
       background:#0e1317;color:#cfd7dd;
@@ -259,14 +315,15 @@
         <li class="menu-item">
           <a href="#" class="menu-label">My Music</a>
           <ul class="submenu">
-            <li><a href="tim-and-katie.html">Tim &amp; Katie</a></li>
-            <li><a href="boathouse.html">Boathouse</a></li>
-            <li><a href="solo.html">Solo Act</a></li>
+            <li><a href="https://www.facebook.com/timandkatieacoustic" target="_blank" rel="noopener">Tim &amp; Katie</a></li>
+            <li><a href="https://www.facebook.com/boathouseband" target="_blank" rel="noopener">Boathouse</a></li>
+            <li><a href="https://instagram.com/timbeckmanmusic" target="_blank" rel="noopener">Solo Act</a></li>
             <li><a href="studio.html">Studio / Session Work</a></li>
           </ul>
         </li>
         <li><a href="#about">About</a></li>
         <li><a href="#watch">Watch</a></li>
+        <li><a href="#shows">Shows</a></li>
         <li><a href="#gear">Gear</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -375,7 +432,7 @@
     });
   </script>
 
-  <!-- WATCH + EVENTS -->
+  <!-- WATCH + SHOWS -->
   <section id="watch" class="watch">
     <div class="wrap">
       <div>
@@ -385,11 +442,12 @@
         </div>
       </div>
 
-      <aside class="events">
+      <!-- Give this an id so the "Shows" nav can target it -->
+      <aside id="shows" class="events" aria-label="Upcoming shows">
         <h3>Upcoming Shows</h3>
         <div id="events"></div>
         <div class="cal-links">
-          <a href="https://calendar.google.com/calendar/u/0?cid=timbeckmanmusic@gmail.com" target="_blank">Full Calendar</a>
+          <a href="https://calendar.google.com/calendar/u/0?cid=timbeckmanmusic@gmail.com" target="_blank">Open full calendar</a>
         </div>
       </aside>
     </div>
@@ -401,6 +459,7 @@
     const CH="UCr94kpV8B3v6tGQPJ8pf0iQ";
     const CAL="timbeckmanmusic@gmail.com";
 
+    // YouTube: random recent video (use regular youtube.com to avoid "unavailable")
     (async function loadYT(){
       const iframe=document.getElementById("yt-random");
       try {
@@ -409,13 +468,14 @@
         const vids=(data.items||[]).filter(v=>v.id && v.id.videoId);
         if(!vids.length) throw new Error("No videos");
         const pick=vids[Math.floor(Math.random()*vids.length)].id.videoId;
-        iframe.src=`https://www.youtube-nocookie.com/embed/${pick}`;
+        iframe.src=`https://www.youtube.com/embed/${pick}`;
       } catch(e){
         console.error(e);
         iframe.src=`https://www.youtube.com/embed?listType=user_uploads&list=${CH}`;
       }
     })();
 
+    // Google Calendar: next 3 shows
     (async function loadCal(){
       const box=document.getElementById("events");
       box.innerHTML="Loading…";
@@ -486,8 +546,34 @@
     </div>
   </section>
 
+  <!-- CONTACT SECTION -->
+  <section id="contact" class="contact">
+    <div class="contact-inner">
+      <h2>Get in Touch</h2>
+      <p>Booking, studio work, or just want to talk gear? Drop a note below.</p>
+
+      <form class="contact-form" action="mailto:timbeckmanmusic@gmail.com" method="POST" enctype="text/plain">
+        <div class="contact-row">
+          <div style="flex:1 1 200px;">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" required />
+          </div>
+          <div style="flex:1 1 200px;">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required />
+          </div>
+        </div>
+        <div>
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </section>
+
   <!-- FOOTER -->
-  <footer id="contact" class="site">
+  <footer class="site">
     <div class="footer-social">
       <a href="https://instagram.com/timbeckmanmusic" target="_blank" rel="noopener" aria-label="Instagram">
         <svg viewBox="0 0 24 24">
@@ -507,7 +593,7 @@
 
       <a href="https://youtube.com/@timbeckmanmusic" target="_blank" aria-label="YouTube">
         <svg viewBox="0 0 24 24">
-          <path d="M23.5 7.6a3 3 0 0 0-2.1-2.1C19.5 5 12 5 12 5s-7.5 5-9.4.5A3 3 0 0 0 .5 7.6 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 4.4 3 3 0 0 0 2.1 2.1C4.5 19 12 19 12 19s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-4.4zM9.8 15.2V8.8L15.5 12l-5.7 3.2z"/>
+          <path d="M23.5 7.6a3 3 0 0 0-2.1-2.1C19.5 5 12 5 12 5s-7.5 0-9.4.5A3 3 0 0 0 .5 7.6 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 4.4 3 3 0 0 0 2.1 2.1C4.5 19 12 19 12 19s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-4.4zM9.8 15.2V8.8L15.5 12l-5.7 3.2z"/>
         </svg>
       </a>
 

@@ -541,49 +541,18 @@ const FALLBACK_VIDEO_ID = "REPLACE_THIS_WITH_A_VIDEO_ID";
 // e.g. from a YouTube URL https://youtu.be/XXXXXXXXXXX use just XXXXXXXX
 
   // ---- YouTube Data API: load latest uploads, pick one at random ----
-(async function loadRandomVideo() {
-  const iframe = document.getElementById("yt-random");
-  if (!iframe) return;
+<script>
+  // Simple loader: always show channel uploads playlist
+  (function () {
+    const iframe = document.getElementById("yt-random");
+    if (!iframe) return;
 
-  try {
-    const url =
-      "https://www.googleapis.com/youtube/v3/search" +
-      "?part=snippet,id" +
-      "&order=date" +
-      "&maxResults=10" +
-      "&type=video" +
-      "&channelId=" + YT_CHANNEL_ID +
-      "&key=" + API_KEY;
+    // This is the exact syntax you confirmed works earlier
+    iframe.src =
+      "https://www.youtube.com/embed?listType=user_uploads&list=UCr94kpV8B3v6tGQPJ8pf0iQ";
+  })();
+</script>
 
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("YouTube API error: " + res.status);
-    const data = await res.json();
-
-    const videos = (data.items || []).filter(
-      item => item.id && item.id.videoId
-    );
-    if (!videos.length) throw new Error("No videos returned");
-
-    const random = videos[Math.floor(Math.random() * videos.length)];
-    const id = random.id.videoId;
-
-    // Normal happy path: random latest upload
-    iframe.src = "https://www.youtube-nocookie.com/embed/" + id;
-  } catch (err) {
-    console.error("YT API error, falling back:", err);
-
-    // First try: uploads playlist embed (should show all uploads)
-    if (UPLOADS_FALLBACK_URL) {
-      iframe.src = UPLOADS_FALLBACK_URL;
-    }
-
-    // Optional: if you set FALLBACK_VIDEO_ID above, force a single video
-    if (FALLBACK_VIDEO_ID && FALLBACK_VIDEO_ID !== "REPLACE_THIS_WITH_A_VIDEO_ID") {
-      iframe.src =
-        "https://www.youtube-nocookie.com/embed/" + FALLBACK_VIDEO_ID;
-    }
-  }
-})();
 
 
   // --- Google Calendar: next 3 upcoming shows ---

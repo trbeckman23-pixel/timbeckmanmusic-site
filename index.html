@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tim Beckman Music</title>
   <meta name="description" content="Tim Beckman is a Maryland musician blending Appalachian roots with modern acoustic sound." />
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@600;700&family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -15,45 +13,46 @@
       --navy:#1c2a35;
       --brass:#bca87f;
       --ink:#131a20;
-      --display:'Caveat', cursive;
       --hero-bg:#0f151a;
+      --script:'Nothing You Could Do', cursive;
+      --serif:'Playfair Display', serif;
     }
 
     *{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:'Montserrat',sans-serif;background:var(--cream);color:var(--ink);line-height:1.7;}
+    body{font-family:'Montserrat',sans-serif;background:var(--cream);color:var(--ink);line-height:1.7;font-size:16.5px;}
 
     /* NAV */
     .topnav{
       position:sticky;top:0;z-index:50;
       background:var(--cream);
-      border-bottom:1px solid rgba(0,0,0,.1);
+      border-bottom:1px solid rgba(0,0,0,.12);
     }
     .nav-inner{
       max-width:1100px;margin:0 auto;padding:12px 20px;
-      display:flex;justify-content:flex-end;
+      display:flex;align-items:center;justify-content:flex-end;
     }
     .nav-links{
-      list-style:none;display:flex;gap:22px;
-      font-family:var(--display);font-size:20px;
+      list-style:none;display:flex;align-items:center;gap:22px;
+      font-family:var(--serif);text-transform:uppercase;letter-spacing:.8px;font-weight:700;
     }
     .nav-links a{
-      color:var(--ink);text-decoration:none;font-weight:700;opacity:.9;
+      color:var(--ink);text-decoration:none;opacity:.9;padding:8px 4px;
     }
-    .nav-links a:hover{text-decoration:underline;text-underline-offset:3px;opacity:1;}
+    .nav-links a:hover{opacity:1;text-decoration:underline;text-underline-offset:3px;}
 
     .menu-item{position:relative;}
     .submenu{
-      position:absolute;top:100%;left:0;min-width:200px;
-      background:#fff;border:1px solid rgba(0,0,0,.15);
-      border-radius:10px;padding:8px;display:none;z-index:100;
+      position:absolute;top:100%;left:0;min-width:220px;
+      background:#fff;border:1px solid rgba(0,0,0,.12);border-radius:10px;padding:8px;
+      list-style:none;margin-top:8px;display:none;z-index:100;
       box-shadow:0 12px 30px rgba(0,0,0,.15);
     }
     .submenu li a{
-      display:block;padding:10px;border-radius:8px;color:var(--ink);font-size:15px;
-      font-family:'Montserrat',sans-serif;
+      display:block;padding:10px 12px;border-radius:8px;color:#000;font-weight:600;
     }
-    .submenu li a:hover{background:rgba(0,0,0,.08);}
-    .menu-item:hover .submenu{display:block;}
+    .submenu li a:hover{background:rgba(0,0,0,.06);}
+    .menu-item:hover .submenu,
+    .menu-item:focus-within .submenu{display:block;}
 
     /* HERO */
     header.hero{
@@ -61,194 +60,101 @@
       overflow:hidden;text-align:center;
     }
     .hero-bg{
-      position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+      position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:center;
+      background:var(--hero-bg);
     }
     .hero-bg img{
       max-width:100%;max-height:100%;object-fit:contain;
-      filter:grayscale(100%) contrast(1.05) brightness(.9);
+      filter:grayscale(100%) contrast(1.1) brightness(.92);
     }
-    .hero::before,.hero::after{
+
+    /* borders */
+    .hero::before,
+    .hero::after{
       content:"";position:absolute;left:0;right:0;height:6px;z-index:2;background:var(--hero-bg);
     }
     .hero::before{top:0;border-bottom:1px solid var(--brass);}
     .hero::after{bottom:0;border-top:1px solid var(--brass);}
 
+    /* logo + socials */
     .hero-center{
-      position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-      display:flex;flex-direction:column;align-items:center;gap:16px;
-      opacity:0;animation:fadeIn 2.8s cubic-bezier(.22,.61,.36,1) forwards .25s;
+      position:absolute;left:50%;top:50%;
+      transform:translate(-50%,-50%);
+      z-index:3;display:flex;flex-direction:column;align-items:center;gap:16px;
+      opacity:0;animation:fadeIn 2.8s ease forwards .25s;
     }
     @keyframes fadeIn{
       from{opacity:0;transform:translate(-50%,-48%);}
       to{opacity:1;transform:translate(-50%,-50%);}
     }
     .hero-center img{
-      width:clamp(180px,26vw,450px);height:auto;
+      width:clamp(190px,26vw,470px);
+      height:auto;
     }
 
-    /* SHARED SOCIAL ICON STYLES (hero + footer) */
-    .social-icons,
-    .footer-social{
-      display:flex;
-      justify-content:center;
-      gap:20px;
+    /* social icons (crisper) */
+    .icon-btn{
+      width:38px;height:38px;display:flex;align-items:center;justify-content:center;
+      border-radius:50%;background:rgba(255,255,255,.15);
+      backdrop-filter:blur(6px);
+      box-shadow:0 2px 6px rgba(0,0,0,.4);
+      transition:.2s;
     }
-
-    .social-icons a,
-    .footer-social a{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      width:44px;
-      height:44px;
-      border-radius:50%;
-      background:#000;              /* solid black for max contrast */
-      transition:transform .2s ease, background .2s ease;
+    .icon-btn svg{
+      width:20px;height:20px;fill:#fff;stroke:#fff;stroke-width:1.5;
     }
-
-    .social-icons a:hover,
-    .footer-social a:hover{
-      transform:translateY(-3px);
-      background:#222;
-    }
-
-    .social-icons svg,
-    .footer-social svg{
-      width:22px;
-      height:22px;
-      fill:#fff;                    /* overridden by stroke where needed */
-    }
-
-    /* ABOUT */
-    section.about-me{padding:90px 20px;background:var(--cream);}
-    .about-card{max-width:1100px;margin:0 auto;position:relative;}
-    .about-card img{
-      width:100%;height:auto;border-radius:18px;
-      box-shadow:0 10px 26px rgba(0,0,0,.22);
-    }
-
-    .about-overlay{
-      position:absolute;left:7%;right:7%;bottom:4%;
-      background:rgba(15,21,26,.82);border-radius:14px;
-      color:var(--cream);padding:20px;
-      backdrop-filter:blur(4px);
-    }
-    .about-overlay h2{
-      font-family:var(--display);
-      font-size:clamp(32px,3.5vw,46px);
-      margin-bottom:12px;
-    }
-
-    .bio-copy p{margin-bottom:10px;}
-    .bio-extra{display:none;}
-    .bio-toggle{
-      margin-top:10px;background:var(--brass);
-      padding:7px 16px;border-radius:999px;border:none;
-      font-weight:700;cursor:pointer;
-      box-shadow:0 3px 10px rgba(0,0,0,.25);
-    }
-
-    /* WATCH SECTION */
-    section.watch{background:var(--cream);padding:80px 20px;}
-    .watch .wrap{
-      max-width:1100px;margin:0 auto;
-      display:grid;grid-template-columns:1.5fr 1fr;gap:28px;
-    }
-    .watch h2{
-      font-family:var(--display);
-      font-size:clamp(28px,3vw,40px);
-      color:var(--navy);margin-bottom:10px;
-    }
-    .video-embed{
-      position:relative;width:100%;padding-bottom:56.25%;
-      border-radius:14px;overflow:hidden;background:#000;
-      box-shadow:0 6px 24px rgba(0,0,0,.18);
-    }
-    .video-embed iframe{
-      position:absolute;inset:0;width:100%;height:100%;
-    }
-
-    /* EVENTS SECTION */
-    .events{
-      background:#fff;border-radius:14px;
-      border:1px solid rgba(0,0,0,.08);padding:16px;
-      box-shadow:0 8px 20px rgba(0,0,0,.06);
-    }
-    .events h3{
-      font-family:var(--display);
-      font-size:clamp(24px,3vw,32px);
-      color:var(--navy);margin-bottom:12px;
-    }
-    .ev{
-      padding:12px;border-radius:12px;
-      border:1px dashed rgba(0,0,0,.12);
-      background:#fafafa;margin-bottom:10px;
-    }
-    .ev .line1{font-weight:800;}
-    .ev .line2{opacity:.85;}
-    .ev .meta{font-size:13px;opacity:.7;margin-top:6px;}
-
-    /* GEAR SECTION */
-    section.gear{
-      background:var(--cream);
-      padding:80px 20px;text-align:center;
-    }
-    .gear-inner{max-width:1100px;margin:0 auto;}
-    .gear h2{
-      font-family:var(--display);
-      font-size:clamp(28px,3.2vw,40px);
-      margin-bottom:6px;color:var(--navy);
-    }
-    .gear-lead{
-      font-size:16px;opacity:.85;margin-bottom:30px;
-    }
-
-    .brand-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-      gap:22px;
-    }
-    .brand-card{
-      background:#fff;border-radius:16px;padding:18px 12px 14px;
-      box-shadow:0 8px 20px rgba(0,0,0,.08);
-      display:flex;flex-direction:column;align-items:center;
-      transition:.3s;
-    }
-    .brand-card:hover{
-      transform:translateY(-4px);box-shadow:0 12px 26px rgba(0,0,0,.12);
-    }
-    .brand-card img{
-      max-width:90px;max-height:40px;filter:grayscale(100%);opacity:.9;
-    }
-
-    /* FOOTER */
-    footer.site{
-      background:#0e1317;color:#cfd7dd;
-      text-align:center;padding:40px 20px;margin-top:40px;
-    }
-    footer.site p{font-size:15px;margin-top:8px;}
+    .icon-btn:hover{transform:translateY(-3px);background:rgba(255,255,255,.25);}
+    .social-icons{display:flex;gap:16px;}
   </style>
 </head>
-
 <body>
 
   <!-- NAV -->
   <nav class="topnav">
     <div class="nav-inner">
       <ul class="nav-links">
-        <li class="menu-item">
+        <li class="menu-item has-sub">
           <a href="#" class="menu-label">My Music</a>
           <ul class="submenu">
-            <li><a href="tim-and-katie.html">Tim & Katie</a></li>
-            <li><a href="boathouse.html">Boathouse</a></li>
-            <li><a href="solo.html">Solo Act</a></li>
-            <li><a href="studio.html">Studio / Session Work</a></li>
+            <!-- Tim & Katie → Facebook -->
+            <li>
+              <a href="https://www.facebook.com/timandkatieacoustic"
+                 target="_blank" rel="noopener">
+                Tim &amp; Katie
+              </a>
+            </li>
+
+            <!-- Boathouse → Facebook -->
+            <li>
+              <a href="https://www.facebook.com/boathouseband"
+                 target="_blank" rel="noopener">
+                Boathouse
+              </a>
+            </li>
+
+            <!-- Solo → Instagram -->
+            <li>
+              <a href="https://www.instagram.com/timbeckmanmusic"
+                 target="_blank" rel="noopener">
+                Solo Act
+              </a>
+            </li>
+
+            <!-- Studio (local page for later) -->
+            <li>
+              <a href="studio.html">
+                Studio / Session Work
+              </a>
+            </li>
           </ul>
         </li>
+
         <li><a href="#about">About</a></li>
         <li><a href="#watch">Watch</a></li>
+        <li><a href="#shows">Shows</a></li>
         <li><a href="#gear">Gear</a></li>
         <li><a href="#contact">Contact</a></li>
+
       </ul>
     </div>
   </nav>
@@ -256,250 +162,296 @@
   <!-- HERO -->
   <header class="hero">
     <div class="hero-bg">
-      <img id="hero-img" alt="" />
+      <img id="hero-img" alt="Hero Image" />
     </div>
 
     <div class="hero-center">
-      <img src="/assets/tb-logo.png" alt="TB Logo" />
+      <img src="/assets/tb-logo.png" alt="Tim Beckman Logo" />
 
-      <!-- HERO SOCIALS (same SVGs as footer) -->
-      <div class="social-icons" aria-label="Social links">
-        <a href="https://instagram.com/timbeckmanmusic" target="_blank" rel="noopener" aria-label="Instagram">
+      <div class="social-icons">
+        <a class="icon-btn" href="https://instagram.com/timbeckmanmusic" target="_blank" aria-label="Instagram">
           <svg viewBox="0 0 24 24">
-            <rect x="4.5" y="4.5" width="15" height="15" rx="4" ry="4"
-                  fill="none" stroke="#ffffff" stroke-width="2" />
-            <circle cx="12" cy="12" r="4"
-                    fill="none" stroke="#ffffff" stroke-width="2" />
-            <circle cx="17" cy="7" r="1.2" fill="#ffffff" />
+            <rect x="3" y="3" width="18" height="18" rx="4"/>
+            <circle cx="12" cy="12" r="3.3"/>
           </svg>
         </a>
 
-        <a href="https://facebook.com/timandkatieacoustic" target="_blank" rel="noopener" aria-label="Facebook">
+        <a class="icon-btn" href="https://facebook.com/timandkatieacoustic" target="_blank" aria-label="Facebook">
           <svg viewBox="0 0 24 24">
-            <path d="M13 3h3a1 1 0 0 1 1 1v3h-3a2 2 0 0 0-2 2v3h5l-1 4h-4v8h-4v-8H6v-4h3V9a5 5 0 0 1 5-5z"/>
+            <path d="M14 3h4v4h-3c-.6 0-1 .4-1 1v3h4l-1 4h-3v8h-4v-8H8v-4h3V8a5 5 0 0 1 5-5z"/>
           </svg>
         </a>
 
-        <a href="https://youtube.com/@timbeckmanmusic" target="_blank" rel="noopener" aria-label="YouTube">
+        <a class="icon-btn" href="https://youtube.com/@timbeckmanmusic" target="_blank" aria-label="YouTube">
           <svg viewBox="0 0 24 24">
-            <path d="M23.5 7.6a3 3 0 0 0-2.1-2.1C19.5 5 12 5 12 5S4.5 5 2.6 5.5A3 3 0 0 0 .5 7.6 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 4.4 3 3 0 0 0 2.1 2.1C4.5 19 12 19 12 19s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-4.4zM9.8 15.2V8.8L15.5 12l-5.7 3.2z" />
-          </svg>
-        </a>
-
-        <a href="mailto:timbeckmanmusic@gmail.com" aria-label="Email">
-          <svg viewBox="0 0 24 24">
-            <path d="M2 5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5zm2 0l8 6 8-6H4zm16 14V8l-8 6-8-6v11h16z"/>
+            <path d="M23 7s-.2-2-1-3c-.9-1-2-1-2.4-1.1C16.6 2.5 12 2.5 12 2.5s-4.6 0-7.6.4C3 3 1.9 3 1 4c-.8 1-1 3-1 3S0 9 0 12s.2 5 1 6c.9 1 2 1 2.4 1.1 3 .4 7.6.4 7.6.4s4.6 0 7.6-.4c.4 0 1.5 0 2.4-1.1 1-1 1-3 1-3s.2-2 .2-3-.2-3-.2-3zm-13 8V9l6 3-6 3z"/>
           </svg>
         </a>
       </div>
     </div>
   </header>
 
-  <!-- HERO IMAGE LOADER -->
-  <script>
-    (function(){
-      const hero=document.getElementById('hero-img');
-      const files=[
-        '/assets/hero-lake.webp',
-        '/assets/hero-lake.jpeg',
-        '/assets/hero-lake.jpg',
-        '/assets/hero-lake.JPG'
-      ];
-      let i=0;
-      function tryNext(){if(i>=files.length)return;hero.src=files[i++];hero.onerror=tryNext;}
-      tryNext();
-    })();
-  </script>
-
   <!-- ABOUT -->
-  <section id="about" class="about-me">
-    <div class="about-card">
-      <img src="/assets/tim-headshot-pines.jpeg" alt="Tim Beckman" />
+  <section id="about" class="about-me" style="padding:100px 20px; background:var(--cream); text-align:center;">
+    <h2 style="font-family:var(--script); font-size:clamp(38px,4vw,58px); margin-bottom:28px;">
+      The Obligatory About Me Section
+    </h2>
 
-      <div class="about-overlay">
-        <h2>The Obligatory About Me Section</h2>
+    <div class="about-flex" style="max-width:1100px; margin:0 auto; display:flex; flex-wrap:wrap; gap:40px; align-items:center; justify-content:center;">
 
-        <div class="bio-copy">
-          <p>I grew up in a house where guitars were basically furniture and someone was always singing — usually whether you wanted them to or not.</p>
+      <img src="/assets/tim-headshot-pines.jpeg"
+           alt="Tim Beckman Headshot"
+           style="width:clamp(260px,30vw,360px); border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.18);" />
 
-          <p>I started playing in bar bands at 16 with my oldest brother and have basically been making noise ever since.</p>
+      <div class="copy" style="max-width:620px; text-align:left; font-size:18px; line-height:1.75; color:var(--ink);">
 
-          <p>These days I split my time between Tim &amp; Katie, Boathouse, and solo shows — mixing country roots, rock energy, and sarcasm.</p>
+        <!-- Short Bio -->
+        <p id="bio-short">
+          I grew up in a house where guitars were basically furniture and someone was always singing — usually whether
+          you wanted them to or not. My dad played classic country, my brothers blasted Van Halen and AC/DC, and
+          somewhere between honky-tonk and hair metal, I decided I liked both. Started gigging in bars at 16 with my
+          oldest brother, and I’ve basically been making noise ever since.
+        </p>
 
-          <div class="bio-extra" id="bio-extra">
-            <p>Those early bar gigs taught me how to perform, how to read a room, and how to survive when a guy named Big Ron demands Free Bird for the fourth time.</p>
-            <p>I’ve played pretty much everything with strings and my influences are all over the map — Garth Brooks to SRV to Prince to Foo Fighters.</p>
-            <p>I like songs with heart, guitars with bite, and crowds that don’t take themselves too seriously… because I sure don’t.</p>
-          </div>
+        <!-- Full Bio (hidden initially) -->
+        <div id="bio-full" style="display:none; margin-top:16px;">
+          <p>
+            These days I sing and play guitar, bass, drums, harmonica, mandolin, and just enough piano to fake looking
+            talented. My influences bounce all over the map: Garth, Alan Jackson, Brooks & Dunn, Clapton, SRV, Knopfler,
+            Prince, Nirvana, Snoop… basically if it grooves or has a great guitar tone, I’m in.
+          </p>
 
-          <button type="button" id="bio-toggle" class="bio-toggle">Read more</button>
+          <p>
+            I split my time between multiple projects: <strong>Tim & Katie</strong> (acoustic duo), <strong>Boathouse</strong>
+            (full-band rock/country mayhem), and solo shows that land somewhere between storytelling and barroom rock.
+            I like songs with heart, guitars with bite, and crowds that don’t take themselves too seriously — because I sure don’t.
+          </p>
         </div>
+
+        <button id="bio-toggle" class="bio-toggle"
+          style="margin-top:12px; background:none; border:none; color:var(--navy); font-size:17px; font-weight:700; cursor:pointer; text-decoration:underline;">
+          Read more
+        </button>
+
       </div>
     </div>
   </section>
 
-  <!-- READ MORE SCRIPT -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const toggle=document.getElementById("bio-toggle");
-      const extra=document.getElementById("bio-extra");
-
-      extra.style.display="none";
-      toggle.textContent="Read more";
-
-      toggle.addEventListener("click",()=>{
-        const hidden=extra.style.display==="none";
-        extra.style.display=hidden?"block":"none";
-        toggle.textContent=hidden?"Read less":"Read more";
-      });
-    });
-  </script>
-
   <!-- WATCH + EVENTS -->
-  <section id="watch" class="watch">
-    <div class="wrap">
+  <section id="watch" class="watch" style="background:var(--cream); padding:80px 20px;">
+    <div class="wrap" style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1.5fr 1fr; gap:28px;">
+
+      <!-- LEFT: Latest YouTube -->
       <div>
-        <h2>Latest Videos</h2>
-        <div class="video-embed">
+        <h2 style="font-family:var(--serif); color:var(--navy); font-size:clamp(30px,3.2vw,42px); margin-bottom:14px;">
+          Latest Videos
+        </h2>
+
+        <div class="video-embed"
+             style="position:relative; width:100%; padding-bottom:56.25%; border-radius:14px; overflow:hidden; box-shadow:0 6px 24px rgba(0,0,0,.18); background:#000;">
           <iframe id="yt-random" allowfullscreen></iframe>
         </div>
       </div>
 
-      <aside class="events">
-        <h3>Upcoming Shows</h3>
-        <div id="events"></div>
-        <div class="cal-links">
-          <a href="https://calendar.google.com/calendar/u/0?cid=timbeckmanmusic@gmail.com" target="_blank">Full Calendar</a>
+      <!-- RIGHT: Upcoming Shows -->
+      <aside id="shows" class="events" style="background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:14px; padding:16px; box-shadow:0 8px 20px rgba(0,0,0,.06);">
+        <h3 style="font-family:var(--serif); font-size:clamp(24px,2.6vw,30px); color:var(--navy); margin-bottom:12px;">
+          Upcoming Shows
+        </h3>
+
+        <div id="events" class="events-list" style="display:flex; flex-direction:column; gap:12px;"></div>
+
+        <div class="cal-links" style="margin-top:14px;">
+          <a href="https://calendar.google.com/calendar/u/0?cid=timbeckmanmusic@gmail.com"
+             target="_blank" rel="noopener"
+             style="background:var(--brass); color:#1a1a1a; padding:10px 16px; border-radius:999px; font-weight:700; text-decoration:none;">
+            View Full Calendar
+          </a>
         </div>
       </aside>
+
     </div>
   </section>
 
-  <!-- YOUTUBE + CALENDAR SCRIPTS -->
-  <script>
-    const API="AIzaSyCPo9SSELKsjj-EZpTziwZbwLFuLZUBitU";
-    const CH="UCr94kpV8B3v6tGQPJ8pf0iQ";
-    const CAL="timbeckmanmusic@gmail.com";
+  <!-- GEAR -->
+  <section id="gear" style="padding:100px 20px; background:#fff; text-align:center;">
+    <h2 style="font-family:var(--script); font-size:clamp(38px,4vw,58px); margin-bottom:30px;">
+      Gear I Actually Use
+    </h2>
 
-    (async function loadYT(){
-      const iframe=document.getElementById("yt-random");
-      try {
-        const res=await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet,id&order=date&maxResults=10&type=video&channelId=${CH}&key=${API}`);
-        const data=await res.json();
-        const vids=(data.items||[]).filter(v=>v.id && v.id.videoId);
-        if(!vids.length) throw new Error("No videos");
-        const pick=vids[Math.floor(Math.random()*vids.length)].id.videoId;
-        iframe.src=`https://www.youtube-nocookie.com/embed/${pick}`;
-      } catch(e){
-        console.error(e);
-        iframe.src=`https://www.youtube.com/embed?listType=user_uploads&list=${CH}`;
-      }
-    })();
-
-    (async function loadCal(){
-      const box=document.getElementById("events");
-      box.innerHTML="Loading…";
-      try{
-        const res=await fetch(
-          `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CAL)}/events?singleEvents=true&orderBy=startTime&maxResults=3&timeMin=${encodeURIComponent(new Date().toISOString())}&key=${API}`
-        );
-        const data=await res.json();
-        const items=data.items||[];
-        if(!items.length){
-          box.innerHTML="<div class='ev'><div class='line1'>No upcoming shows on the calendar (yet).</div></div>";
-          return;
-        }
-        box.innerHTML=items.map(ev=>{
-          const d=new Date(ev.start.dateTime||ev.start.date);
-          const date=d.toLocaleString("en-US",{month:"short",day:"numeric",weekday:"short"});
-          return `
-            <div class="ev">
-              <div class="line1">${ev.summary}</div>
-              <div class="line2">${ev.location||"Location TBA"}</div>
-              <div class="meta">${date}</div>
-            </div>
-          `;
-        }).join("");
-      }catch(e){
-        console.error(e);
-        box.innerHTML="<div class='ev'><div class='line1'>Couldn’t load shows from the calendar.</div></div>";
-      }
-    })();
-  </script>
-
-  <!-- GEAR SECTION -->
-  <section id="gear" class="gear">
-    <div class="gear-inner">
-      <h2>Gear I Actually Use</h2>
-      <p class="gear-lead">Black-and-white logos only. Because classy.</p>
-
-      <div class="brand-grid">
-        <div class="brand-card"><img src="/assets/brands/fender.png" alt="Fender"></div>
-        <div class="brand-card"><img src="/assets/brands/martin.png" alt="Martin"></div>
-        <div class="brand-card"><img src="/assets/brands/taylor.png" alt="Taylor"></div>
-        <div class="brand-card"><img src="/assets/brands/prs.png" alt="PRS"></div>
-        <div class="brand-card"><img src="/assets/brands/gretsch.png" alt="Gretsch"></div>
-        <div class="brand-card"><img src="/assets/brands/ernieball.png" alt="Ernie Ball"></div>
-        <div class="brand-card"><img src="/assets/brands/daddario.png" alt="D'Addario"></div>
-
-        <div class="brand-card"><img src="/assets/brands/boss.png" alt="Boss"></div>
-        <div class="brand-card"><img src="/assets/brands/line6.png" alt="Line 6"></div>
-        <div class="brand-card"><img src="/assets/brands/wampler.png" alt="Wampler"></div>
-        <div class="brand-card"><img src="/assets/brands/keeley.png" alt="Keeley"></div>
-
-        <div class="brand-card"><img src="/assets/brands/universalaudio.png" alt="Universal Audio"></div>
-        <div class="brand-card"><img src="/assets/brands/sennheiser.png" alt="Sennheiser"></div>
-        <div class="brand-card"><img src="/assets/brands/shure.png" alt="Shure"></div>
-        <div class="brand-card"><img src="/assets/brands/behringer.png" alt="Behringer"></div>
-        <div class="brand-card"><img src="/assets/brands/qsc.png" alt="QSC"></div>
-
-        <div class="brand-card"><img src="/assets/brands/zildjian.png" alt="Zildjian"></div>
-        <div class="brand-card"><img src="/assets/brands/gretsch-drums.png" alt="Gretsch Drums"></div>
-        <div class="brand-card"><img src="/assets/brands/evans.png" alt="Evans"></div>
-        <div class="brand-card"><img src="/assets/brands/vicfirth.png" alt="Vic Firth"></div>
-
-        <div class="brand-card"><img src="/assets/brands/apple.png" alt="Apple"></div>
-        <div class="brand-card"><img src="/assets/brands/logicpro.png" alt="Logic Pro"></div>
-
-        <div class="brand-card"><img src="/assets/brands/alesis.png" alt="Alesis"></div>
-      </div>
+    <div class="gear-grid"
+         style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:28px; align-items:center;">
+      <img src="/assets/brands/fender.png" class="brand-card">
+      <img src="/assets/brands/martin.png" class="brand-card">
+      <img src="/assets/brands/taylor.png" class="brand-card">
+      <img src="/assets/brands/boss.png" class="brand-card">
+      <img src="/assets/brands/line6.png" class="brand-card">
+      <img src="/assets/brands/ua.png" class="brand-card">
+      <img src="/assets/brands/shure.png" class="brand-card">
+      <img src="/assets/brands/zildjian.png" class="brand-card">
+      <img src="/assets/brands/gretsch.png" class="brand-card">
+      <img src="/assets/brands/ernieball.png" class="brand-card">
+      <img src="/assets/brands/daddario.png" class="brand-card">
+      <img src="/assets/brands/prs.png" class="brand-card">
+      <img src="/assets/brands/alesis.png" class="brand-card">
+      <img src="/assets/brands/apple.png" class="brand-card">
+      <img src="/assets/brands/logicpro.png" class="brand-card">
+      <img src="/assets/brands/wampler.png" class="brand-card">
+      <img src="/assets/brands/behringer.png" class="brand-card">
+      <img src="/assets/brands/qsc.png" class="brand-card">
+      <img src="/assets/brands/keeley.png" class="brand-card">
+      <img src="/assets/brands/evans.png" class="brand-card">
+      <img src="/assets/brands/vicfirth.png" class="brand-card">
     </div>
+
+    <style>
+      .brand-card{
+        width:100%; max-width:120px; margin:0 auto; filter:grayscale(100%) contrast(1.2); opacity:.9;
+        transition:.2s;
+      }
+      .brand-card:hover{opacity:1; filter:grayscale(0%) contrast(1.2);}
+    </style>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="padding:100px 20px; background:var(--cream); text-align:center;">
+    <h2 style="font-family:var(--script); font-size:clamp(38px,4vw,58px); margin-bottom:28px;">
+      Contact
+    </h2>
+
+    <form action="https://formspree.io/f/mnqepzgd" method="POST"
+          style="max-width:600px; margin:0 auto; background:#fff; padding:28px; border-radius:14px; box-shadow:0 8px 24px rgba(0,0,0,.1); text-align:left;">
+      <label>Name</label>
+      <input type="text" name="name" required style="width:100%; padding:12px; margin:8px 0 16px; border:1px solid #ccc; border-radius:8px;">
+
+      <label>Email</label>
+      <input type="email" name="email" required style="width:100%; padding:12px; margin:8px 0 16px; border:1px solid #ccc; border-radius:8px;">
+
+      <label>Message</label>
+      <textarea name="message" rows="5" required style="width:100%; padding:12px; margin:8px 0 16px; border:1px solid #ccc; border-radius:8px;"></textarea>
+
+      <button type="submit" style="background:var(--navy); color:#fff; padding:12px 20px; border:none; border-radius:999px; cursor:pointer; font-weight:700;">
+        Send Message
+      </button>
+    </form>
   </section>
 
   <!-- FOOTER -->
-  <footer id="contact" class="site">
-    <div class="footer-social">
-      <a href="https://instagram.com/timbeckmanmusic" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg viewBox="0 0 24 24">
-          <rect x="4.5" y="4.5" width="15" height="15" rx="4" ry="4"
-                fill="none" stroke="#ffffff" stroke-width="2" />
-          <circle cx="12" cy="12" r="4"
-                  fill="none" stroke="#ffffff" stroke-width="2" />
-          <circle cx="17" cy="7" r="1.2" fill="#ffffff" />
-        </svg>
+  <footer class="site" style="background:#0c1116; color:#cfd7dd; padding:48px 20px; text-align:center;">
+    <div class="social-icons" style="justify-content:center; margin-bottom:18px;">
+
+      <a class="icon-btn" href="https://instagram.com/timbeckmanmusic" target="_blank" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="3.3"/></svg>
       </a>
 
-      <a href="https://facebook.com/timandkatieacoustic" target="_blank" aria-label="Facebook">
-        <svg viewBox="0 0 24 24">
-          <path d="M13 3h3a1 1 0 0 1 1 1v3h-3a2 2 0 0 0-2 2v3h5l-1 4h-4v8h-4v-8H6v-4h3V9a5 5 0 0 1 5-5z"/>
-        </svg>
+      <a class="icon-btn" href="https://facebook.com/timandkatieacoustic" target="_blank" aria-label="Facebook">
+        <svg viewBox="0 0 24 24"><path d="M14 3h4v4h-3c-.6 0-1 .4-1 1v3h4l-1 4h-3v8h-4v-8H8v-4h3V8a5 5 0 0 1 5-5z"/></svg>
       </a>
 
-      <a href="https://youtube.com/@timbeckmanmusic" target="_blank" aria-label="YouTube">
-        <svg viewBox="0 0 24 24">
-          <path d="M23.5 7.6a3 3 0 0 0-2.1-2.1C19.5 5 12 5 12 5s-7.5 0-9.4.5A3 3 0 0 0 .5 7.6 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 4.4 3 3 0 0 0 2.1 2.1C4.5 19 12 19 12 19s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-4.4zM9.8 15.2V8.8L15.5 12l-5.7 3.2z"/>
-        </svg>
+      <a class="icon-btn" href="https://youtube.com/@timbeckmanmusic" target="_blank" aria-label="YouTube">
+        <svg viewBox="0 0 24 24"><path d="M23 7s-.2-2-1-3c-.9-1-2-1-2.4-1.1C16.6 2.5 12 2.5 12 2.5s-4.6 0-7.6.4C3 3 1.9 3 1 4c-.8 1-1 3-1 3S0 9 0 12s.2 5 1 6c.9 1 2 1 2.4 1.1 3 .4 7.6.4 7.6.4s4.6 0 7.6-.4c.4 0 1.5 0 2.4-1.1 1-1 1-3 1-3s.2-2 .2-3-.2-3-.2-3zM10 15V9l6 3-6 3z"/></svg>
       </a>
 
-      <a href="mailto:timbeckmanmusic@gmail.com" aria-label="Email">
-        <svg viewBox="0 0 24 24">
-          <path d="M2 5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5zm2 0l8 6 8-6H4zm16 14V8l-8 6-8-6v11h16z"/>
-        </svg>
+      <a class="icon-btn" href="mailto:timbeckmanmusic@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24"><path d="M2 5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5zm2 0l8 6 8-6H4zm16 14V8l-8 6-8-6v11h16z"/></svg>
       </a>
+
     </div>
 
-    <p>© TB Music</p>
+    <p style="opacity:.7; font-size:.9rem;">
+      © 2025 TB Music
+    </p>
   </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    /* HERO IMAGE LOADER */
+    (function(){
+      const hero = document.getElementById("hero-img");
+      const imgs = [
+        "/assets/hero-lake.webp",
+        "/assets/hero-lake.jpeg",
+        "/assets/hero-lake.jpg",
+        "/assets/hero-lake.JPG"
+      ];
+      let i = 0;
+      function loadNext(){
+        if(i >= imgs.length) return;
+        hero.src = imgs[i++];
+        hero.onerror = loadNext;
+      }
+      loadNext();
+    })();
+
+    /* BIO TOGGLE */
+    const bioShort = document.getElementById("bio-short");
+    const bioFull  = document.getElementById("bio-full");
+    const bioBtn   = document.getElementById("bio-toggle");
+
+    bioBtn.addEventListener("click", () => {
+      const showingFull = bioFull.style.display === "block";
+      bioFull.style.display = showingFull ? "none" : "block";
+      bioBtn.textContent = showingFull ? "Read more" : "Read less";
+    });
+
+    /* YOUTUBE API — random latest video */
+    const API_KEY = "AIzaSyCPo9SSELKsjj-EZpTziwZbwLFuLZUBitU";
+    const YT_CHANNEL = "UCr94kpV8B3v6tGQPJ8pf0iQ";
+
+    (async function loadRandomVideo(){
+      const iframe = document.getElementById("yt-random");
+      const url = `https://www.googleapis.com/youtube/v3/search?part=snippet,id&order=date&maxResults=8&type=video&channelId=${YT_CHANNEL}&key=${API_KEY}`;
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        const vids = data.items.filter(v => v.id.videoId);
+        const r = vids[Math.floor(Math.random()*vids.length)];
+        iframe.src = "https://www.youtube-nocookie.com/embed/" + r.id.videoId;
+      } catch {
+        iframe.src = "https://www.youtube.com/embed?listType=user_uploads&list=" + YT_CHANNEL;
+      }
+    })();
+
+    /* GOOGLE CALENDAR — next 3 events */
+    (async function loadEvents(){
+      const list = document.getElementById("events");
+      list.innerHTML = "<div>Loading shows…</div>";
+
+      const now = new Date().toISOString();
+      const url = `https://www.googleapis.com/calendar/v3/calendars/timbeckmanmusic@gmail.com/events?key=${API_KEY}&singleEvents=true&orderBy=startTime&timeMin=${now}&maxResults=3`;
+
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        const items = data.items || [];
+
+        if(!items.length){
+          list.innerHTML = "<div>No upcoming shows.</div>";
+          return;
+        }
+
+        list.innerHTML = items
+          .map(ev => {
+            const date = ev.start.dateTime || ev.start.date;
+            const d = new Date(date).toLocaleString("en-US", {
+              weekday:"short", month:"short", day:"numeric",
+              hour:"numeric", minute:"2-digit"
+            });
+            return `
+              <div class="ev" style="padding:12px; border-radius:12px; background:#fafafa; border:1px dashed rgba(0,0,0,.12);">
+                <div class="line1" style="font-weight:800;">${ev.summary}</div>
+                <div class="line2" style="opacity:.85;">${ev.location || ""}</div>
+                <div class="meta" style="opacity:.7; font-size:13px; margin-top:6px;">${d}</div>
+                <a class="cta" href="${ev.htmlLink}" target="_blank" style="display:inline-block; margin-top:8px; background:var(--brass); padding:6px 12px; border-radius:999px; text-decoration:none; color:#000; font-weight:700;">Details</a>
+              </div>
+            `;
+          })
+          .join("");
+      } catch {
+        list.innerHTML = "<div>Unable to load shows.</div>";
+      }
+    })();
+  </script>
 
 </body>
 </html>

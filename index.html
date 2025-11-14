@@ -388,66 +388,114 @@
     })();
   </script>
 
-  <!-- ABOUT -->
+    <!-- ABOUT -->
   <section id="about" class="about-me">
     <div class="about-card">
-      <img src="/assets/tim-headshot-pines.jpeg" alt="Tim Beckman" />
+      <img src="/assets/tim-headshot-pines.jpeg" alt="Tim Beckman with guitar" />
 
       <div class="about-overlay">
-        <h2>The Obligatory About Me Section</h2>
+        <h2 class="about-title">The Obligatory About Me Section</h2>
 
         <div class="bio-copy">
-          <p>I grew up in a house where guitars were basically furniture and someone was always singing — usually whether you wanted them to or not.</p>
+          <!-- SHORT BIO (always visible) -->
+          <p>
+            I grew up in a house where guitars were basically furniture and someone was always
+            singing — usually whether you wanted them to or not. My dad
+            (<a href="https://lynnbeckman.com" target="_blank" rel="noopener">lynnbeckman.com</a>)
+            played classic country, my brothers blasted Van Halen and AC/DC, and somewhere between
+            honky-tonk and hair metal, I decided I liked both.
+          </p>
 
-          <p>I started playing in bar bands at 16 with my oldest brother and have basically been making noise ever since.</p>
+          <p>
+            I started playing in bar bands at 16 with my oldest brother and have basically been
+            making noise in one form or another ever since.
+          </p>
 
-          <p>These days I split my time between Tim &amp; Katie, Boathouse, and solo shows — mixing country roots, rock energy, and sarcasm.</p>
+          <p>
+            These days I split my time between Tim &amp; Katie, Boathouse, and solo shows — mixing
+            country roots, rock energy, and just enough sarcasm to keep things interesting.
+          </p>
 
+          <!-- LONG BIO (starts hidden) -->
           <div class="bio-extra" id="bio-extra">
-            <p>Those early bar gigs taught me how to perform, how to read a room, and how to survive when a guy named Big Ron demands Free Bird for the fourth time.</p>
-            <p>I’ve played pretty much everything with strings and my influences are all over the map — Garth Brooks to SRV to Prince to Foo Fighters.</p>
-            <p>I like songs with heart, guitars with bite, and crowds that don’t take themselves too seriously… because I sure don’t.</p>
+            <p>
+              Those early bar gigs are where I learned how to perform, how to read a room, and how
+              to keep going even when a monitor dies or a guy named “Big Ron” requests
+              <em>Free Bird</em> for the fourth time.
+            </p>
+
+            <p>
+              Since then, I’ve played pretty much everything with strings: guitar, bass, drums,
+              mandolin, harmonica, and just enough piano to fake being impressive. My influences are
+              all over the map — Garth Brooks, Alan Jackson, Brooks &amp; Dunn, SRV, Mark Knopfler,
+              Joe Walsh, Prince, Nirvana, Foo Fighters, and a healthy dose of 90s and 2000s rock and
+              hip hop.
+            </p>
+
+            <p>
+              I play because music has always been the through-line in my life — the thing that
+              connects family, friends, strangers, and stories. I like songs with heart, guitars with
+              bite, and crowds that don’t take themselves too seriously… because I sure don’t.
+            </p>
           </div>
 
-          <button type="button" id="bio-toggle" class="bio-toggle">Read more</button>
+          <!-- TOGGLE BUTTON -->
+          <button type="button" class="bio-toggle" id="bio-toggle">Read more</button>
         </div>
       </div>
     </div>
   </section>
 
+
   <!-- READ MORE SCRIPT -->
+    <!-- READ MORE SCRIPT -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const toggle=document.getElementById("bio-toggle");
-      const extra=document.getElementById("bio-extra");
+      const toggle = document.getElementById("bio-toggle");
+      const extra  = document.getElementById("bio-extra");
 
-      extra.style.display="none";
-      toggle.textContent="Read more";
+      if (!toggle || !extra) return;
 
-      toggle.addEventListener("click",()=>{
-        const hidden=extra.style.display==="none";
-        extra.style.display=hidden?"block":"none";
-        toggle.textContent=hidden?"Read less":"Read more";
+      // start collapsed
+      extra.style.display = "none";
+      toggle.textContent  = "Read more";
+
+      toggle.addEventListener("click", () => {
+        const hidden = extra.style.display === "none";
+        extra.style.display = hidden ? "block" : "none";
+        toggle.textContent  = hidden ? "Read less" : "Read more";
       });
     });
   </script>
 
+
   <!-- WATCH + SHOWS -->
   <section id="watch" class="watch">
     <div class="wrap">
+      <!-- LEFT: Latest video -->
       <div>
         <h2>Latest Videos</h2>
         <div class="video-embed">
-          <iframe id="yt-random" allowfullscreen></iframe>
+          <iframe
+            id="yt-random"
+            title="Tim Beckman Music — Video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
         </div>
       </div>
 
-      <!-- Give this an id so the "Shows" nav can target it -->
-      <aside id="shows" class="events" aria-label="Upcoming shows">
+       <!-- RIGHT: Upcoming shows -->
+      <aside class="events" aria-label="Upcoming events">
         <h3>Upcoming Shows</h3>
-        <div id="events"></div>
+        <div id="events" class="events-list"></div>
+
         <div class="cal-links">
-          <a href="https://calendar.google.com/calendar/u/0?cid=timbeckmanmusic@gmail.com" target="_blank">Open full calendar</a>
+          <a href="https://calendar.google.com/calendar/u/0?cid=timbeckmanmusic@gmail.com"
+             target="_blank" rel="noopener">
+            Open full calendar
+          </a>
         </div>
       </aside>
     </div>
@@ -606,6 +654,84 @@
 
     <p>© TB Music</p>
   </footer>
+  <script>
+    const API = "AIzaSyCPo9SSELKsjj-EZpTziwZbwLFuLZUBitU";
+    const CH  = "UCr94kpV8B3v6tGQPJ8pf0iQ";
+    const CAL = "timbeckmanmusic@gmail.com";
+
+    // Load a random recent YouTube video
+    (async function loadYT(){
+      const iframe = document.getElementById("yt-random");
+      if (!iframe) return;
+
+      try {
+        const res = await fetch(
+          `https://www.googleapis.com/youtube/v3/search?part=snippet,id&order=date&maxResults=10&type=video&channelId=${CH}&key=${API}`
+        );
+        const data  = await res.json();
+        const vids  = (data.items || []).filter(v => v.id && v.id.videoId);
+
+        if (!vids.length) throw new Error("No videos");
+
+        const pick = vids[Math.floor(Math.random() * vids.length)].id.videoId;
+        iframe.src  = `https://www.youtube-nocookie.com/embed/${pick}`;
+      } catch (e) {
+        console.error("YT fallback:", e);
+        iframe.src = `https://www.youtube.com/embed?listType=user_uploads&list=${CH}`;
+      }
+    })();
+
+    // Load next 3 Google Calendar events
+    (async function loadCal(){
+      const box = document.getElementById("events");
+      if (!box) return;
+
+      box.innerHTML = "Loading…";
+
+      try {
+        const res = await fetch(
+          `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CAL)}/events?singleEvents=true&orderBy=startTime&maxResults=3&timeMin=${encodeURIComponent(new Date().toISOString())}&key=${API}`
+        );
+        const data  = await res.json();
+        const items = data.items || [];
+
+        if (!items.length) {
+          box.innerHTML = `
+            <div class="ev">
+              <div class="line1">No upcoming shows on the calendar (yet).</div>
+            </div>`;
+          return;
+        }
+
+        box.innerHTML = items.map(ev => {
+          const start = ev.start && (ev.start.dateTime || ev.start.date);
+          const d     = start ? new Date(start) : null;
+          const date  = d
+            ? d.toLocaleString("en-US", {
+                month: "short",
+                day: "numeric",
+                weekday: "short"
+              })
+            : "";
+
+          return `
+            <div class="ev">
+              <div class="line1">${ev.summary || "Untitled event"}</div>
+              <div class="line2">${ev.location || "Location TBA"}</div>
+              ${date ? `<div class="meta">${date}</div>` : ""}
+              ${ev.htmlLink ? `<a class="cta" href="${ev.htmlLink}" target="_blank" rel="noopener">Details</a>` : ""}
+            </div>`;
+        }).join("");
+      } catch (e) {
+        console.error("Calendar error:", e);
+        box.innerHTML = `
+          <div class="ev">
+            <div class="line1">Couldn’t load shows from the calendar.</div>
+            <div class="line2">You can still open the full calendar using the button below.</div>
+          </div>`;
+      }
+    })();
+  </script>
 
 </body>
 </html>

@@ -477,7 +477,6 @@
 
       if (!toggle || !extra) return;
 
-      // start collapsed
       extra.style.display = "none";
       toggle.textContent  = "Read more";
 
@@ -490,145 +489,126 @@
   </script>
 
   <!-- WATCH + SHOWS -->
-<section id="watch" class="watch">
-  <div class="wrap">
-    <!-- LEFT: YouTube -->
-    <div>
-      <h2>Latest Videos</h2>
-      <div class="video-embed">
-        <iframe
-          id="yt-random"
-          title="Tim Beckman Music — Video"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          loading="lazy">
-        </iframe>
+  <section id="watch" class="watch">
+    <div class="wrap">
+      <!-- LEFT: YouTube -->
+      <div>
+        <h2>Latest Videos</h2>
+        <div class="video-embed">
+          <iframe
+            id="yt-random"
+            title="Tim Beckman Music — Video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy">
+          </iframe>
+        </div>
       </div>
+
+      <!-- RIGHT: Upcoming Shows -->
+      <aside id="shows" class="events" aria-label="Upcoming shows">
+        <h3>Upcoming Shows</h3>
+        <div id="events" class="events-list">
+          <!-- filled by JS -->
+        </div>
+
+        <div class="cal-links">
+          <a href="https://calendar.google.com/calendar/u/0?cid=timbeckmanmusic@gmail.com"
+             target="_blank" rel="noopener">
+            Open full calendar
+          </a>
+        </div>
+      </aside>
     </div>
+  </section>
 
-    <!-- RIGHT: Upcoming Shows -->
-    <aside id="shows" class="events" aria-label="Upcoming shows">
-      <h3>Upcoming Shows</h3>
-      <div id="events" class="events-list">
-        <!-- filled by JS -->
-      </div>
+  <!-- YOUTUBE (playlist) + CALENDAR SCRIPTS -->
+  <script>
+    // --- YouTube: use uploads playlist (no API key needed) ---
+    (function () {
+      const iframe = document.getElementById("yt-random");
+      if (!iframe) return;
+      iframe.src =
+        "https://www.youtube.com/embed?listType=user_uploads&list=UCr94kpV8B3v6tGQPJ8pf0iQ";
+    })();
 
-      <div class="cal-links">
-        <a href="https://calendar.google.com/calendar/u/0?cid=timbeckmanmusic@gmail.com"
-           target="_blank" rel="noopener">
-          Open full calendar
-        </a>
-      </div>
-    </aside>
-  </div>
-</section>
+    // --- Google Calendar: next 3 upcoming shows ---
+    const API_KEY = "AIzaSyCPo9SSELKsjj-EZpTziwZbwLFuLZUBitU";
+    const CALENDAR_ID = "timbeckmanmusic@gmail.com";
 
+    (async function loadCalendarEvents() {
+      const container = document.getElementById("events");
+      if (!container) return;
 
-  <!-- YOUTUBE + CALENDAR SCRIPTS -->
-<script>
-  // Your existing key + IDs
-  const API_KEY = "AIzaSyCPo9SSELKsjj-EZpTziwZbwLFuLZUBitU";
-const YT_CHANNEL_ID = "UCr94kpV8B3v6tGQPJ8pf0iQ";
-const CALENDAR_ID = "timbeckmanmusic@gmail.com";
+      container.innerHTML =
+        '<div class="ev"><div class="line1">Loading shows…</div></div>';
 
-// uploads playlist ID is just "UU" + channelId without the leading "UC"
-const UPLOADS_PLAYLIST_ID = "UU" + YT_CHANNEL_ID.substring(2);
-const UPLOADS_FALLBACK_URL =
-  "https://www.youtube.com/embed/videoseries?list=" + UPLOADS_PLAYLIST_ID;
+      try {
+        const timeMin = encodeURIComponent(new Date().toISOString());
+        const url =
+          "https://www.googleapis.com/calendar/v3/calendars/" +
+          encodeURIComponent(CALENDAR_ID) +
+          "/events?key=" + API_KEY +
+          "&singleEvents=true" +
+          "&orderBy=startTime" +
+          "&timeMin=" + timeMin +
+          "&maxResults=3";
 
-// OPTIONAL: set a definite fallback video in case everything else fails
-const FALLBACK_VIDEO_ID = "REPLACE_THIS_WITH_A_VIDEO_ID"; 
-// e.g. from a YouTube URL https://youtu.be/XXXXXXXXXXX use just XXXXXXXX
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("Calendar API error: " + res.status);
 
-  // ---- YouTube Data API: load latest uploads, pick one at random ----
-<script>
-  // Simple loader: always show channel uploads playlist
-  (function () {
-    const iframe = document.getElementById("yt-random");
-    if (!iframe) return;
+        const data  = await res.json();
+        const items = (data.items || []).filter(ev => ev.status !== "cancelled");
 
-    // This is the exact syntax you confirmed works earlier
-    iframe.src =
-      "https://www.youtube.com/embed?listType=user_uploads&list=UCr94kpV8B3v6tGQPJ8pf0iQ";
-  })();
-</script>
-
-
-
-  // --- Google Calendar: next 3 upcoming shows ---
-  (async function loadCalendarEvents() {
-    const container = document.getElementById("events");
-    if (!container) return;
-
-    container.innerHTML =
-      '<div class="ev"><div class="line1">Loading shows…</div></div>';
-
-    try {
-      const timeMin = encodeURIComponent(new Date().toISOString());
-      const url =
-        "https://www.googleapis.com/calendar/v3/calendars/" +
-        encodeURIComponent(CALENDAR_ID) +
-        "/events?key=" + API_KEY +
-        "&singleEvents=true" +
-        "&orderBy=startTime" +
-        "&timeMin=" + timeMin +
-        "&maxResults=3";
-
-      const res = await fetch(url);
-      if (!res.ok) throw new Error("Calendar API error: " + res.status);
-
-      const data  = await res.json();
-      const items = (data.items || []).filter(ev => ev.status !== "cancelled");
-
-      if (!items.length) {
-        container.innerHTML = `
-          <div class="ev">
-            <div class="line1">No upcoming shows on the calendar (yet).</div>
-            <div class="line2">Check back soon or open the full calendar.</div>
-          </div>`;
-        return;
-      }
-
-      const optsDateTime = {
-        weekday: "short", month: "short", day: "numeric",
-        hour: "numeric", minute: "2-digit"
-      };
-      const optsDateOnly = {
-        weekday: "short", month: "short", day: "numeric"
-      };
-
-      container.innerHTML = items.map(ev => {
-        const start = ev.start && (ev.start.dateTime || ev.start.date);
-        let whenText = "";
-        if (start) {
-          const d = new Date(start);
-          whenText = ev.start.dateTime
-            ? d.toLocaleString("en-US", optsDateTime)
-            : d.toLocaleDateString("en-US", optsDateOnly);
+        if (!items.length) {
+          container.innerHTML = `
+            <div class="ev">
+              <div class="line1">No upcoming shows on the calendar (yet).</div>
+              <div class="line2">Check back soon or open the full calendar.</div>
+            </div>`;
+          return;
         }
 
-        const summary  = ev.summary  || "Untitled event";
-        const location = ev.location || "Location TBA";
-        const link     = ev.htmlLink || "";
+        const optsDateTime = {
+          weekday: "short", month: "short", day: "numeric",
+          hour: "numeric", minute: "2-digit"
+        };
+        const optsDateOnly = {
+          weekday: "short", month: "short", day: "numeric"
+        };
 
-        return `
+        container.innerHTML = items.map(ev => {
+          const start = ev.start && (ev.start.dateTime || ev.start.date);
+          let whenText = "";
+          if (start) {
+            const d = new Date(start);
+            whenText = ev.start.dateTime
+              ? d.toLocaleString("en-US", optsDateTime)
+              : d.toLocaleDateString("en-US", optsDateOnly);
+          }
+
+          const summary  = ev.summary  || "Untitled event";
+          const location = ev.location || "Location TBA";
+          const link     = ev.htmlLink || "";
+
+          return `
+            <div class="ev">
+              <div class="line1">${summary}</div>
+              <div class="line2">${location}</div>
+              ${whenText ? `<div class="meta">${whenText}</div>` : ""}
+              ${link ? `<a class="cta" href="${link}" target="_blank" rel="noopener">Details</a>` : ""}
+            </div>`;
+        }).join("");
+      } catch (err) {
+        console.error("Calendar API error:", err);
+        container.innerHTML = `
           <div class="ev">
-            <div class="line1">${summary}</div>
-            <div class="line2">${location}</div>
-            ${whenText ? `<div class="meta">${whenText}</div>` : ""}
-            ${link ? `<a class="cta" href="${link}" target="_blank" rel="noopener">Details</a>` : ""}
+            <div class="line1">Couldn’t load shows from the calendar.</div>
+            <div class="line2">You can still open the full calendar using the button below.</div>
           </div>`;
-      }).join("");
-    } catch (err) {
-      console.error("Calendar API error:", err);
-      container.innerHTML = `
-        <div class="ev">
-          <div class="line1">Couldn’t load shows from the calendar.</div>
-          <div class="line2">You can still open the full calendar using the button below.</div>
-        </div>`;
-    }
-  })();
-</script>
+      }
+    })();
+  </script>
 
   <!-- GEAR SECTION -->
   <section id="gear" class="gear">
@@ -716,7 +696,7 @@ const FALLBACK_VIDEO_ID = "REPLACE_THIS_WITH_A_VIDEO_ID";
 
       <a href="https://youtube.com/@timbeckmanmusic" target="_blank" aria-label="YouTube">
         <svg viewBox="0 0 24 24">
-          <path d="M23.5 7.6a3 3 0 0 0-2.1-2.1C19.5 5 12 5 12 5s-7.5 5-9.4.5A3 3 0 0 0 .5 7.6 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 4.4 3 3 0 0 0 2.1 2.1C4.5 19 12 19 12 19s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-4.4zM9.8 15.2V8.8L15.5 12l-5.7 3.2z"/>
+          <path d="M23.5 7.6a3 3 0 0 0-2.1-2.1C19.5 5 12 5 12 5s-7.5 0-9.4.5A3 3 0 0 0 .5 7.6 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 4.4 3 3 0 0 0 2.1 2.1C4.5 19 12 19 12 19s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-4.4zM9.8 15.2V8.8L15.5 12l-5.7 3.2z"/>
         </svg>
       </a>
 
